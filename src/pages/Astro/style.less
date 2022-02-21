@@ -1,0 +1,72 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    max-width: 1140px;
+    width: 100%;
+}
+
+.centerContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    .slogan {
+        font-size: 2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    .title {
+        font-size: 3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    .mintCount {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-shadow: 0 0 10px #000;
+    }
+
+    .priceContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        .currentPrice {
+            font-size: 6rem;
+            font-family: 'Permanent Marker', cursive;
+            margin-right: 20px;
+        }
+
+        .ethIcon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 50px;
+                height: 50px;
+            }
+
+            span {
+                font-size: 1.2rem;
+                font-family: 'Permanent Marker', cursive;
+                margin-top: 5px;
+            }
+        }
+    } 
+}

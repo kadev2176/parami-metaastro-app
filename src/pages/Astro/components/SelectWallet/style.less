@@ -1,0 +1,113 @@
+.loginCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+
+    .title {
+        margin-bottom: 32px;
+        text-align: center;
+    }
+
+    .appList {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border: 2px solid rgba(244,245,246,1);
+        border-radius: 32px;
+
+        .appItem {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            background-color: #fafafa;
+            border-radius: 32px;
+            cursor: pointer;
+
+            .appIcon {
+                width: 56px;
+                height: 56px;
+                flex: 1;
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                width: 100%;
+                margin-left: 20px;
+                flex: 2;
+
+                .name {
+                    font-size: 1rem;
+                    line-height: 1.5rem;
+                    font-weight: 900;
+                }
+
+                .desc {
+                    color: #6e798f;
+                    font-size: .875rem;
+                    line-height: 1.25rem;
+                }
+            }
+
+            .rightArrow {
+                font-size: 18px;
+            }
+        }
+    }
+
+    .getWallet {
+        text-align: center;
+        padding: 12px 10px;
+        color: #9fa8ba;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 900;
+    }
+}
+
+.modalContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .logo {
+        width: 100px;
+        margin: 1.5rem;
+    }
+
+    .getWallet {
+        text-align: center;
+        padding: 12px 10px;
+        color: #9fa8ba;
+        font-size: 1rem;
+        line-height: 1.5rem;
+        font-weight: 900;
+    }
+}
+
+.button {
+    font-weight: 700 !important;
+    font-size: 20px !important;
+    height: auto !important;
+    padding: 10px 30px !important;
+
+    .appIcon {
+        width: 32px;
+        height: 32px;
+        margin-right: 15px;
+        flex: 1;
+    }
+}

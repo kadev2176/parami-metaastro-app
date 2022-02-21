@@ -1,0 +1,3 @@
+interface ConnectInfo {
+    chainId: string;
+}

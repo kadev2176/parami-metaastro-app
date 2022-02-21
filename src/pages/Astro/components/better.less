@@ -1,0 +1,119 @@
+.featureContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+
+    .flexContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .astroList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            padding-right: 40px;
+
+            .astroListItem {
+                border: 1px solid #fff;
+                padding: 1rem;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                .info {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    width: 80%;
+                    text-align: left;
+
+                    .astroListItemTitle {
+                        font-size: 1.3rem;
+                        font-family: 'Gideon Roman', cursive;
+                        font-weight: 800;
+                        text-align: left;
+                    }
+
+                    .astroListItemContent {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 100%;
+                        margin-top: 1rem;
+
+                        .astroListItemContentItem {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: center;
+
+                            span {
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+                }
+
+                .arrow {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .intro {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            width: 50%;
+            padding-left: 40px;
+
+            .introItem {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: 800;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+                span {
+                    width: 60px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .togetherCard {
+            margin-top: 3rem;
+            padding-left: 20px;
+            text-align: left;
+
+            .togetherCardTitle {
+                font-size: 2rem;
+                font-family: 'Gideon Roman', cursive;
+                font-weight: 800;
+            }
+
+            p {
+                margin-top: 1rem;
+                line-height: 1.5rem;
+            }
+        }
+    }
+}

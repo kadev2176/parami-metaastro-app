@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="keywords" content="airdrop,coin airdrop,candy airdrop,ad3,parami,candy box,crypto token" />
+  <meta name="description" content="Parami Protocol is to build Ad3.0 for Web3.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>Parami - Meta Astro</title>
+  <link rel="icon" href="<%= context.config.publicPath +'images/logo-core-colored-fit-into-round.svg'%>"
+    type="image/x-icon" />
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG3XB888BibdKsNVWrqEIIw7wLppNMaU&libraries=places&region=US&language=en"></script>
+</head>
+
+<body>
+  <noscript>
+    <div class="noscript-container">
+      Hi there! Please
+      <div class="noscript-enableJS">
+        <a href="https://www.enablejavascript.io/en" target="_blank" rel="noopener noreferrer">
+          <b>enable Javascript</b>
+        </a>
+      </div>
+      in your browser to use Parami Wallet!
+    </div>
+  </noscript>
+  <div id="root">
+    <style>
+      html,
+      body,
+      #root {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #root {
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+      }
+
+      .noscript-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        margin-top: 90px;
+        font-size: 20px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+          Geneva, Verdana, sans-serif;
+      }
+
+      .noscript-enableJS {
+        padding-right: 3px;
+        padding-left: 3px;
+      }
+
+      .page-loading-warp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 98px;
+      }
+    </style>
+    <div style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          min-height: 420px;
+          width: 100%;
+          padding: 30px;
+          max-width: 800px;
+        ">
+      <canvas id="loadingCanvas"></canvas>
+    </div>
+  </div>
+  <script src="https://unpkg.com/svga/dist/index.min.js"></script>
+  <script>
+    var parser = new SVGA.Parser();
+    var player = new SVGA.Player(document.getElementById('loadingCanvas'));
+    parser.load("<%= context.config.publicPath +'images/parami.svga'%>", function (videoItem) {
+      player.setVideoItem(videoItem);
+      player.startAnimation();
+    });
+  </script>
+</body>
+
+</html>
