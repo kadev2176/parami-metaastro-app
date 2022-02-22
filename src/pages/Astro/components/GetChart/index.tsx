@@ -6,6 +6,7 @@ import moment from 'moment';
 import styles from '../../style.less';
 import style from './style.less';
 import SelectWallet from '../SelectWallet/selectWallet';
+import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
@@ -22,8 +23,8 @@ const GetChart: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [loadSVG, setLoadSVG] = useState<boolean>(false);
     const [WalletReady, setWalletReady] = useState<boolean>(false);
-    const [currentPrice, setCurrentPrice] = useState<bigint>();
-    const [currentFee, setCurrentFee] = useState<bigint>();
+    const [currentPrice, setCurrentPrice] = useState<BigNumber>();
+    const [currentFee, setCurrentFee] = useState<BigNumber>();
     const [astroSVG, setAstroSVG] = useState<string>();
     const [TokenId, setTokenId] = useState<ethers.BigNumber>();
     const [modal, setModal] = useState<boolean>(false);
@@ -51,16 +52,16 @@ const GetChart: React.FC = () => {
         }
     }, [chainId, account]);
 
-    const getCurrentPrice = async () => {
+    const getCurrentInfo = async () => {
         const price = await AstroContract?.getPrice();
-        const fee = await AstroContract?.fee();
+        const fee = await AstroContract?.getOracleGasFee();
         setCurrentPrice(price);
         setCurrentFee(fee);
     };
 
     useEffect(() => {
         if (AstroContract && account && account !== '') {
-            getCurrentPrice();
+            getCurrentInfo();
         }
     }, [account, AstroContract]);
 
@@ -84,9 +85,9 @@ const GetChart: React.FC = () => {
                 const svg = await AstroContract?.tokenURI(tokenId);
                 const base64Content = svg.substring("data:application/json;base64,".length);
                 const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
-                console.log(debase64Content);
-                if (svg.indexOf('generating') === -1) {
-                    const jsonContent = JSON.parse(debase64Content);
+                const jsonContent = JSON.parse(debase64Content);
+                const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('binary');
+                if (debaseImage.indexOf('generating') === -1) {
                     setAstroSVG(jsonContent.image);
                     setLoadSVG(false);
                     clearInterval(timer);

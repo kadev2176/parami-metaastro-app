@@ -16,7 +16,7 @@ export const contractAddresses = {
         4: '0x76B61Ae8F964F5CBE23ad9aea9BF597aa4cEA7eD',
     },
     astro: {
-        1: '0x441973ac50a9465325e50ea0ba288f395f2dc839',
-        4: '0x441973ac50a9465325e50ea0ba288f395f2dc839',
+        1: '0x5e0012289009Eb057B318437CB31B36d019Dba7F',
+        4: '0x5e0012289009Eb057B318437CB31B36d019Dba7F',
     }
 }
