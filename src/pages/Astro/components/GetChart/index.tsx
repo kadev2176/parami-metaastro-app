@@ -87,8 +87,15 @@ const GetChart: React.FC = () => {
                 const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
                 const jsonContent = JSON.parse(debase64Content);
                 const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('binary');
+                console.log('debaseImage', debaseImage);
                 if (debaseImage.indexOf('generating') === -1) {
-                    setAstroSVG(jsonContent.image);
+                    const replaceImage = debaseImage.replace(/\<g\>.*\<path.*?\<\/g\>/, '')
+                        .replace(/\<rect.*?stroke=\"#b49d5d\".*?\/>/, '')
+                        .replace(/\<radialGradient id=\"darkLight\"\>.*?\<\/radialGradient\>/, '<radialGradient id="darkLight"><stop offset="0%" stop-color="#707070" /><stop offset="3%" stop-color="#1b1b1b" /><stop offset="8%" stop-color="#000000" /></radialGradient>');
+                    console.log('replaceImage', replaceImage);
+                    const baseImg = Buffer.from(replaceImage).toString('base64');;
+                    console.log('baseImg', 'data:image/svg+xml;base64,' + baseImg);
+                    setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
                     setModal(true);
@@ -200,7 +207,9 @@ const GetChart: React.FC = () => {
                 content={
                     <div className={style.modalContainer}>
                         <div className={style.chartContainer}>
-                            <img src={astroSVG} />
+                            <div className={style.chart}>
+                                <img src={astroSVG} />
+                            </div>
                         </div>
                         <Button
                             block
@@ -225,6 +234,7 @@ const GetChart: React.FC = () => {
                     background: 'url(/images/background/tarot.svg) #000',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    padding: 0,
                 }}
                 close={() => {
                     setModal(false);
