@@ -4,5 +4,8 @@
     name: 'index',
     hideInMenu: true,
     component: './Astro',
+  },
+  {
+    component: './404',
   }
 ];

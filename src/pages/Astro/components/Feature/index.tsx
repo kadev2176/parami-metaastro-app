@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'umi';
-import styles from '../style.less';
-import style from './feature.less';
+import styles from '../../style.less';
+import style from './style.less';
 
 const Feature: React.FC = () => {
     const intl = useIntl();
@@ -10,7 +10,7 @@ const Feature: React.FC = () => {
         <div className={style.featureContainer}>
             <div className={styles.contentContainer}>
                 <div className={style.flexContainer}>
-                    <img src={'/images/demo/generate.svg'} />
+                    <img src={'/images/demo/gen.svg'} />
                     <div className={style.flexItem}>
                         <div className={style.card}>
                             <div className={style.cardTitle}>

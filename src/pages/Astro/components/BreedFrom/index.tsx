@@ -32,7 +32,7 @@ const BreedFrom: React.FC = () => {
     const intl = useIntl();
 
     const {
-        AstroContract
+        MintContract
     } = useModel('astroContracts');
 
     useEffect(() => {
@@ -53,23 +53,23 @@ const BreedFrom: React.FC = () => {
     }, [chainId, account]);
 
     const getCurrentPrice = async () => {
-        const price = await AstroContract?.getPrice();
-        const fee = await AstroContract?.fee();
+        const price = await MintContract?.getPrice();
+        const fee = await MintContract?.getOracleGasFee();
         setCurrentPrice(price);
         setCurrentFee(fee);
     };
 
     useEffect(() => {
-        if (AstroContract && account && account !== '') {
+        if (MintContract && account && account !== '') {
             getCurrentPrice();
         }
-    }, [account, AstroContract]);
+    }, [account, MintContract]);
 
     const handleSubmit = async () => {
         if (!provider || !signer) return;
         setLoading(true);
         try {
-            const tx = await AstroContract?.breedFrom(
+            const tx = await MintContract?.breedFrom(
                 BreedTokenId,
                 [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
                 [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
@@ -82,7 +82,7 @@ const BreedFrom: React.FC = () => {
             setLoadSVG(true);
 
             const timer = setInterval(async () => {
-                const svg = await AstroContract?.tokenURI(tokenId);
+                const svg = await MintContract?.tokenURI(tokenId);
                 const base64Content = svg.substring("data:application/json;base64,".length);
                 const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
                 console.log(debase64Content);
@@ -223,7 +223,7 @@ const BreedFrom: React.FC = () => {
                             type='link'
                             size='large'
                             onClick={() => {
-                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.astro[4]}/${TokenId?.toString()}`, '_blank');
+                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
                             }}
                             className={style.openSeaLink}
                         >

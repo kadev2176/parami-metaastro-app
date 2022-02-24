@@ -1,0 +1,91 @@
+.breedPriceModal {
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    right: -26px;
+    box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
+    background-color: #fff;
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: 1rem 0.5rem;
+    padding-right: 35px;
+    writing-mode: tb;
+    text-transform:uppercase;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        right: 0;
+    }
+    
+    .arrowIcon {
+        position: absolute;
+        right: 4px;
+        height: 35px;
+        font-size: 1.5rem;
+        top: calc((100% - 35px) / 2);
+    }
+}
+
+.breedPriceInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    line-height: 2rem;
+    font-size: 20px;
+
+    .userInputContainer{
+        display: block;
+        width: 100%;
+        color: #000;
+        padding-bottom: 4.5rem;
+        line-height: 2rem;
+        font-size: 20px;
+        text-align: center;
+
+        .input {
+            border: unset;
+            border-bottom: 1px dashed #000;
+            background-color: transparent !important;
+            color: #000 !important;
+            border-radius: unset !important;
+            padding: 0;
+            -webkit-appearance: none;
+            text-align: center;
+            transition: 0.5s;
+            outline: none !important;
+            box-shadow: unset !important;
+            max-width: 100px;
+            width: 100%;
+    
+            input {
+                font-size: 16px !important;
+                color: #000 !important;
+                text-align: center !important;
+            }
+    
+            &:focus {
+                outline: none !important;
+                box-shadow: unset !important;
+            }
+        }
+    }
+
+    .button {
+        font-weight: 700;
+        font-size: 20px;
+        height: auto;
+        padding: 10px 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .breedPriceModal {
+        font-size: 0.5rem;
+    }
+}

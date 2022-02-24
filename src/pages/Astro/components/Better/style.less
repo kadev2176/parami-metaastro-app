@@ -5,9 +5,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100vh;
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
+    opacity: 0.7;
 
     .flexContainer {
         display: flex;
@@ -113,6 +113,32 @@
             p {
                 margin-top: 1rem;
                 line-height: 1.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .featureContainer {
+        .flexContainer {
+            flex-direction: column;
+
+            .astroList {
+                padding-right: unset;
+                width: 100%;
+            }
+
+            .intro {
+                width: 100%;
+                padding-left: unset;
+
+                .introItem {
+                    display: none;
+                }
+
+                .togetherCard {
+                    padding-left: unset;
+                }
             }
         }
     }

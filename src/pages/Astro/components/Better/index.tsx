@@ -1,8 +1,8 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useIntl } from 'umi';
-import styles from '../style.less';
-import style from './better.less';
+import styles from '../../style.less';
+import style from './style.less';
 
 const Better: React.FC = () => {
     const intl = useIntl();

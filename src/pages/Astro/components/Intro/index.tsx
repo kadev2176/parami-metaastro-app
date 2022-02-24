@@ -2,8 +2,8 @@ import { Col, Row } from 'antd';
 import React from 'react';
 import { useIntl } from 'umi';
 import { FcGlobe, FcSalesPerformance, FcElectronics, FcLightAtTheEndOfTunnel } from 'react-icons/fc';
-import styles from '../style.less';
-import style from './intro.less';
+import styles from '../../style.less';
+import style from './style.less';
 
 const Intro: React.FC = () => {
     const intl = useIntl();

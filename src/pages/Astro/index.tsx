@@ -3,91 +3,57 @@ import styles from '@/style/common.less';
 import style from './style.less';
 import Background from './components/Background';
 import GetChart from './components/GetChart';
-import About from './components/About';
-import { useIntl, useModel } from 'umi';
-import type { BigNumber } from 'ethers';
-import { ethers } from 'ethers';
+import { useModel } from 'umi';
 import BreedFrom from './components/BreedFrom';
+import Intro from './components/Intro';
+import Better from './components/Better';
+import Feature from './components/Feature';
+import BreedPrice from './components/BreedPrice';
 
 const Astro: React.FC = () => {
     const { account } = useModel('metaMask');
-    const [currentPrice, setCurrentPrice] = useState<BigNumber>();
-    const [currentFee, setCurrentFee] = useState<BigNumber>();
-    const [currentSupply, setCurrentSupply] = useState<BigNumber>();
-
-    const intl = useIntl();
+    const [GEN, setGEN] = useState<number>(1);
 
     const {
-        AstroContract
+        MintContract
     } = useModel('astroContracts');
 
-    const getCurrentPrice = async () => {
-        const price = await AstroContract?.getPrice();
-        setCurrentPrice(price);
-    };
-
-    const getCurrentFee = async () => {
-        const fee = await AstroContract?.getOracleGasFee();
-        setCurrentFee(fee);
-    };
-
-    const getCurrentSupply = async () => {
-        const supply = await AstroContract?.totalSupply();
-        setCurrentSupply(supply);
-    };
+    const getSalesTime = async () => {
+        const timeRange = await MintContract?.getSalesTimes();
+        const now = await Math.floor(Date.now() / 1000);
+        if (now >= timeRange[0].toNumber() && now <= timeRange[1].toNumber()) {
+            setGEN(1);
+        } else {
+            setGEN(2);
+        }
+    }
 
     useEffect(() => {
-        if (AstroContract && account && account !== '') {
-            getCurrentPrice();
-            getCurrentFee();
-            getCurrentSupply();
+        if (MintContract && account && account !== '') {
+            getSalesTime();
         }
-    }, [AstroContract, account]);
+    }, [MintContract, account]);
 
     return (
         <>
             <div className={styles.mainContainer}>
                 <Background />
                 <div className={style.centerContainer}>
-                    <div className={style.title}>
-                        ASTRO MINT
+                    <div className={style.firstContainer}>
+                        <div className={style.title}>
+                            ASTRO MINT
+                        </div>
+                        {GEN === 1 && (
+                            <GetChart />
+                        )}
+                        {GEN === 2 && (
+                            <BreedFrom />
+                        )}
+                        <BreedPrice />
                     </div>
-                    {account && (
-                        <>
-                            <div className={style.priceContainer}>
-                                <div className={style.currentPrice}>
-                                    {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}
-                                </div>
-                                <div className={style.ethIcon}>
-                                    <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
-                                    <span>ETH</span>
-                                </div>
-                            </div>
-                            <div className={style.totalContainer}>
-                                <div className={style.currentTotal}>
-                                    {intl.formatMessage({
-                                        id: 'astro.total',
-                                        defaultMessage: 'Total need {total} (Oracle operator gas fee: {fee})',
-                                    }, {
-                                        total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '0',
-                                        fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '0',
-                                    })}
-                                </div>
-                            </div>
-                            <div className={style.mintCount}>
-                                {intl.formatMessage({
-                                    id: 'astro.subTitle',
-                                    defaultMessage: 'NFTs already minted: {minted}/{total}',
-                                }, {
-                                    minted: currentSupply?.toString(),
-                                    total: '366',
-                                })}
-                            </div>
-                        </>
-                    )}
-                    <GetChart />
-                    {/* <BreedFrom /> */}
-                    <About />
+                    <Intro />
+                    <Feature />
+                    <Better />
                 </div>
             </div>
         </>

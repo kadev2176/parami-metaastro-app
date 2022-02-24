@@ -2,7 +2,6 @@ import { Button, DatePicker, notification, TimePicker, message, Spin } from 'ant
 import React, { useEffect, useState } from 'react';
 import Geosuggest from 'react-geosuggest';
 import { useIntl, useModel } from 'umi';
-import moment from 'moment';
 import styles from '../../style.less';
 import style from './style.less';
 import SelectWallet from '../SelectWallet/selectWallet';
@@ -25,19 +24,20 @@ const GetChart: React.FC = () => {
     const [WalletReady, setWalletReady] = useState<boolean>(false);
     const [currentPrice, setCurrentPrice] = useState<BigNumber>();
     const [currentFee, setCurrentFee] = useState<BigNumber>();
+    const [currentSupply, setCurrentSupply] = useState<BigNumber>();
     const [astroSVG, setAstroSVG] = useState<string>();
     const [TokenId, setTokenId] = useState<ethers.BigNumber>();
     const [modal, setModal] = useState<boolean>(false);
+    const [AllowMonth, setAllowMonth] = useState<number[]>([]);
 
     const intl = useIntl();
 
     const {
-        AstroContract
+        MintContract
     } = useModel('astroContracts');
 
     useEffect(() => {
         console.log('chainId', chainId);
-        console.log(account);
         if (chainId !== 1 && chainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
@@ -53,23 +53,38 @@ const GetChart: React.FC = () => {
     }, [chainId, account]);
 
     const getCurrentInfo = async () => {
-        const price = await AstroContract?.getPrice();
-        const fee = await AstroContract?.getOracleGasFee();
+        const price = await MintContract?.getPrice();
+        const fee = await MintContract?.getOracleGasFee();
+        const supply = await MintContract?.totalSupply();
         setCurrentPrice(price);
         setCurrentFee(fee);
+        setCurrentSupply(supply);
+    };
+
+    const isAvailable = async () => {
+        const currentDay = new Date().getDate();
+        const months = [];
+        for (let month = 0; month < 12; month++) {
+            const bool = await MintContract?.isDateAvailable(month + 1, currentDay);
+            if (!bool) {
+                months.push(month);
+            }
+        }
+        setAllowMonth(months);
     };
 
     useEffect(() => {
-        if (AstroContract && account && account !== '') {
+        if (MintContract && account && account !== '') {
             getCurrentInfo();
+            isAvailable();
         }
-    }, [account, AstroContract]);
+    }, [account, MintContract]);
 
     const handleSubmit = async () => {
         if (!provider || !signer) return;
         setLoading(true);
         try {
-            const tx = await AstroContract?.initialMint(
+            const tx = await MintContract?.initialMint(
                 ethers.utils.getAddress(account),
                 [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
                 [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
@@ -82,19 +97,16 @@ const GetChart: React.FC = () => {
             setLoadSVG(true);
 
             const timer = setInterval(async () => {
-                const svg = await AstroContract?.tokenURI(tokenId);
+                const svg = await MintContract?.tokenURI(tokenId);
                 const base64Content = svg.substring("data:application/json;base64,".length);
                 const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
                 const jsonContent = JSON.parse(debase64Content);
-                const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('binary');
-                console.log('debaseImage', debaseImage);
+                const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('utf8');
                 if (debaseImage.indexOf('generating') === -1) {
                     const replaceImage = debaseImage.replace(/\<g\>.*\<path.*?\<\/g\>/, '')
                         .replace(/\<rect.*?stroke=\"#b49d5d\".*?\/>/, '')
                         .replace(/\<radialGradient id=\"darkLight\"\>.*?\<\/radialGradient\>/, '<radialGradient id="darkLight"><stop offset="0%" stop-color="#707070" /><stop offset="3%" stop-color="#1b1b1b" /><stop offset="8%" stop-color="#000000" /></radialGradient>');
-                    console.log('replaceImage', replaceImage);
                     const baseImg = Buffer.from(replaceImage).toString('base64');;
-                    console.log('baseImg', 'data:image/svg+xml;base64,' + baseImg);
                     setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
@@ -115,86 +127,127 @@ const GetChart: React.FC = () => {
                 <div className={styles.contentContainer}>
                     <div className={style.flexContainer}>
                         {account && WalletReady ? (
-                            <div className={style.inputContainer}>
-                                <div className={style.userInputContainer}>
+                            <>
+                                <div className={styles.priceContainer}>
+                                    <div className={styles.currentPrice}>
+                                        {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}
+                                    </div>
+                                    <div className={styles.ethIcon}>
+                                        <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
+                                        <span>ETH</span>
+                                    </div>
+                                </div>
+                                <div className={styles.totalContainer}>
+                                    <div className={styles.currentTotal}>
+                                        {intl.formatMessage({
+                                            id: 'astro.total',
+                                            defaultMessage: 'Total need {total} (Oracle operator gas fee: {fee})',
+                                        }, {
+                                            total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '0',
+                                            fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '0',
+                                        })}
+                                    </div>
+                                </div>
+                                <div className={styles.mintCount}>
                                     {intl.formatMessage({
-                                        id: 'astro.userinput',
-                                        defaultMessage: 'I was born in {city}, on {ddyymm} at {hhmmss}.'
+                                        id: 'astro.subTitle',
+                                        defaultMessage: 'NFTs already minted: {minted}/{total}',
                                     }, {
-                                        city: (
-                                            <Geosuggest
-                                                onSuggestSelect={(res) => {
-                                                    if (!!res?.location) {
-                                                        setLat(res.location.lat);
-                                                        setLng(res.location.lng);
-                                                        setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
-                                                    }
-                                                    setSuggestList(false)
-                                                }}
-                                                inputClassName={style.geoInput}
-                                                className={style.geoSuggest}
-                                                suggestsClassName={style.geoSuggestWrapper}
-                                                suggestItemClassName={style.geoSuggestWrapperItem}
-                                                suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
-                                                maxFixtures={5}
-                                                types={["(cities)"]}
-                                                ignoreTab
-                                                ignoreEnter
-                                            />
-                                        ),
-                                        ddyymm: (
-                                            <DatePicker
-                                                defaultValue={moment('2015-01-01', 'YYYY-MM-DD')}
-                                                className={style.input}
-                                                allowClear={false}
-                                                suffixIcon={undefined}
-                                                onChange={(_, dateString) => {
-                                                    setDateOfBirth(dateString.split('-'));
-                                                }}
-                                            />
-                                        ),
-                                        hhmmss: (
-                                            <TimePicker
-                                                defaultValue={moment('13:30:56', 'HH:mm:ss')}
-                                                className={style.input}
-                                                allowClear={false}
-                                                suffixIcon={undefined}
-                                                onChange={(_, timeString) => {
-                                                    setTimeOfBirth(timeString.split(':'));
-                                                }}
-                                            />
-                                        )
+                                        minted: currentSupply?.toString(),
+                                        total: '366',
                                     })}
                                 </div>
-                                {loadSVG && (
-                                    <Spin
-                                        size="large"
-                                        className={style.generating}
-                                        tip={intl.formatMessage({
-                                            id: 'astro.generating',
-                                            defaultMessage: 'Generating...',
-                                        })}
-                                    />
-                                )}
-                                {!loadSVG && !astroSVG && (
-                                    <Button
-                                        size='large'
-                                        shape='round'
-                                        type='primary'
-                                        className={style.button}
-                                        disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
-                                        loading={loading}
-                                        onClick={() => {
-                                            handleSubmit();
-                                        }}
-                                    >
+                                <div className={style.inputContainer}>
+                                    <div className={style.userInputContainer}>
                                         {intl.formatMessage({
-                                            id: 'astro.getURChart',
-                                            defaultMessage: 'Get UR Chart',
+                                            id: 'astro.userinput',
+                                            defaultMessage: 'I was born in {city}, on {ddyymm} at {hhmmss}.'
+                                        }, {
+                                            city: (
+                                                <Geosuggest
+                                                    onSuggestSelect={(res) => {
+                                                        if (!!res?.location) {
+                                                            setLat(res.location.lat);
+                                                            setLng(res.location.lng);
+                                                            setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
+                                                        }
+                                                        setSuggestList(false)
+                                                    }}
+                                                    inputClassName={style.geoInput}
+                                                    className={style.geoSuggest}
+                                                    suggestsClassName={style.geoSuggestWrapper}
+                                                    suggestItemClassName={style.geoSuggestWrapperItem}
+                                                    suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
+                                                    maxFixtures={5}
+                                                    types={["(cities)"]}
+                                                    ignoreTab
+                                                    ignoreEnter
+                                                />
+                                            ),
+                                            ddyymm: (
+                                                <>
+                                                    <DatePicker
+                                                        inputReadOnly
+                                                        className={style.input}
+                                                        allowClear={false}
+                                                        suffixIcon={undefined}
+                                                        picker="month"
+                                                        format={['YYYY/MM/DD', 'YY/MM/DD']}
+                                                        disabledDate={(date) => !AllowMonth.includes(date.month())}
+                                                        onChange={(_, dateString) => {
+                                                            setDateOfBirth(dateString.split('/'));
+                                                        }}
+                                                    />
+                                                </>
+                                            ),
+                                            hhmmss: (
+                                                <TimePicker
+                                                    inputReadOnly
+                                                    className={style.input}
+                                                    allowClear={false}
+                                                    suffixIcon={undefined}
+                                                    format={['HH:mm:ss']}
+                                                    placeholder={intl.formatMessage({
+                                                        id: 'astro.selectTime',
+                                                        defaultMessage: 'Select Time'
+                                                    })}
+                                                    onChange={(_, timeString) => {
+                                                        setTimeOfBirth(timeString.split(':'));
+                                                    }}
+                                                />
+                                            )
                                         })}
-                                    </Button>
-                                )}
-                            </div>
+                                    </div>
+                                    {loadSVG && (
+                                        <Spin
+                                            size="large"
+                                            className={style.generating}
+                                            tip={intl.formatMessage({
+                                                id: 'astro.generating',
+                                                defaultMessage: 'Generating...',
+                                            })}
+                                        />
+                                    )}
+                                    {!loadSVG && !astroSVG && (
+                                        <Button
+                                            size='large'
+                                            shape='round'
+                                            type='primary'
+                                            className={style.button}
+                                            disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
+                                            loading={loading}
+                                            onClick={() => {
+                                                handleSubmit();
+                                            }}
+                                        >
+                                            {intl.formatMessage({
+                                                id: 'astro.getURChart',
+                                                defaultMessage: 'Get UR Chart',
+                                            })}
+                                        </Button>
+                                    )}
+                                </div>
+                            </>
                         ) : (
                             <SelectWallet />
                         )}
@@ -216,7 +269,7 @@ const GetChart: React.FC = () => {
                             type='link'
                             size='large'
                             onClick={() => {
-                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.astro[4]}/${TokenId?.toString()}`, '_blank');
+                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
                             }}
                             className={style.openSeaLink}
                         >
@@ -230,7 +283,6 @@ const GetChart: React.FC = () => {
                 footer={false}
                 bodyStyle={{
                     backgroundColor: '#000',
-                    borderRadius: 10,
                     background: 'url(/images/background/tarot.svg) #000',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',

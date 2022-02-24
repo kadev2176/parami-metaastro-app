@@ -15,8 +15,12 @@ export const contractAddresses = {
         1: '0x76B61Ae8F964F5CBE23ad9aea9BF597aa4cEA7eD',
         4: '0x76B61Ae8F964F5CBE23ad9aea9BF597aa4cEA7eD',
     },
-    astro: {
-        1: '0x5e0012289009Eb057B318437CB31B36d019Dba7F',
-        4: '0x5e0012289009Eb057B318437CB31B36d019Dba7F',
-    }
+    mint: {
+        1: '0x29175F171C104Af23E3bC66e3ECC5Ddf91F850f0',
+        4: '0x29175F171C104Af23E3bC66e3ECC5Ddf91F850f0',
+    },
+    breed: {
+        1: '0xcf4b44c1F138AE365b6Ac40f5CB84De3aD2acC4a',
+        4: '0xcf4b44c1F138AE365b6Ac40f5CB84De3aD2acC4a',
+    },
 }

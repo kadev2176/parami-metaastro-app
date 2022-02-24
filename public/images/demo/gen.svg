@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1200" height="1200" id="astro">
     <defs>
         <radialGradient id="darkLight">
-            <stop offset="0%" stop-color="#707070" />
-            <stop offset="3%" stop-color="#1b1b1b" />
-            <stop offset="8%" stop-color="#000000" />
+            <stop offset="0%" stop-color="#484848" />
+            <stop offset="12%" stop-color="#1b1b1b" />
+            <stop offset="50%" stop-color="#000000" />
         </radialGradient>
         <linearGradient id="goldBody" gradientTransform="rotate(60)">
             <stop offset="0%" stop-color="#e3d8ab" />
@@ -13,6 +13,10 @@
     <circle cx="300" cy="300" r="1300" fill="url(#darkLight)">
         <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 600 600" to="360 600 600" begin="0" dur="5s" repeatCount="indefinite" />
     </circle>
+    <rect width="1180" height="1180" x="10" y="10" stroke="#b49d5d" stroke-width="4" fill="none" />
+    <g>
+        <path d="M30,30 H60 V80 H30 V1120 H60 V1170 H30 V1140 H80 V1170 H1120 V1140 H1170 V1170 H1140 V1120 H1170 V80 H1140 V30 H1170 V60 H1120 V30 H80 V60 H30 V30" stroke="#b49d5d" stroke-width="4" fill="none" />
+    </g>
     <g fill="url(#goldBody)" stroke="url(#goldBody)">
         <circle cx="600" cy="600" r="450" stroke-width="15" fill="none">
             <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 600 600" to="360 600 600" begin="0" dur="5s" repeatCount="indefinite" />
@@ -52,41 +56,41 @@
         <text font-size="25" transform="translate(525, 990) rotate(0)" fill="#cdba52" font-weight="bold" stroke="none">CAPRICORN</text>
         <text font-size="25" transform="translate(740, 970) rotate(-30)" fill="#0e6b4c" font-weight="bold" stroke="none">AQUARIUS</text>
         <text font-size="25" transform="translate(920, 830) rotate(-60)" fill="#2465b7" font-weight="bold" stroke="none">PISCES</text>
-        <line x1="662.0948" y1="821.3504" x2="695.8420" y2="941.6496" stroke-width="2.0000" />
-        <line x1="400.2164" y1="485.8470" x2="291.6384" y2="423.8074" stroke-width="2.0000" />
-        <line x1="377.9053" y1="659.1874" x2="257.2017" y2="691.3544" stroke-width="2.0000" />
-        <line x1="487.9004" y1="801.1315" x2="426.9768" y2="910.4422" stroke-width="2.0000" />
-        <line x1="715.6738" y1="797.4885" x2="778.5401" y2="904.8192" stroke-width="2.0000" />
-        <line x1="762.0603" y1="761.0091" x2="850.1366" y2="848.5141" stroke-width="2.0000" />
-        <line x1="798.2627" y1="714.3837" x2="906.0142" y2="776.5488" stroke-width="2.0000" />
-        <line x1="823.2162" y1="540.4306" x2="944.5294" y2="508.0559" stroke-width="2.0000" />
-        <line x1="711.8241" y1="400.3943" x2="772.5980" y2="291.9130" stroke-width="2.0000" />
-        <line x1="538.3409" y1="377.4913" x2="504.8306" y2="256.5626" stroke-width="2.0000" />
-        <line x1="484.5337" y1="400.9918" x2="421.7803" y2="292.8352" stroke-width="2.0000" />
-        <line x1="436.9899" y1="438.0978" x2="348.3975" y2="350.1075" stroke-width="2.0000" />
-        <text text-anchor="middle" x="417.7134" y="343.2884" font-size="30">â</text>
-        <circle cx="394.5659" cy="310.6901" r="3"/>
-        <text text-anchor="middle" x="286.8109" y="640.9195" font-size="30">â¿</text>
-        <circle cx="247.0409" cy="646.1156" r="3"/>
-        <text text-anchor="middle" x="316.7845" y="734.5997" font-size="30">â</text>
-        <circle cx="280.8206" cy="751.6918" r="3"/>
-        <text text-anchor="middle" x="337.3526" y="770.7306" font-size="30">â</text>
-        <circle cx="287.3378" cy="764.3416" r="3"/>
-        <text text-anchor="middle" x="362.2490" y="804.2773" font-size="30">â</text>
-        <circle cx="326.1249" cy="822.9922" r="3"/>
-        <text text-anchor="middle" x="550.1387" y="912.5561" font-size="30">â</text>
-        <circle cx="543.8071" cy="952.2457" r="3"/>
-        <text text-anchor="middle" x="590.3896" y="916.1746" font-size="30">â</text>
-        <circle cx="578.0992" cy="955.9008" r="3"/>
-        <text text-anchor="middle" x="685.0429" y="903.1538" font-size="30">ASC</text>
-        <circle cx="695.8420" cy="941.6496" r="3"/>
-        <text text-anchor="middle" x="839.3842" y="801.5602" font-size="30">â</text>
-        <circle cx="869.7822" cy="827.1552" r="3"/>
-        <text text-anchor="middle" x="889.6911" y="721.4698" font-size="30">â½</text>
-        <circle cx="926.4773" cy="736.8946" r="3"/>
-        <text text-anchor="middle" x="916.0320" y="608.1786" font-size="25">â</text>
-        <circle cx="956.1630" cy="609.2172" r="3"/>
-        <text text-anchor="middle" x="600" y="600" font-size="2.5rem">ãGen 0ã</text>
-        <text text-anchor="middle" x="600" y="650" font-size="1.5rem">â¦ 11.3 â¦</text>
+        <line x1="376.1658" y1="652.8618" x2="254.5167" y2="681.5910" stroke-width="2.0000" />
+        <line x1="528.1073" y1="381.5293" x2="489.0352" y2="262.7953" stroke-width="2.0000" />
+        <line x1="420.3933" y1="456.3287" x2="322.7810" y2="378.2465" stroke-width="2.0000" />
+        <line x1="373.6216" y1="559.4132" x2="250.5899" y2="537.3552" stroke-width="2.0000" />
+        <line x1="427.5722" y1="752.2122" x2="333.8614" y2="834.9362" stroke-width="2.0000" />
+        <line x1="534.9170" y1="820.5936" x2="499.5459" y2="940.4815" stroke-width="2.0000" />
+        <line x1="671.8942" y1="818.4700" x2="710.9671" y2="937.2038" stroke-width="2.0000" />
+        <line x1="779.6076" y1="743.6699" x2="877.2205" y2="821.7514" stroke-width="2.0000" />
+        <line x1="826.3786" y1="640.5851" x2="949.4104" y2="662.6422" stroke-width="2.0000" />
+        <line x1="823.8345" y1="547.1397" x2="945.4837" y2="518.4113" stroke-width="2.0000" />
+        <line x1="772.4288" y1="447.7890" x2="866.1401" y2="365.0656" stroke-width="2.0000" />
+        <line x1="665.0844" y1="379.4067" x2="700.4564" y2="259.5191" stroke-width="2.0000" />
+        <text text-anchor="middle" x="759.5949" y="328.4236" font-size="30">♂</text>
+        <circle cx="779.8609" cy="293.9377" r="3" fill="#000"/>
+        <text text-anchor="middle" x="461.4832" y="317.0920" font-size="30">♃</text>
+        <circle cx="443.8937" cy="281.1672" r="3" fill="#000"/>
+        <text text-anchor="middle" x="289.1485" y="650.8403" font-size="30">♀</text>
+        <circle cx="249.6753" cy="657.2962" r="3" fill="#000"/>
+        <text text-anchor="middle" x="298.3515" y="690.7107" font-size="30">☿</text>
+        <circle cx="252.0581" cy="670.3560" r="3" fill="#000"/>
+        <text text-anchor="middle" x="312.6513" y="729.0502" font-size="30">☉</text>
+        <circle cx="253.1360" cy="675.4979" r="3" fill="#000"/>
+        <text text-anchor="middle" x="331.8034" y="765.2119" font-size="30">ASC</text>
+        <circle cx="254.5167" cy="681.5910" r="3" fill="#000"/>
+        <text text-anchor="middle" x="355.4829" y="798.5854" font-size="30">♇</text>
+        <circle cx="298.5876" cy="787.5494" r="3" fill="#000"/>
+        <text text-anchor="middle" x="383.2894" y="828.6074" font-size="30">☽</text>
+        <circle cx="319.4896" cy="817.5742" r="3" fill="#000"/>
+        <text text-anchor="middle" x="551.5294" y="911.2288" font-size="30">♅</text>
+        <circle cx="545.3745" cy="950.7500" r="3" fill="#000"/>
+        <text text-anchor="middle" x="592.2869" y="914.8626" font-size="30">♆</text>
+        <circle cx="581.4106" cy="954.4718" r="3" fill="#000"/>
+        <text text-anchor="middle" x="633.1745" y="913.2217" font-size="25">♄</text>
+        <circle cx="626.8165" cy="953.9499" r="3" fill="#000"/>
+        <text text-anchor="middle" x="600" y="600" font-size="2.5rem">「Gen 1」</text>
+        <text text-anchor="middle" x="600" y="650" font-size="1.5rem">✦ 12.1 ✦</text>
     </g>
 </svg>
