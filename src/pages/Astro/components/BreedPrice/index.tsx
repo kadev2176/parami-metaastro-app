@@ -5,7 +5,7 @@ import { BlockOutlined } from '@ant-design/icons';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { Button, InputNumber, message } from 'antd';
 import { extractTokenIdFromEvent } from '@/utils/astro';
-import { ethers } from 'ethers';
+import { errorParse } from '@/utils/common';
 
 const BreedPrice: React.FC = () => {
     const { account, chainId, provider, signer } = useModel('metaMask');
@@ -42,9 +42,8 @@ const BreedPrice: React.FC = () => {
 
             setLoading(false);
         } catch (e: any) {
-            message.error(e.message);
-            ethers.utils.ErrorFragment.from(e);
-            console.log(e.message)
+            const error = errorParse(e.message).body?.message;
+            message.error(error);
             setLoading(false);
         }
     };

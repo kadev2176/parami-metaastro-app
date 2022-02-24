@@ -10,6 +10,7 @@ import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses } from '../../config';
+import { errorParse } from '@/utils/common';
 
 const GetChart: React.FC = () => {
     const { account, chainId, provider, signer } = useModel('metaMask');
@@ -116,7 +117,8 @@ const GetChart: React.FC = () => {
 
             setLoading(false);
         } catch (e: any) {
-            message.error(e.message);
+            const error = errorParse(e.message).body?.message;
+            message.error(error);
             setLoading(false);
         }
     };
