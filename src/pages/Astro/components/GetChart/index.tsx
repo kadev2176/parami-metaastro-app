@@ -67,7 +67,7 @@ const GetChart: React.FC = () => {
         const months = [];
         for (let month = 0; month < 12; month++) {
             const tokenId = await MintContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
-            if (tokenId !== 0) {
+            if (tokenId.toNumber() === 0) {
                 months.push(month);
             }
         }

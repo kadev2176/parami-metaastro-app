@@ -65,7 +65,9 @@ const BreedFrom: React.FC = () => {
     const getTokenIdAndPrice = async (month: string, day: string) => {
         const tokenId = await MintContract?.getTokenIdByMonthAndDay(Number(month), Number(day));
         const price = await BreedContract?.getBreedConfig(tokenId);
-        setPrimaryTokenId(tokenId);
+        if (tokenId.toNumber() !== 0) {
+            setPrimaryTokenId(tokenId.toNumber());
+        }
         setCurrentPrice(price[1]);
     };
 
@@ -186,7 +188,6 @@ const BreedFrom: React.FC = () => {
                                                     className={style.input}
                                                     allowClear={false}
                                                     suffixIcon={undefined}
-                                                    picker="month"
                                                     format={['YYYY/MM/DD', 'YY/MM/DD']}
                                                     onChange={async (_, dateString) => {
                                                         setDateOfBirth(dateString.split('/'));
