@@ -2,14 +2,15 @@ import { Button, DatePicker, notification, TimePicker, message, Spin, InputNumbe
 import React, { useEffect, useState } from 'react';
 import Geosuggest from 'react-geosuggest';
 import { useIntl, useModel } from 'umi';
-import moment from 'moment';
 import styles from '../../style.less';
 import style from './style.less';
 import SelectWallet from '../SelectWallet/selectWallet';
+import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses } from '../../config';
+import { errorParse } from '@/utils/common';
 
 const BreedFrom: React.FC = () => {
     const { account, chainId, provider, signer } = useModel('metaMask');
@@ -22,17 +23,19 @@ const BreedFrom: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [loadSVG, setLoadSVG] = useState<boolean>(false);
     const [WalletReady, setWalletReady] = useState<boolean>(false);
-    const [currentPrice, setCurrentPrice] = useState<bigint>();
-    const [currentFee, setCurrentFee] = useState<bigint>();
+    const [currentPrice, setCurrentPrice] = useState<BigNumber>();
+    const [currentFee, setCurrentFee] = useState<BigNumber>();
+    const [currentSupply, setCurrentSupply] = useState<BigNumber>();
     const [astroSVG, setAstroSVG] = useState<string>();
+    const [PrimaryTokenId, setPrimaryTokenId] = useState<number>();
     const [TokenId, setTokenId] = useState<ethers.BigNumber>();
-    const [BreedTokenId, setBreedTokenId] = useState<number>();
     const [modal, setModal] = useState<boolean>(false);
 
     const intl = useIntl();
 
     const {
-        MintContract
+        MintContract,
+        BreedContract
     } = useModel('astroContracts');
 
     useEffect(() => {
@@ -52,25 +55,32 @@ const BreedFrom: React.FC = () => {
         }
     }, [chainId, account]);
 
-    const getCurrentPrice = async () => {
-        const price = await MintContract?.getPrice();
-        const fee = await MintContract?.getOracleGasFee();
-        setCurrentPrice(price);
+    const getCurrentInfo = async () => {
+        const fee = await BreedContract?.getOracleGasFee();
+        const supply = await BreedContract?.totalSupply();
         setCurrentFee(fee);
+        setCurrentSupply(supply);
+    };
+
+    const getTokenIdAndPrice = async (month: string, day: string) => {
+        const tokenId = await MintContract?.getTokenIdByMonthAndDay(Number(month), Number(day));
+        const price = await BreedContract?.getBreedConfig(tokenId);
+        setPrimaryTokenId(tokenId);
+        setCurrentPrice(price[1]);
     };
 
     useEffect(() => {
-        if (MintContract && account && account !== '') {
-            getCurrentPrice();
+        if (BreedContract && account && account !== '') {
+            getCurrentInfo();
         }
-    }, [account, MintContract]);
+    }, [account, BreedContract]);
 
     const handleSubmit = async () => {
         if (!provider || !signer) return;
         setLoading(true);
         try {
-            const tx = await MintContract?.breedFrom(
-                BreedTokenId,
+            const tx = await BreedContract?.breedFrom(
+                PrimaryTokenId,
                 [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
                 [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
@@ -85,10 +95,14 @@ const BreedFrom: React.FC = () => {
                 const svg = await MintContract?.tokenURI(tokenId);
                 const base64Content = svg.substring("data:application/json;base64,".length);
                 const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
-                console.log(debase64Content);
-                if (svg.indexOf('generating') === -1) {
-                    const jsonContent = JSON.parse(debase64Content);
-                    setAstroSVG(jsonContent.image);
+                const jsonContent = JSON.parse(debase64Content);
+                const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('utf8');
+                if (debaseImage.indexOf('generating') === -1) {
+                    const replaceImage = debaseImage.replace(/\<g\>.*\<path.*?\<\/g\>/, '')
+                        .replace(/\<rect.*?stroke=\"#b49d5d\".*?\/>/, '')
+                        .replace(/\<radialGradient id=\"darkLight\"\>.*?\<\/radialGradient\>/, '<radialGradient id="darkLight"><stop offset="0%" stop-color="#707070" /><stop offset="3%" stop-color="#1b1b1b" /><stop offset="8%" stop-color="#000000" /></radialGradient>');
+                    const baseImg = Buffer.from(replaceImage).toString('base64');;
+                    setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
                     setModal(true);
@@ -97,7 +111,8 @@ const BreedFrom: React.FC = () => {
 
             setLoading(false);
         } catch (e: any) {
-            message.error(e.message);
+            const error = errorParse(e.message).body?.message;
+            message.error(error);
             setLoading(false);
         }
     };
@@ -108,102 +123,144 @@ const BreedFrom: React.FC = () => {
                 <div className={styles.contentContainer}>
                     <div className={style.flexContainer}>
                         {account && WalletReady ? (
-                            <div className={style.inputContainer}>
-                                <div className={style.userInputContainer}>
-                                    {intl.formatMessage({
-                                        id: 'astro.userinput',
-                                        defaultMessage: 'I was born in {city}, on {ddyymm} at {hhmmss}.'
-                                    }, {
-                                        city: (
-                                            <Geosuggest
-                                                onSuggestSelect={(res) => {
-                                                    if (!!res?.location) {
-                                                        setLat(res.location.lat);
-                                                        setLng(res.location.lng);
-                                                        setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
-                                                    }
-                                                    setSuggestList(false)
-                                                }}
-                                                inputClassName={style.geoInput}
-                                                className={style.geoSuggest}
-                                                suggestsClassName={style.geoSuggestWrapper}
-                                                suggestItemClassName={style.geoSuggestWrapperItem}
-                                                suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
-                                                maxFixtures={5}
-                                                types={["(cities)"]}
-                                                ignoreTab
-                                                ignoreEnter
-                                            />
-                                        ),
-                                        ddyymm: (
-                                            <DatePicker
-                                                defaultValue={moment('2015-01-01', 'YYYY-MM-DD')}
-                                                className={style.input}
-                                                allowClear={false}
-                                                suffixIcon={undefined}
-                                                onChange={(_, dateString) => {
-                                                    setDateOfBirth(dateString.split('-'));
-                                                }}
-                                            />
-                                        ),
-                                        hhmmss: (
-                                            <TimePicker
-                                                defaultValue={moment('13:30:56', 'HH:mm:ss')}
-                                                className={style.input}
-                                                allowClear={false}
-                                                suffixIcon={undefined}
-                                                onChange={(_, timeString) => {
-                                                    setTimeOfBirth(timeString.split(':'));
-                                                }}
-                                            />
-                                        )
-                                    })}
+                            <>
+                                <div className={styles.priceContainer}>
+                                    <div className={styles.currentPrice}>
+                                        {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}
+                                    </div>
+                                    <div className={styles.ethIcon}>
+                                        <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
+                                        <span>ETH</span>
+                                    </div>
                                 </div>
-                                <div className={style.breedTokenIdContainer}>
-                                    {intl.formatMessage({
-                                        id: 'astro.breed',
-                                        defaultMessage: 'Breed From(TokenID): {tokenId}',
-                                    }, {
-                                        tokenId: (
-                                            <InputNumber
-                                                size='large'
-                                                className={style.input}
-                                                onChange={(e: any) => {
-                                                    setBreedTokenId(e);
-                                                }}
-                                            />
-                                        )
-                                    })}
-                                </div>
-                                {loadSVG && (
-                                    <Spin
-                                        size="large"
-                                        className={style.generating}
-                                        tip={intl.formatMessage({
-                                            id: 'astro.generating',
-                                            defaultMessage: 'Generating...',
-                                        })}
-                                    />
-                                )}
-                                {!loadSVG && !astroSVG && (
-                                    <Button
-                                        size='large'
-                                        shape='round'
-                                        type='primary'
-                                        className={style.button}
-                                        disabled={!lat || !lng || !utcOffset || !BreedTokenId || !dateOfBirth.length || !timeOfBirth.length}
-                                        loading={loading}
-                                        onClick={() => {
-                                            handleSubmit();
-                                        }}
-                                    >
+                                <div className={styles.totalContainer}>
+                                    <div className={styles.currentTotal}>
                                         {intl.formatMessage({
-                                            id: 'astro.breedURChart',
-                                            defaultMessage: 'Breed UR Chart',
+                                            id: 'astro.total',
+                                            defaultMessage: 'Total need {total} (Oracle operator gas fee: {fee})',
+                                        }, {
+                                            total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '0',
+                                            fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '0',
                                         })}
-                                    </Button>
-                                )}
-                            </div>
+                                    </div>
+                                </div>
+                                <div className={styles.mintCount}>
+                                    {intl.formatMessage({
+                                        id: 'astro.subTitle',
+                                        defaultMessage: 'NFTs already minted: {minted}/{total}',
+                                    }, {
+                                        minted: currentSupply?.toString(),
+                                        total: '366',
+                                    })}
+                                </div>
+                                <div className={style.inputContainer}>
+                                    <div className={style.userInputContainer}>
+                                        {intl.formatMessage({
+                                            id: 'astro.userinput',
+                                            defaultMessage: 'I was born in {city}, on {ddyymm} at {hhmmss}.'
+                                        }, {
+                                            city: (
+                                                <Geosuggest
+                                                    onSuggestSelect={(res) => {
+                                                        if (!!res?.location) {
+                                                            setLat(res.location.lat);
+                                                            setLng(res.location.lng);
+                                                            setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
+                                                        }
+                                                        setSuggestList(false)
+                                                    }}
+                                                    inputClassName={style.geoInput}
+                                                    className={style.geoSuggest}
+                                                    suggestsClassName={style.geoSuggestWrapper}
+                                                    suggestItemClassName={style.geoSuggestWrapperItem}
+                                                    suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
+                                                    maxFixtures={5}
+                                                    types={["(cities)"]}
+                                                    ignoreTab
+                                                    ignoreEnter
+                                                />
+                                            ),
+                                            ddyymm: (
+                                                <DatePicker
+                                                    inputReadOnly
+                                                    className={style.input}
+                                                    allowClear={false}
+                                                    suffixIcon={undefined}
+                                                    picker="month"
+                                                    format={['YYYY/MM/DD', 'YY/MM/DD']}
+                                                    onChange={async (_, dateString) => {
+                                                        setDateOfBirth(dateString.split('/'));
+                                                        await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
+                                                    }}
+                                                />
+                                            ),
+                                            hhmmss: (
+                                                <TimePicker
+                                                    inputReadOnly
+                                                    className={style.input}
+                                                    allowClear={false}
+                                                    suffixIcon={undefined}
+                                                    format={['HH:mm:ss']}
+                                                    placeholder={intl.formatMessage({
+                                                        id: 'astro.selectTime',
+                                                        defaultMessage: 'Select Time'
+                                                    })}
+                                                    onChange={(_, timeString) => {
+                                                        setTimeOfBirth(timeString.split(':'));
+                                                    }}
+                                                />
+                                            )
+                                        })}
+                                    </div>
+                                    <div className={style.breedTokenIdContainer}>
+                                        {intl.formatMessage({
+                                            id: 'astro.breed',
+                                            defaultMessage: 'Breed From(TokenID): {tokenId}',
+                                        }, {
+                                            tokenId: (
+                                                <InputNumber
+                                                    size='large'
+                                                    className={style.input}
+                                                    type="number"
+                                                    min={1}
+                                                    onChange={(e: any) => {
+                                                        setPrimaryTokenId(e);
+                                                    }}
+                                                    value={PrimaryTokenId}
+                                                />
+                                            )
+                                        })}
+                                    </div>
+                                    {loadSVG && (
+                                        <Spin
+                                            size="large"
+                                            className={style.generating}
+                                            tip={intl.formatMessage({
+                                                id: 'astro.generating',
+                                                defaultMessage: 'Generating...',
+                                            })}
+                                        />
+                                    )}
+                                    {!loadSVG && !astroSVG && (
+                                        <Button
+                                            size='large'
+                                            shape='round'
+                                            type='primary'
+                                            className={style.button}
+                                            disabled={!lat || !lng || !utcOffset || !PrimaryTokenId || !dateOfBirth.length || !timeOfBirth.length || !currentPrice}
+                                            loading={loading}
+                                            onClick={() => {
+                                                handleSubmit();
+                                            }}
+                                        >
+                                            {intl.formatMessage({
+                                                id: 'astro.breedURChart',
+                                                defaultMessage: 'Breed UR Chart',
+                                            })}
+                                        </Button>
+                                    )}
+                                </div>
+                            </>
                         ) : (
                             <SelectWallet />
                         )}
@@ -223,7 +280,7 @@ const BreedFrom: React.FC = () => {
                             type='link'
                             size='large'
                             onClick={() => {
-                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
+                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.breed[4]}/${TokenId?.toString()}`, '_blank');
                             }}
                             className={style.openSeaLink}
                         >

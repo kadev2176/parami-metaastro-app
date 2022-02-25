@@ -4,8 +4,8 @@ import { useIntl, useModel } from 'umi';
 import { BlockOutlined } from '@ant-design/icons';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { Button, InputNumber, message } from 'antd';
-import { extractTokenIdFromEvent } from '@/utils/astro';
 import { errorParse } from '@/utils/common';
+import { ethers } from 'ethers';
 
 const BreedPrice: React.FC = () => {
     const { account, chainId, provider, signer } = useModel('metaMask');
@@ -18,6 +18,7 @@ const BreedPrice: React.FC = () => {
     const intl = useIntl();
 
     const {
+        MintContract,
         BreedContract
     } = useModel('astroContracts');
 
@@ -35,13 +36,23 @@ const BreedPrice: React.FC = () => {
         if (!provider || !signer) return;
         setLoading(true);
         try {
+            const owner = await MintContract?.ownerOf(tokenId);
+            if (owner !== ethers.utils.getAddress(account)) {
+                message.error(intl.formatMessage({
+                    id: 'astro.breed.error.notOwner',
+                    defaultMessage: 'You are not the owner of this token.',
+                }));
+                setLoading(false);
+                return;
+            }
+
             const tx = await BreedContract?.setBreedPrice(tokenId, price);
             console.log('tx', tx);
-            const receipt = await extractTokenIdFromEvent(tx);
-            console.log('receipt', receipt);
 
             setLoading(false);
+            setModal(false);
         } catch (e: any) {
+            console.log(e.message);
             const error = errorParse(e.message).body?.message;
             message.error(error);
             setLoading(false);
@@ -83,6 +94,8 @@ const BreedPrice: React.FC = () => {
                                                 id: 'astro.tokenIdInputPlaceholder',
                                                 defaultMessage: 'Token ID',
                                             })}
+                                            type="number"
+                                            min={1}
                                             onChange={(e) => {
                                                 setTokenId(e);
                                             }}
@@ -95,8 +108,12 @@ const BreedPrice: React.FC = () => {
                                                 id: 'astro.breedPriceInputPlaceholder',
                                                 defaultMessage: 'Price',
                                             })}
-                                            onChange={(e) => {
-                                                setPrice(e);
+                                            type="number"
+                                            min={0}
+                                            onChange={(e: number) => {
+                                                if (!!e) {
+                                                    setPrice(ethers.utils.parseEther(e.toString()).toString());
+                                                }
                                             }}
                                         />
                                     ),

@@ -66,8 +66,8 @@ const GetChart: React.FC = () => {
         const currentDay = new Date().getDate();
         const months = [];
         for (let month = 0; month < 12; month++) {
-            const bool = await MintContract?.isDateAvailable(month + 1, currentDay);
-            if (!bool) {
+            const tokenId = await MintContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
+            if (tokenId !== 0) {
                 months.push(month);
             }
         }
