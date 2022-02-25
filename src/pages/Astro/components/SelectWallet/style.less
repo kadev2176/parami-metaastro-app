@@ -99,6 +99,11 @@
 }
 
 .button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
     font-weight: 700 !important;
     font-size: 20px !important;
     height: auto !important;
@@ -109,5 +114,18 @@
         height: 32px;
         margin-right: 15px;
         flex: 1;
+    }
+}
+
+.selectWallet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .item {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }

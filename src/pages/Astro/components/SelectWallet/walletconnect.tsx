@@ -3,14 +3,14 @@ import { useModel, useIntl } from 'umi';
 import { Button, Divider, Image } from 'antd';
 import style from './style.less';
 
-export const MetamaskModal: React.FC = () => {
+export const WalletConnectModal: React.FC = () => {
     const intl = useIntl();
 
     return (
         <>
             <div className={style.modalContainer}>
                 <Image
-                    src='/images/sns/metamask-logo.svg'
+                    src='/images/sns/walletconnect-logo.svg'
                     preview={false}
                     className={style.logo}
                 />
@@ -19,7 +19,7 @@ export const MetamaskModal: React.FC = () => {
                         id: 'dashboard.bridge.waitingWallet',
                         defaultMessage: 'Waiting for confirmation from {name}',
                     }, {
-                        name: 'Metamask',
+                        name: 'WalletConnect',
                     })}
                 </span>
                 <Divider />
@@ -43,13 +43,13 @@ export const MetamaskModal: React.FC = () => {
     )
 }
 
-export const MetaMask: React.FC<{
+export const WalletConnect: React.FC<{
     setWaitingModal: React.Dispatch<React.SetStateAction<boolean>>;
     setWalletType: (value: React.SetStateAction<string>) => void;
-}> = ({ setWaitingModal, setWalletType }) => {
+}> = ({ setWalletType }) => {
     const {
-        metaMaskConnect,
-    } = useModel("metaMask");
+        walletConnect,
+    } = useModel("walletconnect");
 
     return (
         <>
@@ -60,22 +60,25 @@ export const MetaMask: React.FC<{
                 className={style.button}
                 icon={
                     <Image
-                        src='/images/sns/metamask_circle.svg'
+                        src='/images/sns/walletconnect_circle.svg'
                         className={style.appIcon}
                         preview={false}
                     />
                 }
+                style={{
+                    backgroundColor: '#2F80ED',
+                }}
                 onClick={async () => {
-                    setWaitingModal(true);
-                    setWalletType('Metamask');
-                    await metaMaskConnect();
-                    setWaitingModal(false);
+                    // setWaitingModal(true);
+                    setWalletType('WalletConnect');
+                    await walletConnect();
+                    // setWaitingModal(false);
                 }}
             >
-                MetaMask
+                WalletConnect
             </Button>
         </>
     )
 }
 
-export default MetaMask;
+export default WalletConnect;

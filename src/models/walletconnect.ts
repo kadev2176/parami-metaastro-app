@@ -4,9 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { message } from 'antd';
 
-const INFURA_KEY = '4bf032f2d38a4ed6bb975b80d6340847'; //process.env.REACT_APP_INFURA_KEY
-const FORMATIC_KEY = process.env.REACT_APP_FORTMATIC_KEY;
-const PORTIS_ID = process.env.REACT_APP_PORTIS_ID;
+const INFURA_KEY = '27e484dcd9e3efcfd25a83a78777cdf1'; //process.env.REACT_APP_INFURA_KEY
 
 if (typeof INFURA_KEY === 'undefined') {
     throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
@@ -43,29 +41,71 @@ export default () => {
         const newProvider = new WalletConnectProvider({
             infuraId: INFURA_KEY,
         });
-        let accounts: string[] = [];
-        if (newProvider) {
+        await newProvider.disconnect();
+        //  Enable session (triggers QR Code modal)
+        await newProvider.enable();
+        let account: string = '';
+        if (!!newProvider) {
+            const ethersProvider = new ethers.providers.Web3Provider(newProvider);
+            setProvider(ethersProvider);
+            const newSigner = ethersProvider.getSigner();
+            setSigner(newSigner);
             try {
-                accounts = await newProvider.on("accountsChanged");
-            } catch (e: any) {
+                account = await await newSigner.getAddress();
+            }
+            catch (e: any) {
                 message.error('This dapp requires access to your account information.');
                 return;
             }
-            console.log('connect', accounts);
-            const ethersProvider = new ethers.providers.Web3Provider(newProvider);
-            setProvider(ethersProvider);
-            setAccount(accounts[0]);
-            const newSigner = ethersProvider.getSigner();
-            setSigner(newSigner);
+            setAccount(account);
             let initChainId = await newSigner.getChainId();
             if (initChainId !== 4) {
                 //TODO: add some condition to switch chainId
-                await (window as any).ethereum.request({
+                await newProvider.request({
                     method: 'wallet_switchEthereumChain',
                     params: [{ chainId: '0x04' }], // chainId must be in hexadecimal numbers
                 });
                 initChainId = await newSigner.getChainId();
             }
+            setChainId(initChainId);
+            newProvider.on('chainChanged', (newChainId: string) => {
+                setChainId(parseInt(newChainId));
+            });
+            newProvider.on('disconnect', (error: ProviderRpcError) => {
+                console.log('disconnect', error.code, error.message, error.data);
+                ethersProvider.removeAllListeners();
+            });
+            newProvider.on('accountsChanged', function (newAccounts: string[]) {
+                console.log('accountsChanged', newAccounts);
+                if (newAccounts.length === 0) {
+                    setAccount('');
+                    setSigner(null);
+                }
+                setAccount(newAccounts[0]);
+                // The MetaMask plugin also allows signing transactions to
+                // send ether and pay to change state within the blockchain.
+                // For this, you need the account signer...
+                const newSign = ethersProvider.getSigner()
+                setSigner(newSign);
+                // Time to reload your interface with accounts[0]!
+            });
+        } else {
+            setNoWalletconnect(true);
+            message.error('Please install WalletConnect!');
         }
+
+        // signin implementation
+        // setUser(user from signin API)
     }, []);
+
+    return {
+        walletConnectAccount: Account,
+        walletConnectProvider: Provider,
+        walletConnectSigner: Signer,
+        NoWalletconnect,
+        walletConnectChainId: ChainId,
+        walletConnectChainName: ChainName,
+        walletConnectBlockNumber: BlockNumber,
+        walletConnect: connect,
+    }
 }

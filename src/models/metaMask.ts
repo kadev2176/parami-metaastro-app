@@ -34,7 +34,7 @@ export default () => {
     const connect = useCallback(async () => {
         const newProvider = await detectEthereumProvider();
         let accounts: string[] = [];
-        if (newProvider) {
+        if (!!newProvider) {
             try {
                 accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
             }
@@ -46,7 +46,7 @@ export default () => {
             const ethersProvider = new ethers.providers.Web3Provider((window as any).ethereum as any)
             setProvider(ethersProvider);
             setAccount(accounts[0]);
-            const newSigner = ethersProvider.getSigner()
+            const newSigner = ethersProvider.getSigner();
             setSigner(newSigner);
             let initChainId = await newSigner.getChainId();
             if (initChainId !== 4) {
@@ -89,13 +89,13 @@ export default () => {
     }, []);
 
     return {
-        account,
-        provider,
-        signer,
-        noMetamask,
-        chainId,
-        chainName,
-        blockNumber,
-        connect,
+        metaMaskAccount: account,
+        metaMaskProvider: provider,
+        metaMaskSigner: signer,
+        NoMetamask: noMetamask,
+        metaMaskChainId: chainId,
+        metaMaskChainName: chainName,
+        metaMaskBlockNumber: blockNumber,
+        metaMaskConnect: connect,
     }
 }

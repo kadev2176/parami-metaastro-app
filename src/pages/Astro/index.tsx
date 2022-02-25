@@ -11,7 +11,7 @@ import Feature from './components/Feature';
 import BreedPrice from './components/BreedPrice';
 
 const Astro: React.FC = () => {
-    const { account } = useModel('metaMask');
+    const { metaMaskAccount } = useModel('metaMask');
     const [GEN, setGEN] = useState<number>(1);
 
     const {
@@ -29,10 +29,10 @@ const Astro: React.FC = () => {
     }
 
     useEffect(() => {
-        if (MintContract && account && account !== '') {
+        if (MintContract && metaMaskAccount && metaMaskAccount !== '') {
             getSalesTime();
         }
-    }, [MintContract, account]);
+    }, [MintContract, metaMaskAccount]);
 
     return (
         <>
