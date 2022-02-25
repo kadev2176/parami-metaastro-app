@@ -8,9 +8,9 @@ import { errorParse } from '@/utils/common';
 import { ethers } from 'ethers';
 
 const BreedPrice: React.FC = () => {
-    const { account, chainId, provider, signer } = useModel('metaMask');
+    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
+    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [modal, setModal] = useState<boolean>(false);
-    const [WalletReady, setWalletReady] = useState<boolean>(false);
     const [tokenId, setTokenId] = useState<any>();
     const [price, setPrice] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,21 +23,22 @@ const BreedPrice: React.FC = () => {
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (chainId !== 1 && chainId !== 4) {
-            setWalletReady(false);
+        if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             return;
         }
-        if (account && account !== '') {
-            setWalletReady(true);
+    }, [metaMaskChainId, metaMaskAccount]);
+
+    useEffect(() => {
+        if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
+            return;
         }
-    }, [chainId, account]);
+    }, [walletConnectChainId, walletConnectAccount]);
 
     const handleSubmit = async () => {
-        if (!provider || !signer) return;
         setLoading(true);
         try {
             const owner = await MintContract?.ownerOf(tokenId);
-            if (owner !== ethers.utils.getAddress(account)) {
+            if (owner !== ethers.utils.getAddress(metaMaskAccount || walletConnectAccount)) {
                 message.error(intl.formatMessage({
                     id: 'astro.breed.error.notOwner',
                     defaultMessage: 'You are not the owner of this token.',
@@ -60,7 +61,7 @@ const BreedPrice: React.FC = () => {
     };
 
     return (
-        account && WalletReady ? (
+        metaMaskAccount || walletConnectAccount ? (
             <>
                 <div
                     className={style.breedPriceModal}

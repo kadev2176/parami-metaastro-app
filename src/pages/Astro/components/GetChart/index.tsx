@@ -38,8 +38,7 @@ const GetChart: React.FC = () => {
     } = useModel('astroContracts');
 
     useEffect(() => {
-        console.log('chainId', metaMaskChainId);
-        if (metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on mainnet and rinkeby',
@@ -50,8 +49,7 @@ const GetChart: React.FC = () => {
     }, [metaMaskChainId, metaMaskAccount]);
 
     useEffect(() => {
-        console.log('chainId', walletConnectChainId);
-        if (walletConnectChainId !== 1 && walletConnectChainId !== 4) {
+        if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on mainnet and rinkeby',
@@ -62,9 +60,7 @@ const GetChart: React.FC = () => {
     }, [walletConnectChainId, walletConnectAccount]);
 
     const getCurrentInfo = async () => {
-        console.log(MintContract)
         const price = await MintContract?.getPrice();
-        console.log(price)
         const fee = await MintContract?.getOracleGasFee();
         const supply = await MintContract?.totalSupply();
         setCurrentPrice(price);
@@ -102,7 +98,7 @@ const GetChart: React.FC = () => {
         setLoading(true);
         try {
             const tx = await MintContract?.initialMint(
-                ethers.utils.getAddress(metaMaskAccount),
+                ethers.utils.getAddress(metaMaskAccount || walletConnectAccount),
                 [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
                 [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },

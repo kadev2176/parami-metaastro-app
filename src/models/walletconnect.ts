@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { message } from 'antd';
 
-const INFURA_KEY = '27e484dcd9e3efcfd25a83a78777cdf1'; //process.env.REACT_APP_INFURA_KEY
+const INFURA_KEY = '774b1e4252de48c3997d66ac5f5078d8'; //process.env.REACT_APP_INFURA_KEY
 
 if (typeof INFURA_KEY === 'undefined') {
     throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
@@ -37,12 +37,10 @@ export default () => {
     }, [ChainId, ChainName, Provider]);
 
     const connect = useCallback(async () => {
-        //  Create WalletConnect Provider
         const newProvider = new WalletConnectProvider({
             infuraId: INFURA_KEY,
         });
         await newProvider.disconnect();
-        //  Enable session (triggers QR Code modal)
         await newProvider.enable();
         let account: string = '';
         if (!!newProvider) {

@@ -13,7 +13,8 @@ import { contractAddresses } from '../../config';
 import { errorParse } from '@/utils/common';
 
 const BreedFrom: React.FC = () => {
-    const { account, chainId, provider, signer } = useModel('metaMask');
+    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
+    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [suggestList, setSuggestList] = useState<boolean>(false);
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
@@ -22,7 +23,6 @@ const BreedFrom: React.FC = () => {
     const [timeOfBirth, setTimeOfBirth] = useState<string[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [loadSVG, setLoadSVG] = useState<boolean>(false);
-    const [WalletReady, setWalletReady] = useState<boolean>(false);
     const [currentPrice, setCurrentPrice] = useState<BigNumber>();
     const [currentFee, setCurrentFee] = useState<BigNumber>();
     const [currentSupply, setCurrentSupply] = useState<BigNumber>();
@@ -39,21 +39,26 @@ const BreedFrom: React.FC = () => {
     } = useModel('astroContracts');
 
     useEffect(() => {
-        console.log('chainId', chainId);
-        console.log(account);
-        if (chainId !== 1 && chainId !== 4) {
+        if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on mainnet and rinkeby',
                 duration: null
             });
-            setWalletReady(false);
             return;
         }
-        if (account && account !== '') {
-            setWalletReady(true);
+    }, [metaMaskChainId, metaMaskAccount]);
+
+    useEffect(() => {
+        if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
+            notification.error({
+                message: 'Unsupported Chain',
+                description: 'This feature is only supported on mainnet and rinkeby',
+                duration: null
+            });
+            return;
         }
-    }, [chainId, account]);
+    }, [walletConnectChainId, walletConnectAccount]);
 
     const getCurrentInfo = async () => {
         const fee = await BreedContract?.getOracleGasFee();
@@ -72,13 +77,18 @@ const BreedFrom: React.FC = () => {
     };
 
     useEffect(() => {
-        if (BreedContract && account && account !== '') {
+        if (BreedContract && !!metaMaskAccount) {
             getCurrentInfo();
         }
-    }, [account, BreedContract]);
+    }, [metaMaskAccount, BreedContract]);
+
+    useEffect(() => {
+        if (BreedContract && !!walletConnectAccount) {
+            getCurrentInfo();
+        }
+    }, [walletConnectAccount, MintContract]);
 
     const handleSubmit = async () => {
-        if (!provider || !signer) return;
         setLoading(true);
         try {
             const tx = await BreedContract?.breedFrom(
@@ -124,7 +134,7 @@ const BreedFrom: React.FC = () => {
             <div className={style.getchartContainer}>
                 <div className={styles.contentContainer}>
                     <div className={style.flexContainer}>
-                        {account && WalletReady ? (
+                        {metaMaskAccount || walletConnectAccount ? (
                             <>
                                 <div className={styles.priceContainer}>
                                     <div className={styles.currentPrice}>
