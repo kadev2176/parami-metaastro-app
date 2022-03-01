@@ -27,37 +27,19 @@
         }
     }
 
-    .snsButtons {
+    .connectWallet {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        max-width: 185px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-        .snsButtonItem {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 50px;
-            padding-left: 15px;
-            padding-right: 15px;
-            border-radius: 0.4rem;
-            transition: all 0.2s;
-            margin-left: 10px;
-            margin-right: 10px;
-            cursor: pointer;
-
-            &:hover {
-                background-color: #21232d;
-            }
-
-            .snsButtonItemSvg {
-                font-size: 22px;
-                color: #fff;
-            }
-
-            img {
-                height: 22px;
-                width: 22px;
+        .connectWalletBtn {
+            span {
+                font-weight: 900;
+                font-size: 1rem;
             }
         }
     }
@@ -75,22 +57,20 @@
             margin-left: -20px !important;
         }
     }
+    
+    .connectWallet {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        max-width: 185px;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-    .snsButtons {
-        .snsButtonItem {
-            height: 30px !important;
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            margin-left: 8px !important;
-            margin-right: 8px !important;
-
-            .snsButtonItemSvg {
-                font-size: 18px !important;
-            }
-
-            img {
-                height: 18px !important;
-                width: 18px !important;
+        .connectWalletBtn {
+            span {
+                font-weight: 900;
+                font-size: 0.6rem !important;
             }
         }
     }

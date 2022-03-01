@@ -3,6 +3,7 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import MetaMask, { MetamaskModal } from './metamask';
 import WalletConnect, { WalletConnectModal } from './walletconnect';
 import style from './style.less';
+import { Divider } from 'antd';
 
 const SelectWallet: React.FC = () => {
     const [waitingModal, setWaitingModal] = useState<boolean>(false);
@@ -17,6 +18,7 @@ const SelectWallet: React.FC = () => {
                         setWalletType={setWalletType}
                     />
                 </div>
+                <Divider />
                 <div className={style.item}>
                     <WalletConnect
                         setWaitingModal={setWaitingModal}

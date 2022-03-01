@@ -51,23 +51,12 @@ export const WalletConnect: React.FC<{
         walletConnect,
     } = useModel("walletconnect");
 
+    const intl = useIntl();
+
     return (
         <>
-            <Button
-                size='large'
-                shape='round'
-                type='primary'
+            <div
                 className={style.button}
-                icon={
-                    <Image
-                        src='/images/sns/walletconnect_circle.svg'
-                        className={style.appIcon}
-                        preview={false}
-                    />
-                }
-                style={{
-                    backgroundColor: '#2F80ED',
-                }}
                 onClick={async () => {
                     // setWaitingModal(true);
                     setWalletType('WalletConnect');
@@ -75,8 +64,19 @@ export const WalletConnect: React.FC<{
                     // setWaitingModal(false);
                 }}
             >
-                WalletConnect
-            </Button>
+                <Image
+                    src='/images/sns/walletconnect_circle.svg'
+                    className={style.appIcon}
+                    preview={false}
+                />
+                <div className={style.appName}>WalletConnect</div>
+                <div className={style.appDesc}>
+                    {intl.formatMessage({
+                        id: 'astro.metamask.desc',
+                        defaultMessage: 'Scan with WalletConnect to connect',
+                    })}
+                </div>
+            </div>
         </>
     )
 }

@@ -100,20 +100,30 @@
 
 .button {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    font-weight: 700 !important;
-    font-size: 20px !important;
-    height: auto !important;
-    padding: 10px 30px !important;
+    padding: 0 30px;
+    cursor: pointer;
 
     .appIcon {
-        width: 32px;
-        height: 32px;
-        margin-right: 15px;
-        flex: 1;
+        width: 80px;
+        height: 80px;
+        margin-bottom: 0.5em;
+    }
+
+    .appName {
+        font-weight: 900;
+        font-size: 2rem;
+    }
+
+    .appDesc {
+        width: 100%;
+        font-size: 15px;
+        margin: 0.333em 0;
+        color: rgb(169, 169, 188);
+        text-align: center;
     }
 }
 

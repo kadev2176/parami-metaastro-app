@@ -33,9 +33,31 @@
     overflow: hidden;
 
     .slogan {
-        font-size: 2rem;
+        font-size: 3.1rem;
+        line-height: 1;
         font-weight: 900;
-        text-transform: uppercase;
+        opacity: 1;
+
+        .copy {
+            font-size: 1rem;
+            font-weight: 500;
+
+            span:not(:last-child) {
+                margin-right: 0.73rem;
+            }
+        }
+
+        .sloganTop {
+            margin: 0 0 22px;
+        }
+
+        .sloganBottom {
+            margin: 0 0 16px;
+        }
+
+        .isAnimation {
+            animation: blurblur 2s cubic-bezier(0.005, 0.025, 0.045, 1.015) infinite alternate;
+        }
     }
 
     .title {
@@ -93,5 +115,48 @@
     .contentContainer {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
+    }
+
+    .slogan {
+        font-size: 2rem !important;
+        font-weight: 900;
+
+        .copy {
+            font-size: 1.5rem;
+            
+            span:not(:last-child) {
+                margin-right: 0.23rem !important;
+            }
+        }
+    }
+}
+
+@keyframes blurblur {
+    0% {
+        opacity: 0.8;
+        -webkit-transform: scale(1) translate(0, 0);
+        transform: scale(1) translate(0, 0);
+        -webkit-filter: blur(0);
+        filter: blur(0); }
+    15% {
+        opacity: 0.8;
+        -webkit-transform: scale(1) translate(0, 0);
+        transform: scale(1) translate(0, 0);
+        -webkit-filter: blur(0);
+        filter: blur(0);
+    }
+    85% {
+        opacity: 0;
+        -webkit-transform: scale(0.8) translate(0, 4px);
+        transform: scale(0.8) translate(0, 4px);
+        -webkit-filter: blur(5px);
+        filter: blur(5px); 
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(0.8) translate(0, 4px);
+        transform: scale(0.8) translate(0, 4px);
+        -webkit-filter: blur(5px);
+        filter: blur(5px);
     }
 }

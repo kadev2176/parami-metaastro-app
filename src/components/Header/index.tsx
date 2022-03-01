@@ -1,8 +1,15 @@
-import React from 'react';
+import SelectWallet from '@/pages/Astro/components/SelectWallet/selectWallet';
+import { Button } from 'antd';
+import React, { useState } from 'react';
+import { useIntl } from 'umi';
+import BigModal from '../ParamiModal/BigModal';
 import style from './style.less';
-import { SiTwitter, SiDiscord } from 'react-icons/si';
 
 const Header: React.FC = () => {
+    const [modal, setModal] = useState<boolean>(true);
+
+    const intl = useIntl();
+
     return (
         <>
             <div className={style.headerContainer}>
@@ -11,40 +18,32 @@ const Header: React.FC = () => {
                         src={'/images/background/moon.svg'}
                         className={style.logoImg}
                     />
-                    <span>Meta Astro</span>
+                    <span>MetaAstro</span>
                 </div>
-                <div className={style.snsButtons}>
-                    <div
-                        className={style.snsButtonItem}
+                <div className={style.connectWallet}>
+                    <Button
+                        type='primary'
+                        size='large'
+                        shape='round'
+                        className={style.connectWalletBtn}
                         onClick={() => {
-                            window.open('https://twitter.com/ParamiProtocol', '_blank');
+                            setModal(true);
                         }}
                     >
-                        <SiTwitter className={style.snsButtonItemSvg} />
-                    </div>
-                    <div
-                        className={style.snsButtonItem}
-                        onClick={() => {
-                            window.open('https://discord.com/invite/bxFuekgvYJ', '_blank');
-                        }}
-                    >
-                        <SiDiscord className={style.snsButtonItemSvg} />
-                    </div>
-                    <div
-                        className={style.snsButtonItem}
-                        onClick={() => {
-                            window.open('https://opensea.io/collection/metaastro', '_blank');
-                        }}
-                    >
-                        <img
-                            src={'/images/sns/opensea.svg'}
-                            className={style.snsButtonItemSvg}
-                        />
-                    </div>
+                        {intl.formatMessage({
+                            id: 'header.connectWallet',
+                            defaultMessage: 'Connect Wallet',
+                        })}
+                    </Button>
                 </div>
             </div>
+            <BigModal
+                visable={modal}
+                content={<SelectWallet />}
+                footer={false}
+            />
         </>
-    )
-}
+    );
+};
 
 export default Header;

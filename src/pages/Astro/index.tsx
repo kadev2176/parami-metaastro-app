@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'umi';
 import styles from '@/style/common.less';
 import style from './style.less';
 import Background from './components/Background';
@@ -9,10 +10,14 @@ import Intro from './components/Intro';
 import Better from './components/Better';
 import Feature from './components/Feature';
 import BreedPrice from './components/BreedPrice';
+import SNS from './components/SNS';
 
 const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
+    const { walletConnectAccount } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
+
+    const intl = useIntl();
 
     const {
         MintContract
@@ -32,7 +37,14 @@ const Astro: React.FC = () => {
         if (MintContract && metaMaskAccount && metaMaskAccount !== '') {
             getSalesTime();
         }
-    }, [MintContract, metaMaskAccount]);
+        if (MintContract && walletConnectAccount && walletConnectAccount !== '') {
+            getSalesTime();
+        }
+    }, [MintContract, metaMaskAccount, walletConnectAccount]);
+
+    const sloganTopArr = 'LINK YOUR SOUL'.split('');
+    const sloganBottomArr = 'INTO METAVERSE'.split('');
+    const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
     return (
         <>
@@ -40,16 +52,59 @@ const Astro: React.FC = () => {
                 <Background />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        <div className={style.title}>
-                            ASTRO MINT
+                        <div className={style.slogan}>
+                            <p className={style.sloganTop}>
+                                {sloganTopArr.map((char, index) => (
+                                    <span
+                                        // className={style.isAnimation}
+                                        key={char}
+                                        style={{
+                                            animationDelay: `${Math.random() * (index + 1)}s`,
+                                        }}
+                                    >
+                                        {char}
+                                    </span>
+                                ))}
+                            </p>
+                            <p className={style.sloganBottom}>
+                                {sloganBottomArr.map((char, index) => (
+                                    <span
+                                        // className={style.isAnimation}
+                                        key={char}
+                                        style={{
+                                            animationDelay: `${Math.random() * (index + 1)}s`,
+                                        }}
+                                    >
+                                        {char}
+                                    </span>
+                                ))}
+                            </p>
+                            <p className={style.copy}>
+                                {sloganCopyArr.map((char, index) => (
+                                    <span
+                                        // className={style.isAnimation}
+                                        key={char}
+                                        style={{
+                                            animationDelay: `${Math.random() * (index + 1)}s`,
+                                        }}
+                                    >
+                                        {char}
+                                    </span>
+                                ))}
+                            </p>
                         </div>
-                        {GEN === 1 && (
-                            <GetChart />
+                        {metaMaskAccount || walletConnectAccount && (
+                            <>
+                                {GEN === 1 && (
+                                    <GetChart />
+                                )}
+                                {GEN === 2 && (
+                                    <BreedFrom />
+                                )}
+                                <BreedPrice />
+                            </>
                         )}
-                        {GEN === 2 && (
-                            <BreedFrom />
-                        )}
-                        <BreedPrice />
+                        <SNS />
                     </div>
                     <Intro />
                     <Feature />

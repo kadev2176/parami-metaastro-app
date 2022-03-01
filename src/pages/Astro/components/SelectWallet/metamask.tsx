@@ -51,20 +51,12 @@ export const MetaMask: React.FC<{
         metaMaskConnect,
     } = useModel("metaMask");
 
+    const intl = useIntl();
+
     return (
         <>
-            <Button
-                size='large'
-                shape='round'
-                type='primary'
+            <div
                 className={style.button}
-                icon={
-                    <Image
-                        src='/images/sns/metamask_circle.svg'
-                        className={style.appIcon}
-                        preview={false}
-                    />
-                }
                 onClick={async () => {
                     setWaitingModal(true);
                     setWalletType('Metamask');
@@ -72,8 +64,19 @@ export const MetaMask: React.FC<{
                     setWaitingModal(false);
                 }}
             >
-                MetaMask
-            </Button>
+                <Image
+                    src='/images/sns/metamask_circle.svg'
+                    className={style.appIcon}
+                    preview={false}
+                />
+                <div className={style.appName}>MetaMask</div>
+                <div className={style.appDesc}>
+                    {intl.formatMessage({
+                        id: 'astro.metamask.desc',
+                        defaultMessage: 'Connect to your MetaMask Wallet',
+                    })}
+                </div>
+            </div>
         </>
     )
 }
