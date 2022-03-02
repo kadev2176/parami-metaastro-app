@@ -46,7 +46,8 @@ export const WalletConnectModal: React.FC = () => {
 export const WalletConnect: React.FC<{
     setWaitingModal: React.Dispatch<React.SetStateAction<boolean>>;
     setWalletType: (value: React.SetStateAction<string>) => void;
-}> = ({ setWalletType }) => {
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setWalletType, setModal }) => {
     const {
         walletConnect,
     } = useModel("walletconnect");
@@ -61,6 +62,7 @@ export const WalletConnect: React.FC<{
                     // setWaitingModal(true);
                     setWalletType('WalletConnect');
                     await walletConnect();
+                    setModal(false);
                     // setWaitingModal(false);
                 }}
             >

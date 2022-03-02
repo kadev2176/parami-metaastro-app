@@ -5,7 +5,9 @@ import WalletConnect, { WalletConnectModal } from './walletconnect';
 import style from './style.less';
 import { Divider } from 'antd';
 
-const SelectWallet: React.FC = () => {
+const SelectWallet: React.FC<{
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setModal }) => {
     const [waitingModal, setWaitingModal] = useState<boolean>(false);
     const [walletType, setWalletType] = useState<string>('');
 
@@ -16,6 +18,7 @@ const SelectWallet: React.FC = () => {
                     <MetaMask
                         setWaitingModal={setWaitingModal}
                         setWalletType={setWalletType}
+                        setModal={setModal}
                     />
                 </div>
                 <Divider />
@@ -23,6 +26,7 @@ const SelectWallet: React.FC = () => {
                     <WalletConnect
                         setWaitingModal={setWaitingModal}
                         setWalletType={setWalletType}
+                        setModal={setModal}
                     />
                 </div>
             </div>

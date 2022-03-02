@@ -1,12 +1,14 @@
 import SelectWallet from '@/pages/Astro/components/SelectWallet/selectWallet';
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import { useIntl } from 'umi';
+import { useIntl, useModel } from 'umi';
 import BigModal from '../ParamiModal/BigModal';
 import style from './style.less';
 
 const Header: React.FC = () => {
-    const [modal, setModal] = useState<boolean>(true);
+    const { metaMaskAccount } = useModel('metaMask');
+    const { walletConnectAccount } = useModel('walletconnect');
+    const [modal, setModal] = useState<boolean>(false);
 
     const intl = useIntl();
 
@@ -21,26 +23,33 @@ const Header: React.FC = () => {
                     <span>MetaAstro</span>
                 </div>
                 <div className={style.connectWallet}>
-                    <Button
-                        type='primary'
-                        size='large'
-                        shape='round'
-                        className={style.connectWalletBtn}
-                        onClick={() => {
-                            setModal(true);
-                        }}
-                    >
-                        {intl.formatMessage({
-                            id: 'header.connectWallet',
-                            defaultMessage: 'Connect Wallet',
-                        })}
-                    </Button>
+                    {metaMaskAccount || walletConnectAccount ? (
+                        <span className={style.account}>
+                            {metaMaskAccount || walletConnectAccount}
+                        </span>
+                    ) : (
+                        <Button
+                            type='primary'
+                            size='large'
+                            shape='round'
+                            className={style.connectWalletBtn}
+                            onClick={() => {
+                                setModal(true);
+                            }}
+                        >
+                            {intl.formatMessage({
+                                id: 'header.connectWallet',
+                                defaultMessage: 'Connect Wallet',
+                            })}
+                        </Button>
+                    )}
                 </div>
             </div>
             <BigModal
                 visable={modal}
-                content={<SelectWallet />}
+                content={<SelectWallet setModal={setModal} />}
                 footer={false}
+                close={() => { setModal(false) }}
             />
         </>
     );

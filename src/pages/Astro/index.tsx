@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useIntl } from 'umi';
 import styles from '@/style/common.less';
 import style from './style.less';
 import Background from './components/Background';
@@ -16,8 +15,6 @@ const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
     const { walletConnectAccount } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
-
-    const intl = useIntl();
 
     const {
         MintContract
@@ -52,48 +49,7 @@ const Astro: React.FC = () => {
                 <Background />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        <div className={style.slogan}>
-                            <p className={style.sloganTop}>
-                                {sloganTopArr.map((char, index) => (
-                                    <span
-                                        // className={style.isAnimation}
-                                        key={char}
-                                        style={{
-                                            animationDelay: `${Math.random() * (index + 1)}s`,
-                                        }}
-                                    >
-                                        {char}
-                                    </span>
-                                ))}
-                            </p>
-                            <p className={style.sloganBottom}>
-                                {sloganBottomArr.map((char, index) => (
-                                    <span
-                                        // className={style.isAnimation}
-                                        key={char}
-                                        style={{
-                                            animationDelay: `${Math.random() * (index + 1)}s`,
-                                        }}
-                                    >
-                                        {char}
-                                    </span>
-                                ))}
-                            </p>
-                            <p className={style.copy}>
-                                {sloganCopyArr.map((char, index) => (
-                                    <span
-                                        // className={style.isAnimation}
-                                        key={char}
-                                        style={{
-                                            animationDelay: `${Math.random() * (index + 1)}s`,
-                                        }}
-                                    >
-                                        {char}
-                                    </span>
-                                ))}
-                            </p>
-                        </div>
-                        {metaMaskAccount || walletConnectAccount && (
+                        {(metaMaskAccount || walletConnectAccount) ? (
                             <>
                                 {GEN === 1 && (
                                     <GetChart />
@@ -103,6 +59,48 @@ const Astro: React.FC = () => {
                                 )}
                                 <BreedPrice />
                             </>
+                        ) : (
+                            <div className={style.slogan}>
+                                <p className={style.sloganTop}>
+                                    {sloganTopArr.map((char, index) => (
+                                        <span
+                                            // className={style.isAnimation}
+                                            key={char}
+                                            style={{
+                                                animationDelay: `${Math.random() * (index + 1)}s`,
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </p>
+                                <p className={style.sloganBottom}>
+                                    {sloganBottomArr.map((char, index) => (
+                                        <span
+                                            // className={style.isAnimation}
+                                            key={char}
+                                            style={{
+                                                animationDelay: `${Math.random() * (index + 1)}s`,
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </p>
+                                <p className={style.copy}>
+                                    {sloganCopyArr.map((char, index) => (
+                                        <span
+                                            // className={style.isAnimation}
+                                            key={char}
+                                            style={{
+                                                animationDelay: `${Math.random() * (index + 1)}s`,
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </p>
+                            </div>
                         )}
                         <SNS />
                     </div>

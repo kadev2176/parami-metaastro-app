@@ -46,7 +46,8 @@ export const MetamaskModal: React.FC = () => {
 export const MetaMask: React.FC<{
     setWaitingModal: React.Dispatch<React.SetStateAction<boolean>>;
     setWalletType: (value: React.SetStateAction<string>) => void;
-}> = ({ setWaitingModal, setWalletType }) => {
+    setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setWaitingModal, setWalletType, setModal }) => {
     const {
         metaMaskConnect,
     } = useModel("metaMask");
@@ -62,6 +63,7 @@ export const MetaMask: React.FC<{
                     setWalletType('Metamask');
                     await metaMaskConnect();
                     setWaitingModal(false);
+                    setModal(false);
                 }}
             >
                 <Image
