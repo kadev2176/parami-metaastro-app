@@ -41,7 +41,7 @@ const BreedFrom: React.FC = () => {
         if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet and rinkeby',
+                description: 'This feature is only supported on mainnet',
                 duration: null
             });
             return;
@@ -52,7 +52,7 @@ const BreedFrom: React.FC = () => {
         if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet and rinkeby',
+                description: 'This feature is only supported on mainnet',
                 duration: null
             });
             return;

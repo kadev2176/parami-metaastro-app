@@ -4,7 +4,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { useEffect } from 'react';
 import style from './style.less';
 
-const Background: React.FC = () => {
+const Background: React.FC<{
+    cameraXYZ?: number;
+}> = ({ cameraXYZ }) => {
     useEffect(() => {
         const textureLoader = new THREE.TextureLoader();
         const shape = textureLoader.load('/particleShape/1.png');
@@ -126,9 +128,9 @@ const Background: React.FC = () => {
 
         // Camera
         const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-        camera.position.x = 3;
-        camera.position.y = 3;
-        camera.position.z = 3;
+        camera.position.x = cameraXYZ || 3;
+        camera.position.y = cameraXYZ || 3;
+        camera.position.z = cameraXYZ || 3;
         scene.add(camera);
 
         // Controls

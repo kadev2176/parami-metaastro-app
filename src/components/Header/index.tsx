@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useIntl, useModel } from 'umi';
 import BigModal from '../ParamiModal/BigModal';
 import style from './style.less';
+import { FaWallet } from 'react-icons/fa';
 
 const Header: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -24,15 +25,22 @@ const Header: React.FC = () => {
                 </div>
                 <div className={style.connectWallet}>
                     {metaMaskAccount || walletConnectAccount ? (
-                        <span className={style.account}>
-                            {metaMaskAccount || walletConnectAccount}
-                        </span>
+                        <Button
+                            type='primary'
+                            size='large'
+                            shape='round'
+                            className={style.connectWalletBtn}
+                            icon={<FaWallet className={style.icon} />}
+                        >
+                            {`${metaMaskAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}` || `${walletConnectAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}`}
+                        </Button>
                     ) : (
                         <Button
                             type='primary'
                             size='large'
                             shape='round'
                             className={style.connectWalletBtn}
+                            icon={<FaWallet className={style.icon} />}
                             onClick={() => {
                                 setModal(true);
                             }}

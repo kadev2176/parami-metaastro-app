@@ -11,7 +11,9 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses } from '../../config';
 import { errorParse } from '@/utils/common';
 
-const GetChart: React.FC = () => {
+const GetChart: React.FC<{
+    setCameraXYZ: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ setCameraXYZ }) => {
     const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
     const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [suggestList, setSuggestList] = useState<boolean>(false);
@@ -40,7 +42,7 @@ const GetChart: React.FC = () => {
         if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet and rinkeby',
+                description: 'This feature is only supported on mainnet',
                 duration: null
             });
             return;
@@ -51,7 +53,7 @@ const GetChart: React.FC = () => {
         if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet and rinkeby',
+                description: 'This feature is only supported on mainnet',
                 duration: null
             });
             return;
@@ -122,6 +124,7 @@ const GetChart: React.FC = () => {
                     setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
+                    setCameraXYZ(1);
                     setModal(true);
                 };
             }, 3000);
@@ -254,6 +257,22 @@ const GetChart: React.FC = () => {
                                     {intl.formatMessage({
                                         id: 'astro.getURChart',
                                         defaultMessage: 'Get UR Chart',
+                                    })}
+                                </Button>
+                            )}
+                            {astroSVG && (
+                                <Button
+                                    size='large'
+                                    shape='round'
+                                    type='primary'
+                                    className={style.button}
+                                    onClick={() => {
+                                        setModal(true);
+                                    }}
+                                >
+                                    {intl.formatMessage({
+                                        id: 'astro.viewMyChart',
+                                        defaultMessage: 'View My Chart',
                                     })}
                                 </Button>
                             )}

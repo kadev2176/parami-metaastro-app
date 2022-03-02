@@ -32,23 +32,39 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        max-width: 185px;
         overflow: hidden;
         text-overflow: ellipsis;
 
         .connectWalletBtn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            .icon {
+                margin-right: 10px;
+                margin-top: -3px;
+            }
+
             span {
                 font-weight: 900;
                 font-size: 1rem;
             }
         }
-        
-        .account {
+
+        .rightInfo {
             color: #fff;
-            text-align: left;
-            overflow:hidden;
-            white-space:nowrap;
-            text-overflow:ellipsis;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+
+            .account {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
         }
     }
 }

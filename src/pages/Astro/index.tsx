@@ -15,6 +15,7 @@ const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
     const { walletConnectAccount } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
+    const [cameraXYZ, setCameraXYZ] = useState<number>(3);
 
     const {
         MintContract
@@ -46,13 +47,13 @@ const Astro: React.FC = () => {
     return (
         <>
             <div className={styles.mainContainer}>
-                <Background />
+                <Background cameraXYZ={cameraXYZ} />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
                         {(metaMaskAccount || walletConnectAccount) ? (
                             <>
                                 {GEN === 1 && (
-                                    <GetChart />
+                                    <GetChart setCameraXYZ={setCameraXYZ} />
                                 )}
                                 {GEN === 2 && (
                                     <BreedFrom />
@@ -64,7 +65,6 @@ const Astro: React.FC = () => {
                                 <p className={style.sloganTop}>
                                     {sloganTopArr.map((char, index) => (
                                         <span
-                                            // className={style.isAnimation}
                                             key={char}
                                             style={{
                                                 animationDelay: `${Math.random() * (index + 1)}s`,
@@ -77,7 +77,6 @@ const Astro: React.FC = () => {
                                 <p className={style.sloganBottom}>
                                     {sloganBottomArr.map((char, index) => (
                                         <span
-                                            // className={style.isAnimation}
                                             key={char}
                                             style={{
                                                 animationDelay: `${Math.random() * (index + 1)}s`,
@@ -90,7 +89,6 @@ const Astro: React.FC = () => {
                                 <p className={style.copy}>
                                     {sloganCopyArr.map((char, index) => (
                                         <span
-                                            // className={style.isAnimation}
                                             key={char}
                                             style={{
                                                 animationDelay: `${Math.random() * (index + 1)}s`,

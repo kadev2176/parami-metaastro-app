@@ -22,10 +22,10 @@ export default () => {
     }
 
     useEffect(() => {
-        setChainName(ethNet[chainId]);
         provider?.on('block', (blockNo: number) => {
-            setBlockNumber(blockNo)
+            setBlockNumber(blockNo);
         });
+        setChainName(ethNet[chainId]);
         return () => {
             provider?.removeAllListeners();
         };
@@ -48,15 +48,15 @@ export default () => {
             setAccount(accounts[0]);
             const newSigner = ethersProvider.getSigner();
             setSigner(newSigner);
-            let initChainId = await newSigner.getChainId();
-            if (initChainId !== 4) {
-                //TODO: add some condition to switch chainId
-                await (window as any).ethereum.request({
-                    method: 'wallet_switchEthereumChain',
-                    params: [{ chainId: '0x04' }], // chainId must be in hexadecimal numbers
-                });
-                initChainId = await newSigner.getChainId();
-            }
+            const initChainId = await newSigner.getChainId();
+            // if (initChainId !== 4) {
+            //     //TODO: add some condition to switch chainId
+            //     await (window as any).ethereum.request({
+            //         method: 'wallet_switchEthereumChain',
+            //         params: [{ chainId: '0x04' }], // chainId must be in hexadecimal numbers
+            //     });
+            //     initChainId = await newSigner.getChainId();
+            // }
             setChainId(initChainId);
             (window as any).ethereum.on('chainChanged', (newChainId: string) => {
                 setChainId(parseInt(newChainId));
