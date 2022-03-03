@@ -11,7 +11,9 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses } from '../../config';
 import { errorParse } from '@/utils/common';
 
-const BreedFrom: React.FC = () => {
+const BreedFrom: React.FC<{
+    setCameraXYZ: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ setCameraXYZ }) => {
     const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
     const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [suggestList, setSuggestList] = useState<boolean>(false);
@@ -116,6 +118,7 @@ const BreedFrom: React.FC = () => {
                     setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
+                    setCameraXYZ(1);
                     setModal(true);
                 };
             }, 3000);

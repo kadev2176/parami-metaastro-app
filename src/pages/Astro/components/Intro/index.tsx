@@ -1,7 +1,5 @@
-import { Col, Row } from 'antd';
 import React from 'react';
 import { useIntl } from 'umi';
-import { FcGlobe, FcSalesPerformance, FcElectronics, FcLightAtTheEndOfTunnel } from 'react-icons/fc';
 import styles from '../../style.less';
 import style from './style.less';
 
@@ -14,64 +12,25 @@ const Intro: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'intro.title',
-                        defaultMessage: 'About Meta Astro',
+                        defaultMessage: 'A MetaAstro Journey Begins',
                     })}
                 </div>
                 <div className={style.content}>
                     {intl.formatMessage({
                         id: 'intro.content',
-                        defaultMessage: 'Meta Astro, powered by Parami Protocol, is an Astro chart that indicates your Para Meta Identity in metaverse. It snapshots the location of the major planets at your birth time. When a Meta Astro is generated, your journey in parallel metaverses begins.',
+                        defaultMessage: 'Take a snapshot of the sky at your birth time and that’s how the universe leaves a mark on you. Using this data, MetaAstro indicates individual characteristics that can be used to predict one’s future using web3 technology. Information is generated from a MetaAstro storing it forever on the blockchain providing continuous usability for many Metaverse scenarios. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
                     })}
                 </div>
-                <Row
-                    gutter={16}
-                    className={style.icons}
-                >
-                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <div className={style.iconItem}>
-                            <FcGlobe />
-                            <span className={style.iconItemText}>
-                                {intl.formatMessage({
-                                    id: 'intro.icon.naturalLanguage',
-                                    defaultMessage: 'Natural Language'
-                                })}
-                            </span>
+                <div className={style.sections}>
+                    <div className={`${style.section} ${style.sectionLeft}`}>
+                        <div className={style.title}>
+                            {intl.formatMessage({
+                                id: 'intro.section1.title',
+                                defaultMessage: 'Sun / Asc / Moon',
+                            })}
                         </div>
-                    </Col>
-                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <div className={style.iconItem}>
-                            <FcSalesPerformance />
-                            <span className={style.iconItemText}>
-                                {intl.formatMessage({
-                                    id: 'intro.icon.assets',
-                                    defaultMessage: 'Assets'
-                                })}
-                            </span>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <div className={style.iconItem}>
-                            <FcElectronics />
-                            <span className={style.iconItemText}>
-                                {intl.formatMessage({
-                                    id: 'intro.icon.intelligence',
-                                    defaultMessage: 'Intelligence'
-                                })}
-                            </span>
-                        </div>
-                    </Col>
-                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <div className={style.iconItem}>
-                            <FcLightAtTheEndOfTunnel />
-                            <span className={style.iconItemText}>
-                                {intl.formatMessage({
-                                    id: 'intro.icon.future',
-                                    defaultMessage: 'Future'
-                                })}
-                            </span>
-                        </div>
-                    </Col>
-                </Row>
+                    </div>
+                </div>
             </div>
         </div>
     )

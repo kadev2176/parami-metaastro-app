@@ -9,6 +9,7 @@ import Intro from './components/Intro';
 import Better from './components/Better';
 import Feature from './components/Feature';
 import SNS from './components/SNS';
+import { Button } from 'antd';
 
 const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -29,7 +30,9 @@ const Astro: React.FC = () => {
             setGEN(2);
         }
     }
+    const animation = async () => {
 
+    }
     useEffect(() => {
         if (MintContract && metaMaskAccount && metaMaskAccount !== '') {
             getSalesTime();
@@ -46,16 +49,25 @@ const Astro: React.FC = () => {
     return (
         <>
             <div className={styles.mainContainer}>
-                <Background cameraXYZ={cameraXYZ} />
+                <Background />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
+                        <Button
+                            onClick={() => {
+                                animation();
+                            }}
+                        >
+                            Test
+                        </Button>
                         {(metaMaskAccount || walletConnectAccount) ? (
                             <>
                                 {GEN === 1 && (
-                                    <GetChart setCameraXYZ={setCameraXYZ} />
+                                    <GetChart
+                                        setCameraXYZ={setCameraXYZ}
+                                    />
                                 )}
                                 {GEN === 2 && (
-                                    <BreedFrom />
+                                    <BreedFrom setCameraXYZ={setCameraXYZ} />
                                 )}
                             </>
                         ) : (
