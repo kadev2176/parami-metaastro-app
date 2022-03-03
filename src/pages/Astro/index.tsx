@@ -6,10 +6,9 @@ import GetChart from './components/GetChart';
 import { useModel } from 'umi';
 import BreedFrom from './components/BreedFrom';
 import Intro from './components/Intro';
-import Better from './components/Better';
-import Feature from './components/Feature';
+import Profit from './components/Profit';
+import Connect from './components/Connect';
 import SNS from './components/SNS';
-import { Button } from 'antd';
 
 const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -49,22 +48,17 @@ const Astro: React.FC = () => {
                 <Background pullup={pullup} />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        <Button
-                            onClick={() => {
-                                setPullup(true);
-                            }}
-                        >
-                            Test
-                        </Button>
                         {(metaMaskAccount || walletConnectAccount) ? (
                             <>
                                 {GEN === 1 && (
                                     <GetChart
-                                        setCameraXYZ={setPullup}
+                                        setPullup={setPullup}
                                     />
                                 )}
                                 {GEN === 2 && (
-                                    <BreedFrom setCameraXYZ={setPullup} />
+                                    <BreedFrom
+                                        setPullup={setPullup}
+                                    />
                                 )}
                             </>
                         ) : (
@@ -110,8 +104,8 @@ const Astro: React.FC = () => {
                         <SNS />
                     </div>
                     <Intro />
-                    <Feature />
-                    <Better />
+                    <Connect />
+                    <Profit />
                 </div>
             </div>
         </>

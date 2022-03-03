@@ -29,6 +29,26 @@ const Intro: React.FC = () => {
                                 defaultMessage: 'Sun / Asc / Moon',
                             })}
                         </div>
+                        <div className={style.content}>
+                            {intl.formatMessage({
+                                id: 'intro.section1.content',
+                                defaultMessage: 'Locate yourself in a metaverse, inside and outside',
+                            })}
+                        </div>
+                    </div>
+                    <div className={`${style.section} ${style.sectionRight}`}>
+                        <div className={style.title}>
+                            {intl.formatMessage({
+                                id: 'intro.section2.title',
+                                defaultMessage: 'South Node / North Node',
+                            })}
+                        </div>
+                        <div className={style.content}>
+                            {intl.formatMessage({
+                                id: 'intro.section2.content',
+                                defaultMessage: 'Where you came from and seek for as a meta soul',
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -4,13 +4,86 @@ import { useIntl } from 'umi';
 import styles from '../../style.less';
 import style from './style.less';
 
-const Better: React.FC = () => {
+const Connect: React.FC = () => {
     const intl = useIntl();
 
     return (
         <div className={style.featureContainer}>
             <div className={styles.contentContainer}>
+                <div className={style.title}>
+                    {intl.formatMessage({
+                        id: 'connect.title',
+                        defaultMessage: 'Connect to complete',
+                    })}
+                </div>
+                <div className={style.content}>
+                    {intl.formatMessage({
+                        id: 'connect.content',
+                        defaultMessage: 'There are people you are meant to meet in the metaverse if you let the MetaAstros be the matchmaker. Initially, the MetaAstro will be available in limited quantities, and the content of the chart will be permanently stored on the blockchain (native to the blockchain, not dependent on third-party storage such as IPFS). Build up connections where metaverse guides you.',
+                    })}
+                </div>
+                <div className={style.sections}>
+                    <div className={`${style.section} ${style.sectionLeft}`}>
+                        <div className={style.title}>
+                            {intl.formatMessage({
+                                id: 'connect.section1.title',
+                                defaultMessage: '7th House',
+                            })}
+                        </div>
+                        <div className={style.content}>
+                            {intl.formatMessage({
+                                id: 'connect.section1.content',
+                                defaultMessage: 'Partners, long term relationships, fair and exclusive',
+                            })}
+                        </div>
+                    </div>
+                    <div className={`${style.section} ${style.sectionRight}`}>
+                        <div className={style.title}>
+                            {intl.formatMessage({
+                                id: 'connect.section2.title',
+                                defaultMessage: '5th House',
+                            })}
+                        </div>
+                        <div className={style.content}>
+                            {intl.formatMessage({
+                                id: 'connect.section2.content',
+                                defaultMessage: 'Romance, fun relationships, gambling buddies',
+                            })}
+                        </div>
+                    </div>
+                </div>
                 <div className={style.flexContainer}>
+                    <div className={style.flexItem}>
+                        <div className={style.card}>
+                            <div className={style.cardTitle}>
+                                {intl.formatMessage({
+                                    id: 'astro.feature.card.title',
+                                    defaultMessage: 'Sun in Scorpio',
+                                })}
+                            </div>
+                            <small>28°15’3” TWELFTH HOUSE</small>
+                            <p>
+                                {intl.formatMessage({
+                                    id: 'astro.feature.card.content',
+                                    defaultMessage: 'The sun determines your ego, identity, and "role" in life. It\'s the core of who you are, and is the sign you\'re most likely already know. Your is in Scorpio, meaning you have a fundamental urge to get to the bottom of things, which can at times lead you to be manipulative or power-hungry, but it comes down to an intense passion for authenticity, real intimacy, and the truth. It rules your fifth house, meaning you feel the need to  distinguish yourself from others through romance, self-expression, creativity, and pleasure.'
+                                })}
+                            </p>
+                        </div>
+                        <div className={style.personalizedCard}>
+                            <div className={style.personalizedCardTitle}>
+                                {intl.formatMessage({
+                                    id: 'astro.feature.personalizedCard.title',
+                                    defaultMessage: 'Hyper-personalized astrology',
+                                })}
+                            </div>
+                            <p>
+                                {intl.formatMessage({
+                                    id: 'astro.feature.personalizedCard.content',
+                                    defaultMessage: 'Unlike the broad and vague horoscopes you usually read in magazines, we take more than just your sun sign into account. We use a complete picture of the sky when and where you were born to generate hyper-personalized horoscopes.'
+                                })}
+                            </p>
+                        </div>
+                    </div>
                     <div className={style.astroList}>
                         <div className={style.astroListItem}>
                             <div className={style.info}>
@@ -163,62 +236,10 @@ const Better: React.FC = () => {
                             <div className={style.arrow}><ArrowRightOutlined /></div>
                         </div>
                     </div>
-                    <div className={style.intro}>
-                        <div className={style.introItem}>
-                            <span>☽</span>
-                            MOODS &amp; EMOTIONS
-                        </div>
-                        <div className={style.introItem}>
-                            <span>☿</span>
-                            INTELLECT &amp; COMMUNICATION
-                        </div>
-                        <div className={style.introItem}>
-                            <span>♀</span>
-                            LOVE &amp; PLEASURE
-                        </div>
-                        <div className={style.introItem}>
-                            <span>♅</span>
-                            IMAGINATION
-                        </div>
-                        <div className={style.introItem}>
-                            <span>☉</span>
-                            BASIC IDENTITIES
-                        </div>
-                        <div className={style.introItem}>
-                            <span>↑</span>
-                            FIRST IMPRESSIONS
-                        </div>
-                        <div className={style.introItem}>
-                            <span>♂</span>
-                            SEX &amp; AGGRESSION
-                        </div>
-                        <div className={style.introItem}>
-                            <span>♄</span>
-                            SENSES OF RESPONSIBILITIY
-                        </div>
-                        <div className={style.introItem}>
-                            <span>♃</span>
-                            PHILOSOPHIES OF LIFE
-                        </div>
-                        <div className={style.togetherCard}>
-                            <div className={style.togetherCardTitle}>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.togetherCard.title',
-                                    defaultMessage: 'Better together',
-                                })}
-                            </div>
-                            <p>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.togetherCard.content',
-                                    defaultMessage: 'Keep track of your friends, see what\'s up with them astrologically if they’re having a bad day, and, of course, see whether you’re fated to fall in love.'
-                                })}
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     )
 }
 
-export default Better;
+export default Connect;

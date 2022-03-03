@@ -12,8 +12,8 @@ import { contractAddresses } from '../../config';
 import { errorParse } from '@/utils/common';
 
 const GetChart: React.FC<{
-    setCameraXYZ: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setCameraXYZ }) => {
+    setPullup: (value: React.SetStateAction<boolean>) => void;
+}> = ({ setPullup }) => {
     const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
     const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [suggestList, setSuggestList] = useState<boolean>(false);
@@ -97,6 +97,7 @@ const GetChart: React.FC<{
 
     const handleSubmit = async () => {
         setLoading(true);
+        setPullup(true);
         try {
             const tx = await MintContract?.initialMint(
                 ethers.utils.getAddress(metaMaskAccount || walletConnectAccount),
@@ -124,7 +125,6 @@ const GetChart: React.FC<{
                     setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
-                    setCameraXYZ(1);
                     setModal(true);
                 };
             }, 3000);
@@ -134,6 +134,7 @@ const GetChart: React.FC<{
             const error = errorParse(e.message).body?.message;
             message.error(error);
             setLoading(false);
+            setPullup(false);
         }
     };
 
