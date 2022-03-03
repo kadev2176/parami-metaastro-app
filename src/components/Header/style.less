@@ -1,4 +1,5 @@
 .headerContainer {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -32,7 +33,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        overflow: hidden;
         text-overflow: ellipsis;
 
         .connectWalletBtn {
@@ -40,6 +40,7 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
+            z-index: 2;
 
             .icon {
                 margin-right: 10px;
@@ -66,6 +67,46 @@
                 text-overflow: ellipsis;
             }
         }
+
+        .menuButton {
+            position: relative;
+
+            .headerMenu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 50px;
+                height: 220px;
+                background-color: #fff;
+                width: 100%;
+                z-index: 1;
+                border-radius: 20px;
+                overflow: hidden;
+                transition: all .3s;
+
+                .menuItem {
+                    text-align: left;
+                    width: 100%;
+                    cursor: pointer;
+                    text-transform: uppercase;
+                    font-size: 0.6rem;
+                    font-weight: 900;
+                    transition: all .3s;
+                    padding-left: 20px;
+                    padding-right: 20px;
+
+                    &:not(:last-child) {
+                        border-bottom: 1px solid #e6e6e6;
+                    }
+
+                    .icon {
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -87,9 +128,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        max-width: 185px;
-        overflow: hidden;
-        text-overflow: ellipsis;
 
         .connectWalletBtn {
             span {

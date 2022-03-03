@@ -8,7 +8,6 @@ import BreedFrom from './components/BreedFrom';
 import Intro from './components/Intro';
 import Better from './components/Better';
 import Feature from './components/Feature';
-import BreedPrice from './components/BreedPrice';
 import SNS from './components/SNS';
 
 const Astro: React.FC = () => {
@@ -58,7 +57,6 @@ const Astro: React.FC = () => {
                                 {GEN === 2 && (
                                     <BreedFrom />
                                 )}
-                                <BreedPrice />
                             </>
                         ) : (
                             <div className={style.slogan}>

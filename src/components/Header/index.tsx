@@ -5,11 +5,15 @@ import { useIntl, useModel } from 'umi';
 import BigModal from '../ParamiModal/BigModal';
 import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
+import { EyeFilled, LogoutOutlined, TagsFilled } from '@ant-design/icons';
+import BreedPrice from '@/pages/Astro/components/BreedPrice';
 
 const Header: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
     const { walletConnectAccount } = useModel('walletconnect');
     const [modal, setModal] = useState<boolean>(false);
+    const [menu, setMenu] = useState<boolean>(false);
+    const [breedPriceModal, setBreedPriceModal] = useState<boolean>(false);
 
     const intl = useIntl();
 
@@ -25,15 +29,63 @@ const Header: React.FC = () => {
                 </div>
                 <div className={style.connectWallet}>
                     {metaMaskAccount || walletConnectAccount ? (
-                        <Button
-                            type='primary'
-                            size='large'
-                            shape='round'
-                            className={style.connectWalletBtn}
-                            icon={<FaWallet className={style.icon} />}
-                        >
-                            {`${metaMaskAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}` || `${walletConnectAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}`}
-                        </Button>
+                        <div className={style.menuButton}>
+                            <Button
+                                type='primary'
+                                size='large'
+                                shape='round'
+                                className={style.connectWalletBtn}
+                                icon={<FaWallet className={style.icon} />}
+                                onClick={() => {
+                                    setMenu(!menu);
+                                }}
+                            >
+                                {`${metaMaskAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}` || `${walletConnectAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}`}
+                            </Button>
+                            <div
+                                className={style.headerMenu}
+                                style={{
+                                    height: menu ? '220px' : '0',
+                                }}
+                            >
+                                <div
+                                    className={style.menuItem}
+                                    onClick={() => {
+                                        setBreedPriceModal(true);
+                                    }}
+                                >
+                                    <TagsFilled className={style.icon} />
+                                    {intl.formatMessage({
+                                        id: 'header.menu.breedPrice',
+                                        defaultMessage: 'Breed Price',
+                                    })}
+                                </div>
+                                <div
+                                    className={style.menuItem}
+                                    onClick={() => {
+                                        window.open(`https://testnets.opensea.io/${metaMaskAccount || walletConnectAccount}`, '_blank');
+                                    }}
+                                >
+                                    <EyeFilled className={style.icon} />
+                                    {intl.formatMessage({
+                                        id: 'header.menu.onOpensea',
+                                        defaultMessage: 'On Opensea',
+                                    })}
+                                </div>
+                                <div
+                                    className={style.menuItem}
+                                    onClick={() => {
+                                        window.location.reload();
+                                    }}
+                                >
+                                    <LogoutOutlined className={style.icon} />
+                                    {intl.formatMessage({
+                                        id: 'header.menu.logout',
+                                        defaultMessage: 'Logout',
+                                    })}
+                                </div>
+                            </div>
+                        </div>
                     ) : (
                         <Button
                             type='primary'
@@ -58,6 +110,10 @@ const Header: React.FC = () => {
                 content={<SelectWallet setModal={setModal} />}
                 footer={false}
                 close={() => { setModal(false) }}
+            />
+            <BreedPrice
+                setBreedPriceModal={setBreedPriceModal}
+                breedPriceModal={breedPriceModal}
             />
         </>
     );
