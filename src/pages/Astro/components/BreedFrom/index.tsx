@@ -12,7 +12,7 @@ import { contractAddresses } from '../../config';
 import { errorParse } from '@/utils/common';
 
 const BreedFrom: React.FC<{
-    setCameraXYZ: React.Dispatch<React.SetStateAction<number>>;
+    setCameraXYZ: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setCameraXYZ }) => {
     const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
     const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');

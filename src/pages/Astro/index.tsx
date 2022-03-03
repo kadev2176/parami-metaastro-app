@@ -15,7 +15,7 @@ const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
     const { walletConnectAccount } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
-    const [cameraXYZ, setCameraXYZ] = useState<number>(3);
+    const [pullup, setPullup] = useState<boolean>(false);
 
     const {
         MintContract
@@ -29,9 +29,6 @@ const Astro: React.FC = () => {
         } else {
             setGEN(2);
         }
-    }
-    const animation = async () => {
-
     }
     useEffect(() => {
         if (MintContract && metaMaskAccount && metaMaskAccount !== '') {
@@ -49,12 +46,12 @@ const Astro: React.FC = () => {
     return (
         <>
             <div className={styles.mainContainer}>
-                <Background />
+                <Background pullup={pullup} />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
                         <Button
                             onClick={() => {
-                                animation();
+                                setPullup(true);
                             }}
                         >
                             Test
@@ -63,11 +60,11 @@ const Astro: React.FC = () => {
                             <>
                                 {GEN === 1 && (
                                     <GetChart
-                                        setCameraXYZ={setCameraXYZ}
+                                        setCameraXYZ={setPullup}
                                     />
                                 )}
                                 {GEN === 2 && (
-                                    <BreedFrom setCameraXYZ={setCameraXYZ} />
+                                    <BreedFrom setCameraXYZ={setPullup} />
                                 )}
                             </>
                         ) : (
