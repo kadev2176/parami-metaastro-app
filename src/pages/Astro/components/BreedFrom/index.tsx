@@ -8,7 +8,7 @@ import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
-import { contractAddresses } from '../../config';
+import { contractAddresses, opensea } from '../../config';
 import { errorParse } from '@/utils/common';
 
 const BreedFrom: React.FC<{
@@ -243,34 +243,36 @@ const BreedFrom: React.FC<{
                                     )
                                 })}
                             </div>
-                            {loadSVG && (
-                                <Spin
-                                    size="large"
-                                    className={style.generating}
-                                    tip={intl.formatMessage({
-                                        id: 'astro.generating',
-                                        defaultMessage: 'Generating...',
-                                    })}
-                                />
-                            )}
-                            {!loadSVG && !astroSVG && (
-                                <Button
-                                    size='large'
-                                    shape='round'
-                                    type='primary'
-                                    className={style.button}
-                                    disabled={!lat || !lng || !utcOffset || !PrimaryTokenId || !dateOfBirth.length || !timeOfBirth.length || !currentPrice}
-                                    loading={loading}
-                                    onClick={() => {
-                                        handleSubmit();
-                                    }}
-                                >
-                                    {intl.formatMessage({
-                                        id: 'astro.breedURChart',
-                                        defaultMessage: 'Breed UR Chart',
-                                    })}
-                                </Button>
-                            )}
+                            <div className={style.buttons}>
+                                {loadSVG && (
+                                    <Spin
+                                        size="large"
+                                        className={style.generating}
+                                        tip={intl.formatMessage({
+                                            id: 'astro.generating',
+                                            defaultMessage: 'Generating...',
+                                        })}
+                                    />
+                                )}
+                                {!loadSVG && !astroSVG && (
+                                    <Button
+                                        size='large'
+                                        shape='round'
+                                        type='primary'
+                                        className={style.button}
+                                        disabled={!lat || !lng || !utcOffset || !PrimaryTokenId || !dateOfBirth.length || !timeOfBirth.length || !currentPrice}
+                                        loading={loading}
+                                        onClick={() => {
+                                            handleSubmit();
+                                        }}
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'astro.breedURChart',
+                                            defaultMessage: 'Breed UR Chart',
+                                        })}
+                                    </Button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -288,7 +290,7 @@ const BreedFrom: React.FC<{
                             type='link'
                             size='large'
                             onClick={() => {
-                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.breed[4]}/${TokenId?.toString()}`, '_blank');
+                                window.open(`${opensea.url}/assets/${contractAddresses.breed[4]}/${TokenId?.toString()}`, '_blank');
                             }}
                             className={style.openSeaLink}
                         >

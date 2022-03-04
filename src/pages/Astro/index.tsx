@@ -9,6 +9,7 @@ import Intro from './components/Intro';
 import Profit from './components/Profit';
 import Connect from './components/Connect';
 import SNS from './components/SNS';
+import { Button } from 'antd';
 
 const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -29,6 +30,7 @@ const Astro: React.FC = () => {
             setGEN(2);
         }
     }
+
     useEffect(() => {
         if (!!MintContract && !!metaMaskAccount && metaMaskAccount !== '') {
             getSalesTime();

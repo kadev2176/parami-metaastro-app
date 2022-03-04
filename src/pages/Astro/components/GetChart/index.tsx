@@ -8,8 +8,9 @@ import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
-import { contractAddresses } from '../../config';
+import { contractAddresses, opensea } from '../../config';
 import { errorParse } from '@/utils/common';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const GetChart: React.FC<{
     setPullup: (value: React.SetStateAction<boolean>) => void;
@@ -31,6 +32,7 @@ const GetChart: React.FC<{
     const [TokenId, setTokenId] = useState<ethers.BigNumber>();
     const [modal, setModal] = useState<boolean>(false);
     const [AllowMonth, setAllowMonth] = useState<number[]>([]);
+    const [AvailableLoading, setAvailableLoading] = useState<boolean>(true);
 
     const intl = useIntl();
 
@@ -79,6 +81,7 @@ const GetChart: React.FC<{
             }
         }
         setAllowMonth(months);
+        setAvailableLoading(false);
     };
 
     useEffect(() => {
@@ -130,6 +133,7 @@ const GetChart: React.FC<{
             }, 3000);
 
             setLoading(false);
+            isAvailable();
         } catch (e: any) {
             const error = errorParse(e.message).body?.message;
             message.error(error);
@@ -201,18 +205,33 @@ const GetChart: React.FC<{
                                     ),
                                     ddyymm: (
                                         <>
-                                            <DatePicker
-                                                inputReadOnly
-                                                className={style.input}
-                                                allowClear={false}
-                                                suffixIcon={undefined}
-                                                picker="month"
-                                                format={['YYYY/MM/DD', 'YY/MM/DD']}
-                                                disabledDate={(date) => !AllowMonth.includes(date.month())}
-                                                onChange={(_, dateString) => {
-                                                    setDateOfBirth(dateString.split('/'));
-                                                }}
-                                            />
+                                            {AvailableLoading ? (
+                                                <Spin
+                                                    indicator={
+                                                        <LoadingOutlined
+                                                            style={{
+                                                                color: '#fff',
+                                                                marginLeft: '10px',
+                                                                marginRight: '10px',
+                                                            }}
+                                                            spin
+                                                        />
+                                                    }
+                                                />
+                                            ) : (
+                                                <DatePicker
+                                                    inputReadOnly
+                                                    className={style.input}
+                                                    allowClear={false}
+                                                    suffixIcon={undefined}
+                                                    picker="month"
+                                                    format={['YYYY/MM/DD', 'YY/MM/DD']}
+                                                    disabledDate={(date) => !AllowMonth.includes(date.month())}
+                                                    onChange={(_, dateString) => {
+                                                        setDateOfBirth(dateString.split('/'));
+                                                    }}
+                                                />
+                                            )}
                                         </>
                                     ),
                                     hhmmss: (
@@ -237,46 +256,66 @@ const GetChart: React.FC<{
                                 <Spin
                                     size="large"
                                     className={style.generating}
-                                    tip={intl.formatMessage({
-                                        id: 'astro.generating',
-                                        defaultMessage: 'Generating...',
-                                    })}
+                                    indicator={
+                                        <LoadingOutlined
+                                            style={{
+                                                color: '#fff',
+                                                marginLeft: '10px',
+                                                marginRight: '10px',
+                                            }}
+                                            spin
+                                        />
+                                    }
+                                    tip={(
+                                        <div
+                                            style={{
+                                                color: '#fff',
+                                            }}
+                                        >
+                                            {intl.formatMessage({
+                                                id: 'astro.generating',
+                                                defaultMessage: 'Generating...',
+                                            })}
+                                        </div>
+                                    )}
                                 />
                             )}
-                            {!loadSVG && !astroSVG && (
-                                <Button
-                                    size='large'
-                                    shape='round'
-                                    type='primary'
-                                    className={style.button}
-                                    disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
-                                    loading={loading}
-                                    onClick={() => {
-                                        handleSubmit();
-                                    }}
-                                >
-                                    {intl.formatMessage({
-                                        id: 'astro.getURChart',
-                                        defaultMessage: 'Get UR Chart',
-                                    })}
-                                </Button>
-                            )}
-                            {astroSVG && (
-                                <Button
-                                    size='large'
-                                    shape='round'
-                                    type='primary'
-                                    className={style.button}
-                                    onClick={() => {
-                                        setModal(true);
-                                    }}
-                                >
-                                    {intl.formatMessage({
-                                        id: 'astro.viewMyChart',
-                                        defaultMessage: 'View My Chart',
-                                    })}
-                                </Button>
-                            )}
+                            <div className={style.buttons}>
+                                {!loadSVG && (
+                                    <Button
+                                        size='large'
+                                        shape='round'
+                                        type='primary'
+                                        className={style.button}
+                                        disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
+                                        loading={loading}
+                                        onClick={() => {
+                                            handleSubmit();
+                                        }}
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'astro.getURChart',
+                                            defaultMessage: 'Get UR Chart',
+                                        })}
+                                    </Button>
+                                )}
+                                {astroSVG && (
+                                    <Button
+                                        size='large'
+                                        shape='round'
+                                        type='primary'
+                                        className={style.button}
+                                        onClick={() => {
+                                            setModal(true);
+                                        }}
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'astro.viewMyChart',
+                                            defaultMessage: 'View My Chart',
+                                        })}
+                                    </Button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,7 +335,7 @@ const GetChart: React.FC<{
                             type='link'
                             size='large'
                             onClick={() => {
-                                window.open(`https://testnets.opensea.io/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
+                                window.open(`${opensea.url}/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
                             }}
                             className={style.openSeaLink}
                         >

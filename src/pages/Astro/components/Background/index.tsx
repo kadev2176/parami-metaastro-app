@@ -10,7 +10,6 @@ const Background: React.FC<{
     const textureLoader = new THREE.TextureLoader();
     const shape = textureLoader.load('/particleShape/1.png');
 
-
     // Scene
     const scene = new THREE.Scene();
 
@@ -138,13 +137,13 @@ const Background: React.FC<{
         if (!!g_renderer) {
             const elapsedTime = clock.getElapsedTime()
             //Update the camera
-            points.rotation.y = elapsedTime * 0.3;
+            points.rotation.y = elapsedTime * 0.1;
             bgStars.rotation.y = - elapsedTime * 0.05;
             if (pullup && camera.position.x > 1) {
                 console.log(camera.position.x)
-                camera.position.x -= 0.05;
-                camera.position.y -= 0.05;
-                camera.position.z -= 0.05;
+                camera.position.x -= 0.01;
+                camera.position.y -= 0.01;
+                camera.position.z -= 0.01;
             }
             // Render
             g_renderer.render(scene, camera);

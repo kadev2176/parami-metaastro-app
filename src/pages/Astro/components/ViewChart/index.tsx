@@ -4,7 +4,7 @@ import { useIntl, useModel } from 'umi';
 import { ArrowLeftOutlined, BlockOutlined } from '@ant-design/icons';
 import { useEffect } from 'react';
 import { Divider } from 'antd';
-import { contractAddresses } from '../../config';
+import { contractAddresses, opensea } from '../../config';
 
 const ViewChart: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -82,7 +82,7 @@ const ViewChart: React.FC = () => {
                                 className={style.chartItem}
                                 key={chart}
                                 onClick={() => {
-                                    window.open(`https://testnets.opensea.io/assets/${contractAddresses.mint[4]}/${chart}`, '_blank');
+                                    window.open(`${opensea.url}/assets/${contractAddresses.mint[4]}/${chart}`, '_blank');
                                 }}
                             >
                                 #{chart}

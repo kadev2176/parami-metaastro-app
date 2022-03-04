@@ -16,3 +16,8 @@ export const contractAddresses = {
         4: '0x648C55b1e50F06A17e87c2D6782b76613F244020',
     },
 }
+
+export const opensea = {
+    url: 'https://testnets.opensea.io',
+    collection: 'meta-astro-9e06gd9hvs',
+}

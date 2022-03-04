@@ -7,6 +7,7 @@ import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
 import { EyeFilled, LogoutOutlined, TagsFilled } from '@ant-design/icons';
 import BreedPrice from '@/pages/Astro/components/BreedPrice';
+import { opensea } from '@/pages/Astro/config';
 
 const Header: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
@@ -63,7 +64,7 @@ const Header: React.FC = () => {
                                 <div
                                     className={style.menuItem}
                                     onClick={() => {
-                                        window.open(`https://testnets.opensea.io/${metaMaskAccount || walletConnectAccount}`, '_blank');
+                                        window.open(`${opensea.url}/${metaMaskAccount || walletConnectAccount}/${opensea.collection}`, '_blank');
                                     }}
                                 >
                                     <EyeFilled className={style.icon} />
