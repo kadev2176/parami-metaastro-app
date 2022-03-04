@@ -24,7 +24,7 @@ const BreedPrice: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (!!metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             return;
         }
     }, [metaMaskChainId, metaMaskAccount]);

@@ -11,9 +11,9 @@ const Settings: LayoutSettings & {
   fixedHeader: true,
   fixSiderbar: false,
   colorWeak: true,
-  title: 'Parami - Build AD3 for Web3',
+  title: 'MetaAstro',
   pwa: false,
-  logo: '/images/logo-round-core.svg',
+  logo: '/images/background/moon.svg',
   iconfontUrl: '',
 };
 

@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="keywords" content="airdrop,coin airdrop,candy airdrop,ad3,parami,candy box,crypto token" />
-  <meta name="description" content="Parami Protocol is to build Ad3.0 for Web3.0" />
+  <meta name="keywords" content="meta,astro,metaverse,soul,nft,blockchain" />
+  <meta name="description" content="MetaAstro indicates individual characteristics that can be used to predict one's future using web3 technology." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-  <title>Parami - Meta Astro</title>
-  <link rel="icon" href="<%= context.config.publicPath +'images/logo-core-colored-fit-into-round.svg'%>"
+  <title>Meta Astro</title>
+  <link rel="icon" href="<%= context.config.publicPath +'images/background/moon.svg'%>"
     type="image/x-icon" />
   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG3XB888BibdKsNVWrqEIIw7wLppNMaU&libraries=places&region=US&language=en"></script>
 </head>
@@ -76,15 +76,6 @@
       <canvas id="loadingCanvas"></canvas>
     </div>
   </div>
-  <script src="https://unpkg.com/svga/dist/index.min.js"></script>
-  <script>
-    var parser = new SVGA.Parser();
-    var player = new SVGA.Player(document.getElementById('loadingCanvas'));
-    parser.load("<%= context.config.publicPath +'images/parami.svga'%>", function (videoItem) {
-      player.setVideoItem(videoItem);
-      player.startAnimation();
-    });
-  </script>
 </body>
 
 </html>

@@ -30,10 +30,10 @@ const Astro: React.FC = () => {
         }
     }
     useEffect(() => {
-        if (MintContract && metaMaskAccount && metaMaskAccount !== '') {
+        if (!!MintContract && !!metaMaskAccount && metaMaskAccount !== '') {
             getSalesTime();
         }
-        if (MintContract && walletConnectAccount && walletConnectAccount !== '') {
+        if (!!MintContract && !!walletConnectAccount && walletConnectAccount !== '') {
             getSalesTime();
         }
     }, [MintContract, metaMaskAccount, walletConnectAccount]);

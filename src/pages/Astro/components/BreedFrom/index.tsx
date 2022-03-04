@@ -40,7 +40,7 @@ const BreedFrom: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (!!metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on mainnet',
@@ -51,7 +51,7 @@ const BreedFrom: React.FC<{
     }, [metaMaskChainId, metaMaskAccount]);
 
     useEffect(() => {
-        if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
+        if (!!walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on mainnet',
@@ -78,13 +78,13 @@ const BreedFrom: React.FC<{
     };
 
     useEffect(() => {
-        if (BreedContract && !!metaMaskAccount) {
+        if (!!BreedContract && !!metaMaskAccount) {
             getCurrentInfo();
         }
     }, [metaMaskAccount, BreedContract]);
 
     useEffect(() => {
-        if (BreedContract && !!walletConnectAccount) {
+        if (!!BreedContract && !!walletConnectAccount) {
             getCurrentInfo();
         }
     }, [walletConnectAccount, MintContract]);

@@ -49,7 +49,7 @@ const ViewChart: React.FC = () => {
     };
 
     useEffect(() => {
-        if ((metaMaskAccount || walletConnectAccount) && MintContract && BreedContract) {
+        if ((!!metaMaskAccount || !!walletConnectAccount) && !!MintContract && !!BreedContract) {
             getAllCharts();
         }
     }, [metaMaskAccount, walletConnectAccount, MintContract, BreedContract]);

@@ -28,7 +28,7 @@ const Header: React.FC = () => {
                     <span>MetaAstro</span>
                 </div>
                 <div className={style.connectWallet}>
-                    {metaMaskAccount || walletConnectAccount ? (
+                    {!!metaMaskAccount || !!walletConnectAccount ? (
                         <div className={style.menuButton}>
                             <Button
                                 type='primary'
