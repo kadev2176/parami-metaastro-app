@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { AdditiveBlending } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import style from './style.less';
 
 const Background: React.FC<{
@@ -158,7 +158,6 @@ const Background: React.FC<{
     useEffect(() => {
         // Canvas
         const canvas = document.querySelector('canvas.webgl') as HTMLElement;
-        console.log(canvas);
         generateGalaxy();
         generateBgStars();
         // Controls

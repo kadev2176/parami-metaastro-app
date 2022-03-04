@@ -42,7 +42,6 @@ export default () => {
                 message.error('This dapp requires access to your account information.');
                 return;
             }
-            console.log('connect', accounts);
             const ethersProvider = new ethers.providers.Web3Provider((window as any).ethereum as any)
             setProvider(ethersProvider);
             setAccount(accounts[0]);
