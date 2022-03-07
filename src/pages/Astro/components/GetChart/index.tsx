@@ -13,8 +13,9 @@ import { errorParse } from '@/utils/common';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const GetChart: React.FC<{
+    setSpeedup: (value: React.SetStateAction<boolean>) => void;
     setPullup: (value: React.SetStateAction<boolean>) => void;
-}> = ({ setPullup }) => {
+}> = ({ setSpeedup, setPullup }) => {
     const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
     const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [suggestList, setSuggestList] = useState<boolean>(false);
@@ -100,7 +101,7 @@ const GetChart: React.FC<{
 
     const handleSubmit = async () => {
         setLoading(true);
-        setPullup(true);
+        setSpeedup(true);
         try {
             const tx = await MintContract?.initialMint(
                 ethers.utils.getAddress(metaMaskAccount || walletConnectAccount),
@@ -128,6 +129,7 @@ const GetChart: React.FC<{
                     setAstroSVG('data:image/svg+xml;base64,' + baseImg);
                     setLoadSVG(false);
                     clearInterval(timer);
+                    setPullup(true);
                     setModal(true);
                 };
             }, 3000);
@@ -138,6 +140,7 @@ const GetChart: React.FC<{
             const error = errorParse(e.message).body?.message;
             message.error(error);
             setLoading(false);
+            setSpeedup(false);
             setPullup(false);
         }
     };
@@ -356,6 +359,8 @@ const GetChart: React.FC<{
                 }}
                 close={() => {
                     setModal(false);
+                    setSpeedup(false);
+                    setPullup(false);
                 }}
             />
         </>

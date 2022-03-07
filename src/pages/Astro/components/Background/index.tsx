@@ -5,8 +5,9 @@ import { useEffect } from 'react';
 import style from './style.less';
 
 const Background: React.FC<{
+    speedup?: boolean;
     pullup?: boolean;
-}> = ({ pullup }) => {
+}> = ({ speedup, pullup }) => {
     const textureLoader = new THREE.TextureLoader();
     const shape = textureLoader.load('/particleShape/1.png');
 
@@ -135,18 +136,21 @@ const Background: React.FC<{
     const tick = () => {
         // Call tick again on the next frame
         if (!!g_renderer) {
-            const elapsedTime = clock.getElapsedTime()
+            const elapsedTime = clock.getElapsedTime();
             //Update the camera
             points.rotation.y = elapsedTime * 0.1;
             bgStars.rotation.y = - elapsedTime * 0.05;
+            if (speedup) {
+                points.rotation.y += points.rotation.y * 1.1;
+                bgStars.rotation.y += bgStars.rotation.y * 1.1;
+            }
             if (pullup && camera.position.x > 1) {
-                console.log(camera.position.x)
                 camera.position.x -= 0.01;
                 camera.position.y -= 0.01;
                 camera.position.z -= 0.01;
             }
             // Render
-            g_renderer.render(scene, camera);
+            g_renderer.render(scene, camera, points, bgStars);
             window.requestAnimationFrame(tick);
         } else {
             window.requestAnimationFrame(tick);
@@ -185,7 +189,7 @@ const Background: React.FC<{
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         });
 
-    }, [pullup]);
+    }, [speedup, pullup]);
 
 
 

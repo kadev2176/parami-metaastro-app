@@ -9,13 +9,13 @@ import Intro from './components/Intro';
 import Profit from './components/Profit';
 import Connect from './components/Connect';
 import SNS from './components/SNS';
-import { Button } from 'antd';
 
 const Astro: React.FC = () => {
     const { metaMaskAccount } = useModel('metaMask');
     const { walletConnectAccount } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
     const [pullup, setPullup] = useState<boolean>(false);
+    const [speedup, setSpeedup] = useState<boolean>(false);
 
     const {
         MintContract
@@ -47,18 +47,23 @@ const Astro: React.FC = () => {
     return (
         <>
             <div className={styles.mainContainer}>
-                <Background pullup={pullup} />
+                <Background
+                    speedup={speedup}
+                    pullup={pullup}
+                />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
                         {(metaMaskAccount || walletConnectAccount) ? (
                             <>
                                 {GEN === 1 && (
                                     <GetChart
+                                        setSpeedup={setSpeedup}
                                         setPullup={setPullup}
                                     />
                                 )}
                                 {GEN === 2 && (
                                     <BreedFrom
+                                        setSpeedup={setSpeedup}
                                         setPullup={setPullup}
                                     />
                                 )}
