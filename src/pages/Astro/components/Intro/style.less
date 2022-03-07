@@ -7,7 +7,6 @@
     width: 100%;
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
-    opacity: 0.7;
 
     .title {
         font-size: 2.25rem;
@@ -15,94 +14,49 @@
         font-weight: 800;
         color: #fff;
         margin-bottom: 2.5rem;
+        font-family: 'Josefin Sans';
     }
 
     .content {
         line-height: 1.625;
-        font-size: 1.125rem;
+        font-size: 1.1rem;
         font-weight: unset;
         margin-bottom: 2rem;
         color: #fff;
     }
 
-    .sections {
+    .card {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         justify-content: center;
-        width: 100%;
-        margin-top: 150px;
-        margin-bottom: 150px;
-
-        .section {
-            position: relative;
-            padding: 70px 80px;
-            border: 1px solid #fff;
-            width: 100%;
-
-            .title {
-                font-size: 1.7rem;
-            }
-
-            .titleL2 {
-                position: absolute;
-                top: -40px;
-                left: calc((100% - 210px) / 2);
-                font-size: 1.6rem;
-                font-weight: 900;
-                background-color: #fff;
-                padding: 1rem 2rem;
-                color: #000;
-                width: 210px;
-            }
-
-            .titleL3 {
-                font-size: 1.3rem;
-                font-weight: 600;
-                margin-bottom: 2rem;
-            }
-
-            .subtitle {
-                font-weight: 900;
-                font-size: 1rem;
-                margin-bottom: 2rem;
-            }
-
-            .content {
-                margin-bottom: unset;
-            }
+        width: 80%;
+        border: 2px solid #fff;
+        padding: 2rem;
+        text-align: left;
+        margin-top: 2rem;
+        
+        .cardTitle {
+            font-size: 2rem;
+            font-family: 'Gideon Roman', cursive;
+            font-weight: 800;
         }
 
-        .sectionLeft {
-            margin-bottom: -120px;
-            margin-right: -50px;
+        small {
+            font-weight: 400;
+            line-height: 2rem;
         }
 
-        .sectionRight {
-            margin-top: -120px;
-            margin-left: -50px;
+        p {
+            line-height: 1.5rem;
         }
     }
 }
 
 @media (max-width: 767px) {
-    .sections {
-        flex-direction: column !important;
-        margin-top: 50px !important;
-        margin-bottom: 50px !important;
-
-        .section {
-            padding: 40px !important;
-        }
-
-        .sectionLeft {
-            margin-bottom: unset !important;
-            margin-right: unset !important;
-        }
-
-        .sectionRight {
-            margin-top: unset !important;
-            margin-left: unset !important;
+    .introContainer {
+        .card {
+            width: 100%;
         }
     }
 }
