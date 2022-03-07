@@ -12,41 +12,45 @@ const Intro: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'intro.title',
-                        defaultMessage: 'A MetaAstro Journey Begins',
+                        defaultMessage: 'What is MetaAstro?',
                     })}
                 </div>
-                <div className={style.content}>
+                <p className={style.content}>
                     {intl.formatMessage({
-                        id: 'intro.content',
-                        defaultMessage: 'Take a snapshot of the sky at your birth time and that’s how the universe leaves a mark on you. Using this data, MetaAstro indicates individual characteristics that can be used to predict one’s future using web3 technology. Information is generated from a MetaAstro storing it forever on the blockchain providing continuous usability for many Metaverse scenarios. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
+                        id: 'intro.content1',
+                        defaultMessage: 'Take a snapshot of the sky at your birth time and that\'s what astrologers call a birth chart. This is an spiritual identity that connects our life to the vast university.',
                     })}
-                </div>
+                </p>
+                <p className={style.content}>
+                    {intl.formatMessage({
+                        id: 'intro.content2',
+                        defaultMessage: 'MetaAstro stored this data on the blockchain that can be used to indicate individual haracteristics and to predict one’s future using web3 technology. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
+                    })}
+                </p>
                 <div className={style.sections}>
-                    <div className={`${style.section} ${style.sectionLeft}`}>
-                        <div className={style.title}>
+                    <div className={style.section}>
+                        <div className={style.titleL2}>
                             {intl.formatMessage({
-                                id: 'intro.section1.title',
-                                defaultMessage: 'Sun / Asc / Moon',
+                                id: 'intro.section.title.l2',
+                                defaultMessage: 'Sun in Aries',
+                            })}
+                        </div>
+                        <div className={style.titleL3}>
+                            {intl.formatMessage({
+                                id: 'intro.section.title.l3',
+                                defaultMessage: 'Moon in Sagittarius, Ascendant in Libra',
+                            })}
+                        </div>
+                        <div className={style.subtitle}>
+                            {intl.formatMessage({
+                                id: 'intro.section.subtitle',
+                                defaultMessage: 'An elegant fighter nourished by exploration.'
                             })}
                         </div>
                         <div className={style.content}>
                             {intl.formatMessage({
-                                id: 'intro.section1.content',
-                                defaultMessage: 'Locate yourself in a metaverse, inside and outside',
-                            })}
-                        </div>
-                    </div>
-                    <div className={`${style.section} ${style.sectionRight}`}>
-                        <div className={style.title}>
-                            {intl.formatMessage({
-                                id: 'intro.section2.title',
-                                defaultMessage: 'South Node / North Node',
-                            })}
-                        </div>
-                        <div className={style.content}>
-                            {intl.formatMessage({
-                                id: 'intro.section2.content',
-                                defaultMessage: 'Where you came from and seek for as a meta soul',
+                                id: 'intro.section.content',
+                                defaultMessage: 'Your character has bold self-expression and strong inner drive, walks down adventurous path and thriving when challenged. While you may come off as sweet, polite, friendly and quite approachable, with elegant appearance and sociable style. You have an independent soul and spontaneous emotional nature, nourished by exploration and learning and big picture view.'
                             })}
                         </div>
                     </div>

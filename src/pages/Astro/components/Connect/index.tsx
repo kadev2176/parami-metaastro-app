@@ -13,73 +13,28 @@ const Connect: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'connect.title',
-                        defaultMessage: 'Connect to complete',
+                        defaultMessage: 'Connect in Metaverse',
                     })}
                 </div>
-                <div className={style.content}>
+                <p className={style.content}>
                     {intl.formatMessage({
-                        id: 'connect.content',
-                        defaultMessage: 'There are people you are meant to meet in the metaverse if you let the MetaAstros be the matchmaker. Initially, the MetaAstro will be available in limited quantities, and the content of the chart will be permanently stored on the blockchain (native to the blockchain, not dependent on third-party storage such as IPFS). Build up connections where metaverse guides you.',
+                        id: 'connect.content1',
+                        defaultMessage: 'Initially, the MetaAstro will be available in limited quantities, and the content of the chart will be permanently stored on the blockchain (native to the blockchain, not dependent on third-party storage such as IPFS).',
                     })}
-                </div>
-                <div className={style.sections}>
-                    <div className={`${style.section} ${style.sectionLeft}`}>
-                        <div className={style.title}>
-                            {intl.formatMessage({
-                                id: 'connect.section1.title',
-                                defaultMessage: '7th House',
-                            })}
-                        </div>
-                        <div className={style.content}>
-                            {intl.formatMessage({
-                                id: 'connect.section1.content',
-                                defaultMessage: 'Partners, long term relationships, fair and exclusive',
-                            })}
-                        </div>
-                    </div>
-                    <div className={`${style.section} ${style.sectionRight}`}>
-                        <div className={style.title}>
-                            {intl.formatMessage({
-                                id: 'connect.section2.title',
-                                defaultMessage: '5th House',
-                            })}
-                        </div>
-                        <div className={style.content}>
-                            {intl.formatMessage({
-                                id: 'connect.section2.content',
-                                defaultMessage: 'Romance, fun relationships, gambling buddies',
-                            })}
-                        </div>
-                    </div>
-                </div>
+                </p>
+                <p className={style.content}>
+                    {intl.formatMessage({
+                        id: 'connect.content2',
+                        defaultMessage: 'Information generated from a MetaAstro provides continuous usability for many Metaverse scenarios: to gain talents in an NFT game, to find your other half on-chain, to upgrade rarity by synastry…',
+                    })}
+                </p>
                 <div className={style.flexContainer}>
                     <div className={style.flexItem}>
-                        <div className={style.card}>
-                            <div className={style.cardTitle}>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.card.title',
-                                    defaultMessage: 'Sun in Scorpio',
-                                })}
-                            </div>
-                            <small>28°15’3” TWELFTH HOUSE</small>
-                            <p>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.card.content',
-                                    defaultMessage: 'The sun determines your ego, identity, and "role" in life. It\'s the core of who you are, and is the sign you\'re most likely already know. Your is in Scorpio, meaning you have a fundamental urge to get to the bottom of things, which can at times lead you to be manipulative or power-hungry, but it comes down to an intense passion for authenticity, real intimacy, and the truth. It rules your fifth house, meaning you feel the need to  distinguish yourself from others through romance, self-expression, creativity, and pleasure.'
-                                })}
-                            </p>
-                        </div>
                         <div className={style.personalizedCard}>
-                            <div className={style.personalizedCardTitle}>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.personalizedCard.title',
-                                    defaultMessage: 'Hyper-personalized astrology',
-                                })}
-                            </div>
                             <p>
                                 {intl.formatMessage({
                                     id: 'astro.feature.personalizedCard.content',
-                                    defaultMessage: 'Unlike the broad and vague horoscopes you usually read in magazines, we take more than just your sun sign into account. We use a complete picture of the sky when and where you were born to generate hyper-personalized horoscopes.'
+                                    defaultMessage: 'Matched as life partner, Matched as evil lover, Perfect parent for you, To upgrade water element, Partner to make a fortune, Totally different soul.'
                                 })}
                             </p>
                         </div>
@@ -88,10 +43,7 @@ const Connect: React.FC = () => {
                         <div className={style.astroListItem}>
                             <div className={style.info}>
                                 <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.anna.title',
-                                        defaultMessage: 'Anna',
-                                    })}
+                                    0x9afe9b34436fdae2....a7ebfc678611c106d3
                                 </div>
                                 <div className={style.astroListItemContent}>
                                     <div className={style.astroListItemContentItem}>
@@ -113,10 +65,7 @@ const Connect: React.FC = () => {
                         <div className={style.astroListItem}>
                             <div className={style.info}>
                                 <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.banu.title',
-                                        defaultMessage: 'Banu',
-                                    })}
+                                    0x01ca22cbc26b3ebf....279e2a65789439d15b
                                 </div>
                                 <div className={style.astroListItemContent}>
                                     <div className={style.astroListItemContentItem}>
@@ -138,10 +87,7 @@ const Connect: React.FC = () => {
                         <div className={style.astroListItem}>
                             <div className={style.info}>
                                 <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.ben.title',
-                                        defaultMessage: 'Ben',
-                                    })}
+                                    0x401a9868b3fb2d10....8f94b68b75a4850252
                                 </div>
                                 <div className={style.astroListItemContent}>
                                     <div className={style.astroListItemContentItem}>
@@ -163,10 +109,7 @@ const Connect: React.FC = () => {
                         <div className={style.astroListItem}>
                             <div className={style.info}>
                                 <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.francesca.title',
-                                        defaultMessage: 'Francesca',
-                                    })}
+                                    0xc36442b4a4522e87....717abdd847ab11fe88
                                 </div>
                                 <div className={style.astroListItemContent}>
                                     <div className={style.astroListItemContentItem}>
@@ -188,10 +131,7 @@ const Connect: React.FC = () => {
                         <div className={style.astroListItem}>
                             <div className={style.info}>
                                 <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.hanna.title',
-                                        defaultMessage: 'Hanna',
-                                    })}
+                                    0x95a7dc4d66172ac0....2331ce35b5a00829bd
                                 </div>
                                 <div className={style.astroListItemContent}>
                                     <div className={style.astroListItemContentItem}>
@@ -205,31 +145,6 @@ const Connect: React.FC = () => {
                                     <div className={style.astroListItemContentItem}>
                                         <span>☽</span>
                                         Sagittarius
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={style.arrow}><ArrowRightOutlined /></div>
-                        </div>
-                        <div className={style.astroListItem}>
-                            <div className={style.info}>
-                                <div className={style.astroListItemTitle}>
-                                    {intl.formatMessage({
-                                        id: 'astro.better.laura.title',
-                                        defaultMessage: 'Laura',
-                                    })}
-                                </div>
-                                <div className={style.astroListItemContent}>
-                                    <div className={style.astroListItemContentItem}>
-                                        <span>☉</span>
-                                        Cancer
-                                    </div>
-                                    <div className={style.astroListItemContentItem}>
-                                        <span>↑</span>
-                                        Virgo
-                                    </div>
-                                    <div className={style.astroListItemContentItem}>
-                                        <span>☽</span>
-                                        Cancer
                                     </div>
                                 </div>
                             </div>
