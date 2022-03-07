@@ -1,11 +1,66 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useIntl } from 'umi';
+import { Pie } from '@ant-design/plots';
 import styles from '../../style.less';
 import style from './style.less';
 
 const Connect: React.FC = () => {
     const intl = useIntl();
+
+    const pieData = [
+        {
+            title: 'Fire',
+            value: 0.5,
+        },
+        {
+            title: 'Wind',
+            value: 0.375,
+        },
+        {
+            title: 'Water',
+            value: 0.125,
+        },
+    ];
+    const pieConfig = {
+        appendPadding: 0,
+        pieData,
+        angleField: 'value',
+        colorField: 'title',
+        radius: 1,
+        innerRadius: 0.6,
+        legend: false,
+        label: {
+            type: 'inner',
+            offset: '-50%',
+            content: '{name}',
+            style: {
+                textAlign: 'center',
+                fontSize: 14,
+            },
+        },
+        interactions: [
+            {
+                type: 'element-selected',
+            },
+            {
+                type: 'element-active',
+            },
+        ],
+        statistic: {
+            title: false,
+            content: {
+                style: {
+                    whiteSpace: 'pre-wrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    color: '#fff',
+                    fontSize: 16,
+                },
+                content: 'Your\nElement',
+            },
+        },
+    };
 
     return (
         <div className={style.featureContainer}>
@@ -13,7 +68,7 @@ const Connect: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'connect.title',
-                        defaultMessage: 'Connect in Metaverse',
+                        defaultMessage: 'Why on Blockchain',
                     })}
                 </div>
                 <p className={style.content}>
@@ -29,6 +84,89 @@ const Connect: React.FC = () => {
                     })}
                 </p>
                 <div className={style.flexContainer}>
+                    <div className={style.dataContainer}>
+                        <div className={style.starList}>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>☉</div>
+                                <div className={style.starItemName}>Courage, Strength</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>↑</div>
+                                <div className={style.starItemName}>Charm, Manner</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>☽</div>
+                                <div className={style.starItemName}>Sensitivity, Empathy</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>♃</div>
+                                <div className={style.starItemName}>Faith, Inclusivity</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>♂</div>
+                                <div className={style.starItemName}>Attack damage</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>☿</div>
+                                <div className={style.starItemName}>Intelligence, Speed</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>♄</div>
+                                <div className={style.starItemName}>Construction, Endurance</div>
+                            </div>
+                            <div className={style.starItem}>
+                                <div className={style.starItemIcon}>♀</div>
+                                <div className={style.starItemName}>Ability power</div>
+                            </div>
+                        </div>
+                        <div className={style.dataList}>
+                            <div className={style.pieChart}>
+                                <Pie data={pieData} {...pieConfig} />
+                            </div>
+                            <div className={style.data}>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Strength
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Charm
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Sencitivity
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Inclusivity
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Attack damage
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Ability power
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Intelligence
+                                    </div>
+                                </div>
+                                <div className={style.dataItem}>
+                                    <div className={style.dataItemName}>
+                                        Endurance
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className={style.astroList}>
                         <div className={style.astroListItem}>
                             <div className={style.tag}>

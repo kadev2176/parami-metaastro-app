@@ -30,6 +30,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        margin-top: 2rem;
 
         .flexItem {
             display: flex;
@@ -59,12 +60,86 @@
             }
         }
 
+        .dataContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 50%;
+            margin-right: 40px;
+
+            .starList {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                width: 100%;
+                margin-top: 80px;
+
+                .starItem {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-start;
+                    width: 100%;
+                    font-size: 1.4rem;
+                    
+                    &:not(:last-child) {
+                        margin-bottom: 1.3rem;
+                    }
+
+                    .starItemIcon {
+                        margin-right: 15px;
+                        width: 35px;
+                        overflow: hidden;
+                        text-align: center;
+                    }
+                }
+            }
+
+            .dataList {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 2rem;
+
+                .pieChart {
+                    width: 80%;
+                    margin-right: 30px;
+                }
+
+                .data {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                }
+
+                .dataItem {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-end;
+                    width: 100%;
+                    font-size: 1rem;
+
+                    &:not(:last-child) {
+                        margin-bottom: 0.6rem;
+                    }
+                }
+            }
+        }
+
         .astroList {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 80%;
+            width: 50%;
+            margin-left: 40px;
 
             .astroListItem {
                 position: relative;
@@ -158,10 +233,21 @@
     .flexContainer {
         flex-direction: column !important;
 
+        .dataContainer {
+            margin-top: 20px !important;
+            width: 100% !important;
+            margin-right: unset !important;
+        }
+
+        .pieChart {
+            width: 180% !important;
+            margin-right: 15px !important;
+        }
+
         .flexItem,
         .astroList {
             width: 100% !important;
-            padding-right: unset !important;
+            margin-left: unset !important;
 
             .card,
             .personalizedCard {

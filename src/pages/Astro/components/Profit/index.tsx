@@ -12,7 +12,7 @@ const Profit: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'profit.title',
-                        defaultMessage: 'Profit from your MetaAstro',
+                        defaultMessage: 'How to profit',
                     })}
                 </div>
                 <div className={style.content}>
