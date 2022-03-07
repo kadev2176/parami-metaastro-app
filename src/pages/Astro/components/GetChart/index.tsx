@@ -42,10 +42,10 @@ const GetChart: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (!!metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (!!metaMaskAccount && metaMaskChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet',
+                description: 'This feature is only supported on Rinkeby',
                 duration: null
             });
             return;
@@ -53,10 +53,10 @@ const GetChart: React.FC<{
     }, [metaMaskChainId, metaMaskAccount]);
 
     useEffect(() => {
-        if (!!walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
+        if (!!walletConnectAccount && walletConnectChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
-                description: 'This feature is only supported on mainnet',
+                description: 'This feature is only supported on Rinkeby',
                 duration: null
             });
             return;

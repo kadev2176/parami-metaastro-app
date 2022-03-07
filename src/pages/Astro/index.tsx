@@ -11,11 +11,12 @@ import Connect from './components/Connect';
 import SNS from './components/SNS';
 
 const Astro: React.FC = () => {
-    const { metaMaskAccount } = useModel('metaMask');
-    const { walletConnectAccount } = useModel('walletconnect');
+    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
+    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
     const [GEN, setGEN] = useState<number>(1);
     const [pullup, setPullup] = useState<boolean>(false);
     const [speedup, setSpeedup] = useState<boolean>(false);
+    const [avavible, setAvavible] = useState<boolean>(true);
 
     const {
         MintContract
@@ -30,6 +31,20 @@ const Astro: React.FC = () => {
             setGEN(2);
         }
     }
+
+    useEffect(() => {
+        if (!!metaMaskAccount && metaMaskChainId !== 4) {
+            setAvavible(false);
+            return;
+        }
+    }, [metaMaskChainId, metaMaskAccount]);
+
+    useEffect(() => {
+        if (!!walletConnectAccount && walletConnectChainId !== 4) {
+            setAvavible(false);
+            return;
+        }
+    }, [walletConnectChainId, walletConnectAccount]);
 
     useEffect(() => {
         if (!!MintContract && !!metaMaskAccount && metaMaskAccount !== '') {
@@ -53,7 +68,7 @@ const Astro: React.FC = () => {
                 />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        {(metaMaskAccount || walletConnectAccount) ? (
+                        {(metaMaskAccount || walletConnectAccount) && avavible ? (
                             <>
                                 {GEN === 1 && (
                                     <GetChart
