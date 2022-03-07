@@ -308,7 +308,7 @@ const GetChart: React.FC<{
                                     >
                                         {intl.formatMessage({
                                             id: 'astro.getURChart',
-                                            defaultMessage: 'Get UR Chart',
+                                            defaultMessage: 'Get Your Chart',
                                         })}
                                     </Button>
                                 )}

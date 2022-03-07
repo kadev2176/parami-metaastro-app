@@ -285,7 +285,7 @@ const BreedFrom: React.FC<{
                                     >
                                         {intl.formatMessage({
                                             id: 'astro.breedURChart',
-                                            defaultMessage: 'Breed UR Chart',
+                                            defaultMessage: 'Breed Your Chart',
                                         })}
                                     </Button>
                                 )}
