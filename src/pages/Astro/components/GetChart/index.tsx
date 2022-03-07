@@ -195,6 +195,12 @@ const GetChart: React.FC<{
                                                 }
                                                 setSuggestList(false)
                                             }}
+                                            placeholder={
+                                                intl.formatMessage({
+                                                    id: 'astro.city.placeholder',
+                                                    defaultMessage: 'a city',
+                                                })
+                                            }
                                             inputClassName={style.geoInput}
                                             className={style.geoSuggest}
                                             suggestsClassName={style.geoSuggestWrapper}
@@ -233,6 +239,10 @@ const GetChart: React.FC<{
                                                     onChange={(_, dateString) => {
                                                         setDateOfBirth(dateString.split('/'));
                                                     }}
+                                                    placeholder={intl.formatMessage({
+                                                        id: 'astro.date.placeholder',
+                                                        defaultMessage: 'YYYY/MM/DD',
+                                                    })}
                                                 />
                                             )}
                                         </>
@@ -245,8 +255,8 @@ const GetChart: React.FC<{
                                             suffixIcon={undefined}
                                             format={['HH:mm:ss']}
                                             placeholder={intl.formatMessage({
-                                                id: 'astro.selectTime',
-                                                defaultMessage: 'Select Time'
+                                                id: 'astro.time.placeholder',
+                                                defaultMessage: 'HH:mm:ss',
                                             })}
                                             onChange={(_, timeString) => {
                                                 setTimeOfBirth(timeString.split(':'));

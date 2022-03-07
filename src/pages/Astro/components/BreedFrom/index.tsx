@@ -185,6 +185,12 @@ const BreedFrom: React.FC<{
                                                 }
                                                 setSuggestList(false)
                                             }}
+                                            placeholder={
+                                                intl.formatMessage({
+                                                    id: 'astro.city.placeholder',
+                                                    defaultMessage: 'a city',
+                                                })
+                                            }
                                             inputClassName={style.geoInput}
                                             className={style.geoSuggest}
                                             suggestsClassName={style.geoSuggestWrapper}
@@ -207,6 +213,10 @@ const BreedFrom: React.FC<{
                                                 setDateOfBirth(dateString.split('/'));
                                                 await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
                                             }}
+                                            placeholder={intl.formatMessage({
+                                                id: 'astro.date.placeholder',
+                                                defaultMessage: 'YYYY/MM/DD',
+                                            })}
                                         />
                                     ),
                                     hhmmss: (
@@ -217,8 +227,8 @@ const BreedFrom: React.FC<{
                                             suffixIcon={undefined}
                                             format={['HH:mm:ss']}
                                             placeholder={intl.formatMessage({
-                                                id: 'astro.selectTime',
-                                                defaultMessage: 'Select Time'
+                                                id: 'astro.time.placeholder',
+                                                defaultMessage: 'HH:mm:ss',
                                             })}
                                             onChange={(_, timeString) => {
                                                 setTimeOfBirth(timeString.split(':'));
@@ -241,6 +251,10 @@ const BreedFrom: React.FC<{
                                             onChange={(e: any) => {
                                                 setPrimaryTokenId(e);
                                             }}
+                                            placeholder={intl.formatMessage({
+                                                id: 'astro.tokenId.placeholder',
+                                                defaultMessage: 'TokenID',
+                                            })}
                                             value={PrimaryTokenId}
                                         />
                                     )

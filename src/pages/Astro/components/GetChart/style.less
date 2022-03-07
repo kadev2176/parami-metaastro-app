@@ -35,13 +35,17 @@
             transition: 0.5s;
             outline: none !important;
             box-shadow: unset !important;
-            max-width: 100px;
+            max-width: 160px;
             width: 100%;
 
             input {
                 font-size: 16px !important;
                 color: #fff !important;
                 text-align: center !important;
+
+                &::placeholder {
+                    color: #fff;
+                }
             }
 
             &:focus {
@@ -87,6 +91,10 @@
         color: #fff !important;
         font-size: 16px !important;
         transition: 0.5s;
+
+        &::placeholder {
+            color: #fff;
+        }
     }
 
     :global(.geosuggest__suggests-wrapper) {
