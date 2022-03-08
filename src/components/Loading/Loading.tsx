@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@/style/common.less';
-import { Svga } from 'react-svga';
-import style from './style.less';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const Loading: React.FC = () => {
 
@@ -9,9 +9,13 @@ const Loading: React.FC = () => {
         <>
             <div className={styles.mainContainer}>
                 <div className={styles.pageContainer}>
-                    <Svga
-                        src={'/images/parami.svga'}
-                        className={style.loadingContainer}
+                    <Spin
+                        indicator={
+                            <LoadingOutlined
+                                style={{ fontSize: 32 }}
+                                spin
+                            />
+                        }
                     />
                 </div>
             </div>
