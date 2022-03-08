@@ -16,8 +16,7 @@ const GetChart: React.FC<{
     setSpeedup: (value: React.SetStateAction<boolean>) => void;
     setPullup: (value: React.SetStateAction<boolean>) => void;
 }> = ({ setSpeedup, setPullup }) => {
-    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
-    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
+    const { Account, ChainId } = useModel('web3');
     const [suggestList, setSuggestList] = useState<boolean>(false);
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
@@ -42,7 +41,7 @@ const GetChart: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (!!metaMaskAccount && metaMaskChainId !== 4) {
+        if (!!Account && ChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on Rinkeby',
@@ -50,18 +49,7 @@ const GetChart: React.FC<{
             });
             return;
         }
-    }, [metaMaskChainId, metaMaskAccount]);
-
-    useEffect(() => {
-        if (!!walletConnectAccount && walletConnectChainId !== 4) {
-            notification.error({
-                message: 'Unsupported Chain',
-                description: 'This feature is only supported on Rinkeby',
-                duration: null
-            });
-            return;
-        }
-    }, [walletConnectChainId, walletConnectAccount]);
+    }, [ChainId, Account]);
 
     const getCurrentInfo = async () => {
         const price = await MintContract?.getPrice();
@@ -86,25 +74,18 @@ const GetChart: React.FC<{
     };
 
     useEffect(() => {
-        if (!!MintContract && !!metaMaskAccount) {
+        if (!!MintContract && !!Account) {
             getCurrentInfo();
             isAvailable();
         }
-    }, [metaMaskAccount, MintContract]);
-
-    useEffect(() => {
-        if (!!MintContract && !!walletConnectAccount) {
-            getCurrentInfo();
-            isAvailable();
-        }
-    }, [walletConnectAccount, MintContract]);
+    }, [Account, MintContract]);
 
     const handleSubmit = async () => {
         setLoading(true);
         setSpeedup(true);
         try {
             const tx = await MintContract?.initialMint(
-                ethers.utils.getAddress(metaMaskAccount || walletConnectAccount),
+                ethers.utils.getAddress(Account),
                 [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
                 [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },

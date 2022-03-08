@@ -93,7 +93,8 @@
     "react-three-fiber": "6.0.13",
     "three": "0.135.0",
     "umi": "^3.5.0",
-    "web3": "^1.7.0"
+    "web3": "^1.7.0",
+    "web3modal": "^1.9.5"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^2.1.0",

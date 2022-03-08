@@ -10,8 +10,7 @@ const BreedPrice: React.FC<{
     setBreedPriceModal: React.Dispatch<React.SetStateAction<boolean>>;
     breedPriceModal: boolean;
 }> = ({ setBreedPriceModal, breedPriceModal }) => {
-    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
-    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
+    const { Account, ChainId } = useModel('web3');
     const [tokenId, setTokenId] = useState<any>();
     const [price, setPrice] = useState<any>();
     const [loading, setLoading] = useState<boolean>(false);
@@ -24,22 +23,16 @@ const BreedPrice: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (!!metaMaskAccount && metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (!!Account && ChainId !== 1 && ChainId !== 4) {
             return;
         }
-    }, [metaMaskChainId, metaMaskAccount]);
-
-    useEffect(() => {
-        if (walletConnectAccount && walletConnectChainId !== 1 && walletConnectChainId !== 4) {
-            return;
-        }
-    }, [walletConnectChainId, walletConnectAccount]);
+    }, [ChainId, Account]);
 
     const handleSubmit = async () => {
         setLoading(true);
         try {
             const owner = await MintContract?.ownerOf(tokenId);
-            if (owner !== ethers.utils.getAddress(metaMaskAccount || walletConnectAccount)) {
+            if (owner !== ethers.utils.getAddress(Account)) {
                 message.error(intl.formatMessage({
                     id: 'astro.breed.error.notOwner',
                     defaultMessage: 'You are not the owner of this token.',

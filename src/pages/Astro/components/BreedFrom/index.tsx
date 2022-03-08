@@ -15,8 +15,7 @@ const BreedFrom: React.FC<{
     setSpeedup: (value: React.SetStateAction<boolean>) => void;
     setPullup: (value: React.SetStateAction<boolean>) => void;
 }> = ({ setSpeedup, setPullup }) => {
-    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
-    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
+    const { Account, ChainId } = useModel('web3');
     const [suggestList, setSuggestList] = useState<boolean>(false);
     const [lat, setLat] = useState<number>(0);
     const [lng, setLng] = useState<number>(0);
@@ -41,7 +40,7 @@ const BreedFrom: React.FC<{
     } = useModel('astroContracts');
 
     useEffect(() => {
-        if (!!metaMaskAccount && metaMaskChainId !== 4) {
+        if (!!Account && ChainId !== 4) {
             notification.error({
                 message: 'Unsupported Chain',
                 description: 'This feature is only supported on Rinkeby',
@@ -49,18 +48,7 @@ const BreedFrom: React.FC<{
             });
             return;
         }
-    }, [metaMaskChainId, metaMaskAccount]);
-
-    useEffect(() => {
-        if (!!walletConnectAccount && walletConnectChainId !== 4) {
-            notification.error({
-                message: 'Unsupported Chain',
-                description: 'This feature is only supported on Rinkeby',
-                duration: null
-            });
-            return;
-        }
-    }, [walletConnectChainId, walletConnectAccount]);
+    }, [ChainId, Account]);
 
     const getCurrentInfo = async () => {
         const fee = await BreedContract?.getOracleGasFee();
@@ -79,16 +67,10 @@ const BreedFrom: React.FC<{
     };
 
     useEffect(() => {
-        if (!!BreedContract && !!metaMaskAccount) {
+        if (!!BreedContract && !!Account) {
             getCurrentInfo();
         }
-    }, [metaMaskAccount, BreedContract]);
-
-    useEffect(() => {
-        if (!!BreedContract && !!walletConnectAccount) {
-            getCurrentInfo();
-        }
-    }, [walletConnectAccount, MintContract]);
+    }, [Account, BreedContract]);
 
     const handleSubmit = async () => {
         setLoading(true);

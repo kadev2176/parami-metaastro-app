@@ -9,17 +9,11 @@ import { contractAddresses } from '@/pages/Astro/config';
 
 export default () => {
     const {
-        metaMaskAccount,
-        metaMaskProvider,
-        metaMaskSigner,
-        metaMaskChainId,
-    } = useModel('metaMask');
-    const {
-        walletConnectAccount,
-        walletConnectProvider,
-        walletConnectSigner,
-        walletConnectChainId,
-    } = useModel('walletconnect');
+        Account,
+        ChainId,
+        Provider,
+        Signer,
+    } = useModel('web3');
 
     // Contract instances
     const [Erc20Contract, setErc20Contract] = useState<ethers.Contract | null>(null);
@@ -27,44 +21,24 @@ export default () => {
     const [BreedContract, setBreedContract] = useState<ethers.Contract | null>(null);
     // Initialize contract instances
     useEffect(() => {
-        if (!!metaMaskAccount) {
-            if (metaMaskChainId !== 1 && metaMaskChainId !== 4) {
+        if (!!Account) {
+            if (ChainId !== 1 && ChainId !== 4) {
                 setErc20Contract(null);
                 setMintContract(null);
                 setBreedContract(null);
                 return;
             }
-            if (!metaMaskProvider || !metaMaskSigner) {
+            if (!Provider || !Signer) {
                 return;
             }
-            const ad3 = new ethers.Contract(contractAddresses.ad3[metaMaskChainId], ERC20Abi, metaMaskSigner);
-            const mint = new ethers.Contract(contractAddresses.mint[metaMaskChainId], MintAbi, metaMaskSigner);
-            const breed = new ethers.Contract(contractAddresses.breed[metaMaskChainId], BreedAbi, metaMaskSigner);
+            const ad3 = new ethers.Contract(contractAddresses.ad3[ChainId], ERC20Abi, Signer);
+            const mint = new ethers.Contract(contractAddresses.mint[ChainId], MintAbi, Signer);
+            const breed = new ethers.Contract(contractAddresses.breed[ChainId], BreedAbi, Signer);
             setErc20Contract(ad3);
             setMintContract(mint);
             setBreedContract(breed);
         }
-    }, [metaMaskAccount, metaMaskProvider, metaMaskSigner, metaMaskChainId]);
-
-    useEffect(() => {
-        if (!!walletConnectAccount) {
-            if (walletConnectChainId !== 1 && walletConnectChainId !== 4) {
-                setErc20Contract(null);
-                setMintContract(null);
-                setBreedContract(null);
-                return;
-            }
-            if (!walletConnectProvider || !walletConnectSigner) {
-                return;
-            }
-            const ad3 = new ethers.Contract(contractAddresses.ad3[walletConnectChainId], ERC20Abi, walletConnectSigner);
-            const mint = new ethers.Contract(contractAddresses.mint[walletConnectChainId], MintAbi, walletConnectSigner);
-            const breed = new ethers.Contract(contractAddresses.breed[walletConnectChainId], BreedAbi, walletConnectSigner);
-            setErc20Contract(ad3);
-            setMintContract(mint);
-            setBreedContract(breed);
-        }
-    }, [walletConnectAccount, walletConnectProvider, walletConnectSigner, walletConnectChainId]);
+    }, [Account, Provider, Signer, ChainId]);
 
     return {
         Erc20Contract,

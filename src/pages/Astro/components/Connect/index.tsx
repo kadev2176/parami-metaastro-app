@@ -39,6 +39,29 @@ const Connect: React.FC = () => {
                 fontSize: 14,
             },
         },
+        pieStyle: ({ title }: any) => {
+            if (title === 'Fire') {
+                return {
+                    fill: '#e8685c',
+                };
+            }
+
+            if (title === 'Wind') {
+                return {
+                    fill: '#f5c230',
+                }
+            }
+
+            if (title === 'Water') {
+                return {
+                    fill: '#6592f9',
+                }
+            }
+
+            return {
+                fill: '#6addab',
+            };
+        },
         interactions: [
             {
                 type: 'element-selected',

@@ -1,8 +1,6 @@
-import SelectWallet from '@/pages/Astro/components/SelectWallet/selectWallet';
 import { Button } from 'antd';
 import React, { useState } from 'react';
 import { useIntl, useModel } from 'umi';
-import BigModal from '../ParamiModal/BigModal';
 import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
 import { EyeFilled, LogoutOutlined, TagsFilled } from '@ant-design/icons';
@@ -10,9 +8,7 @@ import BreedPrice from '@/pages/Astro/components/BreedPrice';
 import { opensea } from '@/pages/Astro/config';
 
 const Header: React.FC = () => {
-    const { metaMaskAccount } = useModel('metaMask');
-    const { walletConnectAccount } = useModel('walletconnect');
-    const [modal, setModal] = useState<boolean>(false);
+    const { Account, connect } = useModel('web3');
     const [menu, setMenu] = useState<boolean>(false);
     const [breedPriceModal, setBreedPriceModal] = useState<boolean>(false);
 
@@ -29,7 +25,7 @@ const Header: React.FC = () => {
                     <span>MetaAstro</span>
                 </div>
                 <div className={style.connectWallet}>
-                    {!!metaMaskAccount || !!walletConnectAccount ? (
+                    {!!Account ? (
                         <div className={style.menuButton}>
                             <Button
                                 type='primary'
@@ -41,7 +37,7 @@ const Header: React.FC = () => {
                                     setMenu(!menu);
                                 }}
                             >
-                                {`${metaMaskAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}` || `${walletConnectAccount.substring(0, 6)}...${metaMaskAccount.slice(-4)}`}
+                                {`${Account.substring(0, 6)}...${Account.slice(-4)}`}
                             </Button>
                             <div
                                 className={style.headerMenu}
@@ -64,7 +60,7 @@ const Header: React.FC = () => {
                                 <div
                                     className={style.menuItem}
                                     onClick={() => {
-                                        window.open(`${opensea.url}/${metaMaskAccount || walletConnectAccount}/${opensea.collection}`, '_blank');
+                                        window.open(`${opensea.url}/${Account}/${opensea.collection}`, '_blank');
                                     }}
                                 >
                                     <EyeFilled className={style.icon} />
@@ -94,8 +90,8 @@ const Header: React.FC = () => {
                             shape='round'
                             className={style.connectWalletBtn}
                             icon={<FaWallet className={style.icon} />}
-                            onClick={() => {
-                                setModal(true);
+                            onClick={async () => {
+                                await connect();
                             }}
                         >
                             {intl.formatMessage({
@@ -106,12 +102,6 @@ const Header: React.FC = () => {
                     )}
                 </div>
             </div>
-            <BigModal
-                visable={modal}
-                content={<SelectWallet setModal={setModal} />}
-                footer={false}
-                close={() => { setModal(false) }}
-            />
             <BreedPrice
                 setBreedPriceModal={setBreedPriceModal}
                 breedPriceModal={breedPriceModal}

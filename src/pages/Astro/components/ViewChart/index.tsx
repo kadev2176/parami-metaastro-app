@@ -7,8 +7,7 @@ import { Divider } from 'antd';
 import { contractAddresses, opensea } from '../../config';
 
 const ViewChart: React.FC = () => {
-    const { metaMaskAccount } = useModel('metaMask');
-    const { walletConnectAccount } = useModel('walletconnect');
+    const { Account } = useModel('web3');
     const [mintCharts, setMintCharts] = useState<number[]>([]);
     const [breedCharts, setBreedCharts] = useState<number[]>([]);
     const [modal, setModal] = useState<boolean>(false);
@@ -22,10 +21,10 @@ const ViewChart: React.FC = () => {
 
     const getAllCharts = async () => {
         try {
-            await MintContract?.tokenOfOwnerByIndex(metaMaskAccount || walletConnectAccount, 0);
+            await MintContract?.tokenOfOwnerByIndex(Account, 0);
             const charts: number[] = [];
             for (let i = 0; i < 5; i++) {
-                const chart = await MintContract?.tokenOfOwnerByIndex(metaMaskAccount || walletConnectAccount, i);
+                const chart = await MintContract?.tokenOfOwnerByIndex(Account, i);
                 charts.push(chart.toNumber());
             }
             setMintCharts(charts);
@@ -35,10 +34,10 @@ const ViewChart: React.FC = () => {
         }
 
         try {
-            await BreedContract?.tokenOfOwnerByIndex(metaMaskAccount || walletConnectAccount, 0);
+            await BreedContract?.tokenOfOwnerByIndex(Account, 0);
             const charts = [];
             for (let i = 0; i < 5; i++) {
-                const chart = await BreedContract?.tokenOfOwnerByIndex(metaMaskAccount || walletConnectAccount, i);
+                const chart = await BreedContract?.tokenOfOwnerByIndex(Account, i);
                 charts.push(chart.toNumber());
             }
             setBreedCharts(charts);
@@ -49,10 +48,10 @@ const ViewChart: React.FC = () => {
     };
 
     useEffect(() => {
-        if ((!!metaMaskAccount || !!walletConnectAccount) && !!MintContract && !!BreedContract) {
+        if ((!!Account) && !!MintContract && !!BreedContract) {
             getAllCharts();
         }
-    }, [metaMaskAccount, walletConnectAccount, MintContract, BreedContract]);
+    }, [Account, MintContract, BreedContract]);
 
     return (
         <>

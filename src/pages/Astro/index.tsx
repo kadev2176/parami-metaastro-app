@@ -11,8 +11,7 @@ import Connect from './components/Connect';
 import SNS from './components/SNS';
 
 const Astro: React.FC = () => {
-    const { metaMaskAccount, metaMaskChainId } = useModel('metaMask');
-    const { walletConnectAccount, walletConnectChainId } = useModel('walletconnect');
+    const { Account, ChainId } = useModel('web3');
     const [GEN, setGEN] = useState<number>(1);
     const [pullup, setPullup] = useState<boolean>(false);
     const [speedup, setSpeedup] = useState<boolean>(false);
@@ -33,30 +32,20 @@ const Astro: React.FC = () => {
     }
 
     useEffect(() => {
-        if (!!metaMaskAccount && metaMaskChainId !== 4) {
+        if (!!Account && ChainId !== 4) {
             setAvavible(false);
             return;
         }
-    }, [metaMaskChainId, metaMaskAccount]);
+    }, [ChainId, Account]);
 
     useEffect(() => {
-        if (!!walletConnectAccount && walletConnectChainId !== 4) {
-            setAvavible(false);
-            return;
-        }
-    }, [walletConnectChainId, walletConnectAccount]);
-
-    useEffect(() => {
-        if (!!MintContract && !!metaMaskAccount && metaMaskAccount !== '') {
+        if (!!MintContract && !!Account && Account !== '') {
             getSalesTime();
         }
-        if (!!MintContract && !!walletConnectAccount && walletConnectAccount !== '') {
-            getSalesTime();
-        }
-    }, [MintContract, metaMaskAccount, walletConnectAccount]);
+    }, [MintContract, Account]);
 
-    const sloganTopArr = 'LINK YOUR SOUL'.split('');
-    const sloganBottomArr = 'INTO METAVERSE'.split('');
+    const sloganTopArr = 'CONNECTING YOUR SOUL'.split('');
+    const sloganBottomArr = 'INTO METAVERSES'.split('');
     const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
     return (
@@ -68,7 +57,7 @@ const Astro: React.FC = () => {
                 />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        {(metaMaskAccount || walletConnectAccount) && avavible ? (
+                        {Account && avavible ? (
                             <>
                                 {GEN === 1 && (
                                     <GetChart
