@@ -11,7 +11,7 @@ const Connect: React.FC = () => {
     const pieData = [
         {
             title: 'Fire',
-            value: 0.5,
+            value: 0.4,
         },
         {
             title: 'Wind',
@@ -20,6 +20,10 @@ const Connect: React.FC = () => {
         {
             title: 'Water',
             value: 0.125,
+        },
+        {
+            title: 'Soil',
+            value: 0.1,
         },
     ];
     const pieConfig = {
@@ -48,7 +52,7 @@ const Connect: React.FC = () => {
 
             if (title === 'Wind') {
                 return {
-                    fill: '#f5c230',
+                    fill: '#6addab',
                 }
             }
 
@@ -58,9 +62,11 @@ const Connect: React.FC = () => {
                 }
             }
 
-            return {
-                fill: '#6addab',
-            };
+            if (title === 'Soil') {
+                return {
+                    fill: '#f5c230',
+                };
+            }
         },
         interactions: [
             {
@@ -91,7 +97,7 @@ const Connect: React.FC = () => {
                 <div className={style.title}>
                     {intl.formatMessage({
                         id: 'connect.title',
-                        defaultMessage: 'Why on Blockchain',
+                        defaultMessage: 'Why an Astro-Blockchain?',
                     })}
                 </div>
                 <p className={style.content}>
@@ -103,7 +109,7 @@ const Connect: React.FC = () => {
                 <p className={style.content}>
                     {intl.formatMessage({
                         id: 'connect.content2',
-                        defaultMessage: 'Information generated from a MetaAstro provides continuous usability for many Metaverse scenarios: to gain talents in an NFT game, to find your other half on-chain, to upgrade rarity by synastry…',
+                        defaultMessage: 'Information generated from a MetaAstro provides continuous usability for many Metaverse scenarios. Such as gaining talents in an NFT game, finding your other half on-chain, or upgrading rarity by synastry to name a few.',
                     })}
                 </p>
                 <div className={style.flexContainer}>
@@ -159,7 +165,7 @@ const Connect: React.FC = () => {
                                 </div>
                                 <div className={style.dataItem}>
                                     <div className={style.dataItemName}>
-                                        Sencitivity
+                                        Sensitivity
                                     </div>
                                 </div>
                                 <div className={style.dataItem}>

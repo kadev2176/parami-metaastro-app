@@ -18,13 +18,13 @@ const Intro: React.FC = () => {
                 <p className={style.content}>
                     {intl.formatMessage({
                         id: 'intro.content1',
-                        defaultMessage: 'Take a snapshot of the sky at your birth time and that\'s what astrologers call a birth chart. This is an spiritual identity that connects our life to the vast university.',
+                        defaultMessage: 'Take a snapshot of the sky at the time of your birth and that\'s what astrologers call a birth chart. This is a spiritual identity that connects our life to the vast universe.',
                     })}
                 </p>
                 <p className={style.content}>
                     {intl.formatMessage({
                         id: 'intro.content2',
-                        defaultMessage: 'MetaAstro stored this data on the blockchain that can be used to indicate individual haracteristics and to predict one’s future using web3 technology. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
+                        defaultMessage: 'MetaAstro stores this data on the blockchain that can be used to indicate individual characteristics and predict one’s future using Web 3 technology. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
                     })}
                 </p>
                 <div className={style.card}>
@@ -38,7 +38,7 @@ const Intro: React.FC = () => {
                     <p>
                         {intl.formatMessage({
                             id: 'astro.feature.card.content',
-                            defaultMessage: '{strong} Your character has bold self-expression and strong inner drive, walks down adventurous path and thriving when challenged. While you may come off as sweet, polite, friendly and quite approachable, with elegant appearance and sociable style. You have an independent soul and spontaneous emotional nature, nourished by exploration and learning and big picture view.'
+                            defaultMessage: '{strong} Your character has bold self-expression, a strong inner drive, walks down adventurous paths and thrives when challenged. While you may come off as sweet, polite, friendly and quite approachable, with an elegant appearance and sociable style, you have an independent soul and spontaneous emotional nature, nourished by exploration, learning and big picture views.'
                         }, {
                             strong: <strong>
                                 {intl.formatMessage({
