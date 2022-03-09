@@ -10,7 +10,7 @@ const providerOptions = {
     walletconnect: {
         package: WalletConnectProvider, // required
         options: {
-            infuraId: '836f7f85d3104fae9263dee3bcac66c9' // required
+            infuraId: 'eca99940fe244068a87095aa826a34fa' // required
         },
     }
 };
@@ -56,15 +56,16 @@ export default () => {
             const account = await signer.getAddress();
             setAccount(account);
             const chainId = await signer.getChainId();
+            console.log(chainId);
             setChainId(chainId);
-            (window as any).ethereum.on('chainChanged', (newChainId: string) => {
+            web3Provider.on('chainChanged', (newChainId: string) => {
                 setChainId(parseInt(newChainId));
             });
-            (window as any).ethereum.on('disconnect', (error: ProviderRpcError) => {
+            web3Provider.on('disconnect', (error: ProviderRpcError) => {
                 console.log('disconnect', error.code, error.message, error.data);
                 provider.removeAllListeners();
             });
-            (window as any).ethereum.on('accountsChanged', function (newAccounts: string[]) {
+            web3Provider.on('accountsChanged', function (newAccounts: string[]) {
                 console.log('accountsChanged', newAccounts);
                 if (newAccounts.length === 0) {
                     setAccount('');
