@@ -44,8 +44,8 @@ const Astro: React.FC = () => {
         }
     }, [MintContract, Account]);
 
-    const sloganTopArr = 'CONNECTING YOUR SOUL'.split('');
-    const sloganBottomArr = 'INTO METAVERSES'.split('');
+    const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
+    const sloganBottomArr = 'TO METAVERSES'.split('');
     const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
     return (

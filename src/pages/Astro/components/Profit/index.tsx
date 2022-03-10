@@ -66,7 +66,7 @@ const Profit: React.FC = () => {
                         <div className={style.content}>
                             {intl.formatMessage({
                                 id: 'profit.section3.content',
-                                defaultMessage: 'The astrolabe serves as a strong identity symbol and can be used to get user rewards based on the characteristics of your MetaAstro.',
+                                defaultMessage: 'The MetaAstro serves as a strong identity symbol and can be used to get user rewards based on the characteristics of your MetaAstro.',
                             })}
                         </div>
                     </div>
