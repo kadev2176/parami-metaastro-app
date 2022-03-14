@@ -440,7 +440,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.8
+                                        80
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -455,7 +455,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.75
+                                        75
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -470,7 +470,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.5
+                                        50
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -485,7 +485,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.9
+                                        90
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -500,7 +500,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.7
+                                        70
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -515,7 +515,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.6
+                                        60
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -530,7 +530,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.1
+                                        10
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -545,7 +545,7 @@ const Index: React.FC = () => {
                                         </div>
                                     </Col>
                                     <Col span={5}>
-                                        0.35
+                                        35
                                     </Col>
                                 </Row>
                             </div>
