@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import React, { useState } from 'react';
-import { useIntl, useModel } from 'umi';
+import { useIntl, useModel, history } from 'umi';
 import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
 import { EyeFilled, LogoutOutlined, TagsFilled } from '@ant-design/icons';
@@ -8,7 +8,7 @@ import BreedPrice from '@/pages/Astro/components/BreedPrice';
 import { opensea } from '@/pages/Astro/config';
 
 const Header: React.FC = () => {
-    const { Account, connect } = useModel('web3');
+    const { Account, connect, disconnect } = useModel('web3');
     const [menu, setMenu] = useState<boolean>(false);
     const [breedPriceModal, setBreedPriceModal] = useState<boolean>(false);
 
@@ -17,7 +17,12 @@ const Header: React.FC = () => {
     return (
         <>
             <div className={style.headerContainer}>
-                <div className={style.logo}>
+                <div
+                    className={style.logo}
+                    onClick={() => {
+                        history.push('/');
+                    }}
+                >
                     <img
                         src={'/images/background/moon.svg'}
                         className={style.logoImg}
@@ -28,7 +33,7 @@ const Header: React.FC = () => {
                     {!!Account ? (
                         <div className={style.menuButton}>
                             <Button
-                                type='primary'
+                                type='default'
                                 size='large'
                                 shape='round'
                                 className={style.connectWalletBtn}
@@ -71,8 +76,8 @@ const Header: React.FC = () => {
                                 </div>
                                 <div
                                     className={style.menuItem}
-                                    onClick={() => {
-                                        window.location.reload();
+                                    onClick={async () => {
+                                        await disconnect();
                                     }}
                                 >
                                     <LogoutOutlined className={style.icon} />
@@ -85,7 +90,7 @@ const Header: React.FC = () => {
                         </div>
                     ) : (
                         <Button
-                            type='primary'
+                            type='default'
                             size='large'
                             shape='round'
                             className={style.connectWalletBtn}

@@ -51,6 +51,8 @@ const GetChart: React.FC<{
         }
     }, [ChainId, Account]);
 
+    const CurrentDay = new Date().getDate();
+
     const getCurrentInfo = async () => {
         const price = await MintContract?.getPrice();
         const fee = await MintContract?.getOracleGasFee();
@@ -131,6 +133,9 @@ const GetChart: React.FC<{
             <div className={style.getchartContainer}>
                 <div className={styles.contentContainer}>
                     <div className={style.flexContainer}>
+                        <div className={style.currentDay}>
+                            You can mint the <span>{CurrentDay}th</span> of available month.
+                        </div>
                         <div className={styles.priceContainer}>
                             <div className={styles.currentPrice}>
                                 {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}

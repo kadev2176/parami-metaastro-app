@@ -22,13 +22,29 @@ interface ProviderRpcError {
 }
 
 export default () => {
+    const [Web3, setWeb3] = useState<Web3Modal>(new Web3Modal);
     const [Account, setAccount] = useState<string>('');
-    const [Provider, setProvider] = useState<providers.Web3Provider | null>(null);
+    const [Provider, setProvider] = useState<any>(null);
+    const [Web3Provider, setWeb3Provider] = useState<providers.Web3Provider | null>(null);
     const [Signer, setSigner] = useState<providers.JsonRpcSigner | null>(null);
     const [BlockNumber, setBlockNumber] = useState<number>(0);
     const [ChainId, setChainId] = useState<number>(defaultChainId);
     const [ChainName, setChainName] = useState<string>('');
+    const [Network, setNetwork] = useState<providers.Network>();
     const [NoProvider, setNoProvider] = useState<boolean>(false);
+
+    const initWeb3Modal = async () => {
+        const web3Modal = new Web3Modal({
+            network: 'rinkeby',
+            cacheProvider: false,
+            providerOptions,
+        });
+        setWeb3(web3Modal);
+    };
+
+    useEffect(() => {
+        initWeb3Modal();
+    }, []);
 
     useEffect(() => {
         Provider?.on('block', (blockNo: number) => {
@@ -40,39 +56,52 @@ export default () => {
         };
     }, [ChainId, ChainName, Provider]);
 
+    const disconnect = useCallback(async () => {
+        try {
+            Web3.clearCachedProvider();
+            await Provider?.close();
+            setProvider(null);
+            setWeb3Provider(null);
+            setSigner(null);
+            setAccount('');
+            setNetwork(undefined);
+        } catch (e: any) {
+            message.error(e.message);
+            setNoProvider(true);
+        }
+    }, []);
+
     const connect = useCallback(async () => {
         try {
-            const web3Modal = new Web3Modal({
-                network: 'rinkeby',
-                cacheProvider: false,
-                providerOptions,
-            });
-            const provider = await web3Modal.connect();
+            const provider = await Web3.connect();
             await provider.enable();
+            setProvider(provider);
             const web3Provider = new providers.Web3Provider(provider);
-            setProvider(web3Provider);
+            setWeb3Provider(web3Provider);
             const signer = web3Provider.getSigner();
             setSigner(signer);
             const account = await signer.getAddress();
             setAccount(account);
+            const network = await web3Provider.getNetwork();
+            setNetwork(network);
             const chainId = await signer.getChainId();
-            console.log(chainId);
             setChainId(chainId);
-            web3Provider.on('chainChanged', (newChainId: string) => {
+            provider.on('chainChanged', (newChainId: string) => {
                 setChainId(parseInt(newChainId));
             });
-            web3Provider.on('disconnect', (error: ProviderRpcError) => {
+            provider.on('disconnect', (error: ProviderRpcError) => {
+                disconnect();
                 console.log('disconnect', error.code, error.message, error.data);
                 provider.removeAllListeners();
             });
-            web3Provider.on('accountsChanged', function (newAccounts: string[]) {
+            provider.on('accountsChanged', function (newAccounts: string[]) {
                 console.log('accountsChanged', newAccounts);
                 if (newAccounts.length === 0) {
                     setAccount('');
                     setSigner(null);
                 }
                 setAccount(newAccounts[0]);
-                const newSign = provider.getSigner()
+                const newSign = web3Provider.getSigner()
                 setSigner(newSign);
             });
         } catch (e: any) {
@@ -82,13 +111,17 @@ export default () => {
     }, []);
 
     return {
+        Web3,
         Account,
         Provider,
+        Web3Provider,
         Signer,
         BlockNumber,
         ChainId,
         ChainName,
         NoProvider,
+        Network,
         connect,
+        disconnect,
     }
 }

@@ -38,11 +38,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     rightContentRender: () => undefined,
     disableContentMargin: true,
     footerRender: () => undefined,
-    headerRender: () => (
-      <>
-        <Header />
-      </>
-    ),
+    headerRender: () => <Header />,
     onPageChange: () => {
       setInitialState({ ...initialState });
     },

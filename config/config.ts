@@ -1,4 +1,3 @@
-// https://umijs.org/config/
 import { defineConfig } from 'umi';
 
 import defaultSettings from './defaultSettings';
@@ -14,12 +13,10 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,
     siderWidth: 208,
     ...defaultSettings,
   },
-  // https://umijs.org/zh-CN/plugins/plugin-locale
   locale: {
     // default en-US
     default: 'en-US',
@@ -34,14 +31,10 @@ export default defineConfig({
     ie: false,
     chrome: 67, firefox: 68, safari: 14, edge: 79, ios: 1, opera: 54,
   },
-  // umi routes: https://umijs.org/docs/routing
   routes,
-  // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': defaultSettings.primaryColor,
   },
-  // esbuild is father build tools
-  // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},
   title: false,
   ignoreMomentLocale: true,

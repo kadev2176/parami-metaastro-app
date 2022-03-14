@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/style/common.less';
 import style from './style.less';
-import Background from './components/Background';
 import GetChart from './components/GetChart';
-import { useModel } from 'umi';
+import { useModel, history } from 'umi';
 import BreedFrom from './components/BreedFrom';
-import Intro from './components/Intro';
-import Profit from './components/Profit';
-import Connect from './components/Connect';
-import SNS from './components/SNS';
+import Background from '@/components/Background';
 
 const Astro: React.FC = () => {
     const { Account, ChainId } = useModel('web3');
     const [GEN, setGEN] = useState<number>(1);
     const [pullup, setPullup] = useState<boolean>(false);
     const [speedup, setSpeedup] = useState<boolean>(false);
-    const [avavible, setAvavible] = useState<boolean>(true);
 
     const {
         MintContract
@@ -32,8 +27,8 @@ const Astro: React.FC = () => {
     }
 
     useEffect(() => {
-        if (!!Account && ChainId !== 4) {
-            setAvavible(false);
+        if (!Account || ChainId !== 4) {
+            history.push('/');
             return;
         }
     }, [ChainId, Account]);
@@ -44,10 +39,6 @@ const Astro: React.FC = () => {
         }
     }, [MintContract, Account]);
 
-    const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
-    const sloganBottomArr = 'TO METAVERSES'.split('');
-    const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
-
     return (
         <>
             <div className={styles.mainContainer}>
@@ -57,66 +48,19 @@ const Astro: React.FC = () => {
                 />
                 <div className={style.centerContainer}>
                     <div className={style.firstContainer}>
-                        {Account && avavible ? (
-                            <>
-                                {GEN === 1 && (
-                                    <GetChart
-                                        setSpeedup={setSpeedup}
-                                        setPullup={setPullup}
-                                    />
-                                )}
-                                {GEN === 2 && (
-                                    <BreedFrom
-                                        setSpeedup={setSpeedup}
-                                        setPullup={setPullup}
-                                    />
-                                )}
-                            </>
-                        ) : (
-                            <div className={style.slogan}>
-                                <p className={style.sloganTop}>
-                                    {sloganTopArr.map((char, index) => (
-                                        <span
-                                            key={char}
-                                            style={{
-                                                animationDelay: `${Math.random() * (index + 1)}s`,
-                                            }}
-                                        >
-                                            {char}
-                                        </span>
-                                    ))}
-                                </p>
-                                <p className={style.sloganBottom}>
-                                    {sloganBottomArr.map((char, index) => (
-                                        <span
-                                            key={char}
-                                            style={{
-                                                animationDelay: `${Math.random() * (index + 1)}s`,
-                                            }}
-                                        >
-                                            {char}
-                                        </span>
-                                    ))}
-                                </p>
-                                <p className={style.copy}>
-                                    {sloganCopyArr.map((char, index) => (
-                                        <span
-                                            key={char}
-                                            style={{
-                                                animationDelay: `${Math.random() * (index + 1)}s`,
-                                            }}
-                                        >
-                                            {char}
-                                        </span>
-                                    ))}
-                                </p>
-                            </div>
+                        {GEN === 1 && (
+                            <GetChart
+                                setSpeedup={setSpeedup}
+                                setPullup={setPullup}
+                            />
                         )}
-                        <SNS />
+                        {GEN === 2 && (
+                            <BreedFrom
+                                setSpeedup={setSpeedup}
+                                setPullup={setPullup}
+                            />
+                        )}
                     </div>
-                    <Intro />
-                    <Connect />
-                    <Profit />
                 </div>
             </div>
         </>
