@@ -1,5 +1,5 @@
 import { Button } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useIntl, useModel, history } from 'umi';
 import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
@@ -8,11 +8,20 @@ import BreedPrice from '@/pages/Astro/components/BreedPrice';
 import { opensea } from '@/pages/Astro/config';
 
 const Header: React.FC = () => {
-    const { Account, connect, disconnect } = useModel('web3');
+    const { Account, ChainId, connect, disconnect } = useModel('web3');
     const [menu, setMenu] = useState<boolean>(false);
     const [breedPriceModal, setBreedPriceModal] = useState<boolean>(false);
+    const [avavible, setAvavible] = useState<boolean>(false);
 
     const intl = useIntl();
+
+    useEffect(() => {
+        if (ChainId === 4) {
+            setAvavible(true);
+        } else {
+            setAvavible(false);
+        }
+    }, [ChainId, Account]);
 
     return (
         <>
@@ -30,7 +39,7 @@ const Header: React.FC = () => {
                     <span>MetaAstro</span>
                 </div>
                 <div className={style.connectWallet}>
-                    {!!Account ? (
+                    {!!Account && avavible ? (
                         <div className={style.menuButton}>
                             <Button
                                 type='default'

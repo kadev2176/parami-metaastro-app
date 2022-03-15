@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Web3Modal from 'web3modal';
 import { defaultChainId } from '@/pages/Astro/config';
 import ethNet from "@/config/ethNet";
-import { message } from 'antd';
+import { message, notification } from 'antd';
 
 const providerOptions = {
     walletconnect: {
@@ -36,7 +36,7 @@ export default () => {
     const initWeb3Modal = async () => {
         const web3Modal = new Web3Modal({
             network: 'rinkeby',
-            cacheProvider: false,
+            cacheProvider: true,
             providerOptions,
         });
         setWeb3(web3Modal);
@@ -72,6 +72,7 @@ export default () => {
     }, []);
 
     const connect = useCallback(async () => {
+        disconnect();
         try {
             const provider = await Web3.connect();
             await provider.enable();
@@ -86,23 +87,31 @@ export default () => {
             setNetwork(network);
             const chainId = await signer.getChainId();
             setChainId(chainId);
-            provider.on('chainChanged', (newChainId: string) => {
-                setChainId(parseInt(newChainId));
-            });
-            provider.on('disconnect', (error: ProviderRpcError) => {
-                disconnect();
-                console.log('disconnect', error.code, error.message, error.data);
-                provider.removeAllListeners();
-            });
-            provider.on('accountsChanged', function (newAccounts: string[]) {
-                console.log('accountsChanged', newAccounts);
-                if (newAccounts.length === 0) {
+            if (chainId !== 4) {
+                notification.error({
+                    message: 'Unsupported Chain',
+                    description: 'This feature is only supported on Rinkeby',
+                    duration: null
+                });
+            }
+
+            provider.on('accountsChanged', function (accounts: string[]) {
+                if (accounts.length === 0) {
                     setAccount('');
                     setSigner(null);
                 }
-                setAccount(newAccounts[0]);
+                setAccount(accounts[0]);
                 const newSign = web3Provider.getSigner()
                 setSigner(newSign);
+            });
+            provider.on('chainChanged', (newChainId: number) => {
+                window.location.reload();
+                setChainId(Number(newChainId));
+            });
+            provider.on('disconnect', (error: ProviderRpcError) => {
+                console.log('disconnect', error.code, error.message, error.data);
+                disconnect();
+                Provider.removeAllListeners();
             });
         } catch (e: any) {
             message.error(e.message);

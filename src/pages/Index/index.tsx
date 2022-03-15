@@ -18,7 +18,7 @@ const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
 const Index: React.FC = () => {
     const { Account, ChainId, connect } = useModel('web3');
-    const [avavible, setAvavible] = useState<boolean>(true);
+    const [avavible, setAvavible] = useState<boolean>(false);
     const [popBottomBar, setPopBottomBar] = useState<boolean>(false);
 
     const intl = useIntl();
@@ -119,11 +119,12 @@ const Index: React.FC = () => {
     };
 
     useEffect(() => {
-        if (!!Account && ChainId !== 4) {
+        if (ChainId === 4) {
+            setAvavible(true);
+        } else {
             setAvavible(false);
-            return;
         }
-    }, [ChainId, Account]);
+    }, [ChainId, Account, avavible]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -916,7 +917,7 @@ const Index: React.FC = () => {
                             MetaAstro
                         </p>
                     </div>
-                    {Account && avavible ? (
+                    {!!Account && avavible ? (
                         <Button
                             type="default"
                             size="large"
