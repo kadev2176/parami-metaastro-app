@@ -5,6 +5,11 @@
                 "internalType": "address",
                 "name": "_primeAstroChartAddress",
                 "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_svgGeneratorAddress",
+                "type": "address"
             }
         ],
         "stateMutability": "nonpayable",
@@ -220,13 +225,13 @@
             },
             {
                 "internalType": "uint16[]",
-                "name": "datetimeOfBirth",
+                "name": "monthAndDay",
                 "type": "uint16[]"
             },
             {
-                "internalType": "int16[]",
-                "name": "cityOfBirth",
-                "type": "int16[]"
+                "internalType": "string",
+                "name": "remaining",
+                "type": "string"
             }
         ],
         "name": "breedFrom",
@@ -309,13 +314,13 @@
                 "components": [
                     {
                         "internalType": "uint16[]",
-                        "name": "datetimeOfBirth",
+                        "name": "monthAndDay",
                         "type": "uint16[]"
                     },
                     {
-                        "internalType": "int16[]",
-                        "name": "cityOfBirth",
-                        "type": "int16[]"
+                        "internalType": "string",
+                        "name": "remaining",
+                        "type": "string"
                     },
                     {
                         "internalType": "bool",
@@ -631,6 +636,16 @@
                 "internalType": "uint256",
                 "name": "_oracleGasFee",
                 "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_oracleRequestHost",
+                "type": "string"
+            },
+            {
+                "internalType": "contract SVGGenerator",
+                "name": "_svgGenerator",
+                "type": "address"
             }
         ],
         "name": "setUpParams",

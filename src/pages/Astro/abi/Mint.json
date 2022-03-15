@@ -1,6 +1,12 @@
 [
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_svgGeneratorAddress",
+                "type": "address"
+            }
+        ],
         "stateMutability": "nonpayable",
         "type": "constructor"
     },
@@ -261,13 +267,13 @@
                 "components": [
                     {
                         "internalType": "uint16[]",
-                        "name": "datetimeOfBirth",
+                        "name": "monthAndDay",
                         "type": "uint16[]"
                     },
                     {
-                        "internalType": "int16[]",
-                        "name": "cityOfBirth",
-                        "type": "int16[]"
+                        "internalType": "string",
+                        "name": "remaining",
+                        "type": "string"
                     },
                     {
                         "internalType": "bool",
@@ -453,13 +459,13 @@
             },
             {
                 "internalType": "uint16[]",
-                "name": "datetimeOfBirth",
+                "name": "monthAndDay",
                 "type": "uint16[]"
             },
             {
-                "internalType": "int16[]",
-                "name": "cityOfBirth",
-                "type": "int16[]"
+                "internalType": "string",
+                "name": "remaining",
+                "type": "string"
             }
         ],
         "name": "initialMint",
@@ -640,6 +646,11 @@
                 "type": "uint256"
             },
             {
+                "internalType": "string",
+                "name": "_oracleRequestHost",
+                "type": "string"
+            },
+            {
                 "internalType": "uint256",
                 "name": "_salesStartTime",
                 "type": "uint256"
@@ -648,6 +659,11 @@
                 "internalType": "uint256",
                 "name": "_salesEndTime",
                 "type": "uint256"
+            },
+            {
+                "internalType": "contract SVGGenerator",
+                "name": "_svgGenerator",
+                "type": "address"
             }
         ],
         "name": "setUpParams",
