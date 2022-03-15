@@ -7,11 +7,12 @@ import ethNet from "@/config/ethNet";
 import { message, notification } from 'antd';
 
 const providerOptions = {
+    // Example with WalletConnect provider
     walletconnect: {
-        package: WalletConnectProvider, // required
+        package: WalletConnectProvider,
         options: {
-            infuraId: 'eca99940fe244068a87095aa826a34fa' // required
-        },
+            infuraId: "eca99940fe244068a87095aa826a34fa" // required
+        }
     }
 };
 
@@ -22,7 +23,6 @@ interface ProviderRpcError {
 }
 
 export default () => {
-    const [Web3, setWeb3] = useState<Web3Modal>(new Web3Modal);
     const [Account, setAccount] = useState<string>('');
     const [Provider, setProvider] = useState<any>(null);
     const [Web3Provider, setWeb3Provider] = useState<providers.Web3Provider | null>(null);
@@ -33,32 +33,21 @@ export default () => {
     const [Network, setNetwork] = useState<providers.Network>();
     const [NoProvider, setNoProvider] = useState<boolean>(false);
 
-    const initWeb3Modal = async () => {
-        const web3Modal = new Web3Modal({
-            network: 'rinkeby',
-            cacheProvider: true,
-            providerOptions,
-        });
-        setWeb3(web3Modal);
-    };
-
-    useEffect(() => {
-        initWeb3Modal();
-    }, []);
-
     useEffect(() => {
         Provider?.on('block', (blockNo: number) => {
             setBlockNumber(blockNo);
         });
         setChainName(ethNet[ChainId]);
-        return () => {
-            Provider?.removeAllListeners();
-        };
     }, [ChainId, ChainName, Provider]);
 
     const disconnect = useCallback(async () => {
+        const web3Modal = new Web3Modal({
+            network: 'rinkeby',
+            cacheProvider: true,
+            providerOptions,
+        });
         try {
-            Web3.clearCachedProvider();
+            web3Modal.clearCachedProvider();
             await Provider?.close();
             setProvider(null);
             setWeb3Provider(null);
@@ -72,10 +61,13 @@ export default () => {
     }, []);
 
     const connect = useCallback(async () => {
-        disconnect();
+        const web3Modal = new Web3Modal({
+            network: 'rinkeby',
+            cacheProvider: true,
+            providerOptions,
+        });
         try {
-            const provider = await Web3.connect();
-            await provider.enable();
+            const provider = await web3Modal.connect();
             setProvider(provider);
             const web3Provider = new providers.Web3Provider(provider);
             setWeb3Provider(web3Provider);
@@ -105,8 +97,14 @@ export default () => {
                 setSigner(newSign);
             });
             provider.on('chainChanged', (newChainId: number) => {
-                window.location.reload();
                 setChainId(Number(newChainId));
+                if (Number(newChainId) !== 4) {
+                    notification.error({
+                        message: 'Unsupported Chain',
+                        description: 'This feature is only supported on Rinkeby',
+                        duration: null
+                    });
+                }
             });
             provider.on('disconnect', (error: ProviderRpcError) => {
                 console.log('disconnect', error.code, error.message, error.data);
@@ -120,7 +118,6 @@ export default () => {
     }, []);
 
     return {
-        Web3,
         Account,
         Provider,
         Web3Provider,
