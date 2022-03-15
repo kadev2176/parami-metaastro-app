@@ -18,11 +18,13 @@ const Astro: React.FC = () => {
 
     const getSalesTime = async () => {
         const timeRange = await MintContract?.getSalesTimes();
-        const now = await Math.floor(Date.now() / 1000);
-        if (now >= timeRange[0].toNumber() && now <= timeRange[1].toNumber()) {
-            setGEN(1);
-        } else {
-            setGEN(2);
+
+        const date = new Date();
+        const now = date.getTime() / 1000;
+        const currentDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) / 1000;
+
+        if (now <= timeRange[0].toNumber() + currentDay || now >= timeRange[1].toNumber() + currentDay) {
+            history.push('/');
         }
     }
 

@@ -11,6 +11,7 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses, opensea } from '../../config';
 import { errorParse } from '@/utils/common';
 import { LoadingOutlined } from '@ant-design/icons';
+import { RSAEncrypt } from '@/utils/rsa';
 
 const GetChart: React.FC<{
     setSpeedup: (value: React.SetStateAction<boolean>) => void;
@@ -85,11 +86,14 @@ const GetChart: React.FC<{
     const handleSubmit = async () => {
         setLoading(true);
         setSpeedup(true);
+
         try {
+            const encryptStr = await RSAEncrypt(`${Number(dateOfBirth[0])},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
+
             const tx = await MintContract?.initialMint(
                 ethers.utils.getAddress(Account),
-                [Number(dateOfBirth[0]), Number(dateOfBirth[1]), Number(dateOfBirth[2]), Number(timeOfBirth[0]), Number(timeOfBirth[1]), Number(timeOfBirth[2])],
-                [Math.round(lat * 100), Math.round(lng * 100), Math.round(utcOffset * 100)],
+                [Number(dateOfBirth[1]), Number(dateOfBirth[2])],
+                encryptStr,
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
             );
 
@@ -120,6 +124,7 @@ const GetChart: React.FC<{
             setLoading(false);
             isAvailable();
         } catch (e: any) {
+            console.log(e.message);
             const error = errorParse(e.message).body?.message;
             message.error(error);
             setLoading(false);
