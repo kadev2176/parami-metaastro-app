@@ -5,6 +5,7 @@ import GetChart from './components/GetChart';
 import { useModel, history } from 'umi';
 import BreedFrom from './components/BreedFrom';
 import Background from '@/components/Background';
+import { notification } from 'antd';
 
 const Astro: React.FC = () => {
     const { Account, ChainId } = useModel('web3');
@@ -24,9 +25,13 @@ const Astro: React.FC = () => {
         const currentDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) / 1000;
 
         if (now <= timeRange[0].toNumber() + currentDay || now >= timeRange[1].toNumber() + currentDay) {
+            notification.error({
+                message: 'Not in sales time',
+                description: 'Please wait for the next sales time',
+            });
             history.push('/');
         }
-    }
+    };
 
     useEffect(() => {
         if (!Account || ChainId !== 4) {

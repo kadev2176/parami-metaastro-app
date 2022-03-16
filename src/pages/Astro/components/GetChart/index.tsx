@@ -93,7 +93,7 @@ const GetChart: React.FC<{
             const tx = await MintContract?.initialMint(
                 ethers.utils.getAddress(Account),
                 [Number(dateOfBirth[1]), Number(dateOfBirth[2])],
-                encryptStr,
+                encodeURIComponent(encryptStr),
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
             );
 

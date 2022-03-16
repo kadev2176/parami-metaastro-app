@@ -82,7 +82,7 @@ const BreedFrom: React.FC<{
             const tx = await BreedContract?.breedFrom(
                 PrimaryTokenId,
                 [Number(dateOfBirth[1]), Number(dateOfBirth[2])],
-                encryptStr,
+                encodeURIComponent(encryptStr),
                 { value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
             );
 
