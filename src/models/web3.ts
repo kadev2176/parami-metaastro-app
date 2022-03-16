@@ -48,7 +48,6 @@ export default () => {
         });
         try {
             web3Modal.clearCachedProvider();
-            await Provider?.close();
             setProvider(null);
             setWeb3Provider(null);
             setSigner(null);
@@ -105,6 +104,7 @@ export default () => {
                         duration: null
                     });
                 }
+                window.location.reload();
             });
             provider.on('disconnect', (error: ProviderRpcError) => {
                 console.log('disconnect', error.code, error.message, error.data);
