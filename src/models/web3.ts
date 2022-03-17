@@ -34,11 +34,11 @@ export default () => {
     const [NoProvider, setNoProvider] = useState<boolean>(false);
 
     useEffect(() => {
-        Provider?.on('block', (blockNo: number) => {
+        Web3Provider?.on('block', (blockNo: number) => {
             setBlockNumber(blockNo);
         });
         setChainName(ethNet[ChainId]);
-    }, [ChainId, ChainName, Provider]);
+    }, [ChainId, ChainName, Web3Provider]);
 
     const disconnect = useCallback(async () => {
         const web3Modal = new Web3Modal({
