@@ -139,11 +139,11 @@ const GetChart: React.FC<{
                 <div className={styles.contentContainer}>
                     <div className={style.flexContainer}>
                         <div className={style.currentDay}>
-                            You can mint the <span>{CurrentDay}th</span> of available month.
+                            Today you can mint the <span>{CurrentDay}th</span> of any available month.
                         </div>
                         <div className={styles.priceContainer}>
                             <div className={styles.currentPrice}>
-                                {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}
+                                {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '--'}
                             </div>
                             <div className={styles.ethIcon}>
                                 <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
@@ -154,17 +154,17 @@ const GetChart: React.FC<{
                             <div className={styles.currentTotal}>
                                 {intl.formatMessage({
                                     id: 'astro.total',
-                                    defaultMessage: 'Total need {total} (Oracle operator gas fee: {fee})',
+                                    defaultMessage: 'Total cost {total} (Oracle operator gas fee: {fee})',
                                 }, {
-                                    total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '0',
-                                    fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '0',
+                                    total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '--',
+                                    fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '--',
                                 })}
                             </div>
                         </div>
                         <div className={styles.mintCount}>
                             {intl.formatMessage({
                                 id: 'astro.subTitle',
-                                defaultMessage: 'NFTs already minted: {minted}/{total}',
+                                defaultMessage: 'Gen 0 MetaAstro already minted: {minted}/{total}',
                             }, {
                                 minted: currentSupply?.toString(),
                                 total: '366',
@@ -299,7 +299,7 @@ const GetChart: React.FC<{
                                     >
                                         {intl.formatMessage({
                                             id: 'astro.getURChart',
-                                            defaultMessage: 'Get Your Chart',
+                                            defaultMessage: 'Mint Your MetaAstro',
                                         })}
                                     </Button>
                                 )}
@@ -315,7 +315,7 @@ const GetChart: React.FC<{
                                     >
                                         {intl.formatMessage({
                                             id: 'astro.viewMyChart',
-                                            defaultMessage: 'View My Chart',
+                                            defaultMessage: 'View Your MetaAstro',
                                         })}
                                     </Button>
                                 )}

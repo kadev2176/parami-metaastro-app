@@ -11,6 +11,7 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses, opensea } from '../../config';
 import { errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const BreedFrom: React.FC<{
     setSpeedup: (value: React.SetStateAction<boolean>) => void;
@@ -27,7 +28,6 @@ const BreedFrom: React.FC<{
     const [loadSVG, setLoadSVG] = useState<boolean>(false);
     const [currentPrice, setCurrentPrice] = useState<BigNumber>();
     const [currentFee, setCurrentFee] = useState<BigNumber>();
-    const [currentSupply, setCurrentSupply] = useState<BigNumber>();
     const [astroSVG, setAstroSVG] = useState<string>();
     const [PrimaryTokenId, setPrimaryTokenId] = useState<number>();
     const [TokenId, setTokenId] = useState<ethers.BigNumber>();
@@ -53,9 +53,7 @@ const BreedFrom: React.FC<{
 
     const getCurrentInfo = async () => {
         const fee = await BreedContract?.getOracleGasFee();
-        const supply = await BreedContract?.totalSupply();
         setCurrentFee(fee);
-        setCurrentSupply(supply);
     };
 
     const getTokenIdAndPrice = async (month: string, day: string) => {
@@ -127,7 +125,7 @@ const BreedFrom: React.FC<{
                     <div className={style.flexContainer}>
                         <div className={styles.priceContainer}>
                             <div className={styles.currentPrice}>
-                                {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '0'}
+                                {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '--'}
                             </div>
                             <div className={styles.ethIcon}>
                                 <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
@@ -138,21 +136,12 @@ const BreedFrom: React.FC<{
                             <div className={styles.currentTotal}>
                                 {intl.formatMessage({
                                     id: 'astro.total',
-                                    defaultMessage: 'Total need {total} (Oracle operator gas fee: {fee})',
+                                    defaultMessage: 'Total cost {total} (Oracle operator gas fee: {fee})',
                                 }, {
-                                    total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '0',
-                                    fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '0',
+                                    total: currentPrice && currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)))) * 100) / 100 : '--',
+                                    fee: currentFee ? Math.floor(Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100) / 100 : '--',
                                 })}
                             </div>
-                        </div>
-                        <div className={styles.mintCount}>
-                            {intl.formatMessage({
-                                id: 'astro.subTitle',
-                                defaultMessage: 'NFTs already minted: {minted}/{total}',
-                            }, {
-                                minted: currentSupply?.toString(),
-                                total: '366',
-                            })}
                         </div>
                         <div className={style.inputContainer}>
                             <div className={style.userInputContainer}>
@@ -225,7 +214,7 @@ const BreedFrom: React.FC<{
                             <div className={style.breedTokenIdContainer}>
                                 {intl.formatMessage({
                                     id: 'astro.breed',
-                                    defaultMessage: 'Breed From(TokenID): {tokenId}',
+                                    defaultMessage: 'Breed From (TokenID): {tokenId}',
                                 }, {
                                     tokenId: (
                                         <InputNumber
@@ -245,32 +234,66 @@ const BreedFrom: React.FC<{
                                     )
                                 })}
                             </div>
+                            {loadSVG && (
+                                <Spin
+                                    size="large"
+                                    className={style.generating}
+                                    indicator={
+                                        <LoadingOutlined
+                                            style={{
+                                                color: '#fff',
+                                                marginLeft: '10px',
+                                                marginRight: '10px',
+                                            }}
+                                            spin
+                                        />
+                                    }
+                                    tip={(
+                                        <div
+                                            style={{
+                                                color: '#fff',
+                                            }}
+                                        >
+                                            {intl.formatMessage({
+                                                id: 'astro.generating',
+                                                defaultMessage: 'Generating...',
+                                            })}
+                                        </div>
+                                    )}
+                                />
+                            )}
                             <div className={style.buttons}>
-                                {loadSVG && (
-                                    <Spin
-                                        size="large"
-                                        className={style.generating}
-                                        tip={intl.formatMessage({
-                                            id: 'astro.generating',
-                                            defaultMessage: 'Generating...',
-                                        })}
-                                    />
-                                )}
-                                {!loadSVG && !astroSVG && (
+                                {!loadSVG && (
                                     <Button
                                         size='large'
                                         shape='round'
                                         type='primary'
                                         className={style.button}
-                                        disabled={!lat || !lng || !utcOffset || !PrimaryTokenId || !dateOfBirth.length || !timeOfBirth.length || !currentPrice}
+                                        disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
                                         loading={loading}
                                         onClick={() => {
                                             handleSubmit();
                                         }}
                                     >
                                         {intl.formatMessage({
-                                            id: 'astro.breedURChart',
-                                            defaultMessage: 'Breed Your Chart',
+                                            id: 'astro.getURChart',
+                                            defaultMessage: 'Mint Your MetaAstro',
+                                        })}
+                                    </Button>
+                                )}
+                                {astroSVG && (
+                                    <Button
+                                        size='large'
+                                        shape='round'
+                                        type='primary'
+                                        className={style.button}
+                                        onClick={() => {
+                                            setModal(true);
+                                        }}
+                                    >
+                                        {intl.formatMessage({
+                                            id: 'astro.viewMyChart',
+                                            defaultMessage: 'View Your MetaAstro',
                                         })}
                                     </Button>
                                 )}

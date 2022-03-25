@@ -3,11 +3,11 @@ import styles from '@/style/common.less';
 import style from './style.less';
 import { useIntl, useModel, history } from 'umi';
 import Background from '@/components/Background';
-import { Button, Col, Row } from 'antd';
+import { Col, Row, Steps } from 'antd';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { MdOutlineVerified } from 'react-icons/md';
 import { GiScales } from 'react-icons/gi';
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { RightOutlined } from '@ant-design/icons';
 import { SiTwitter, SiDiscord } from 'react-icons/si';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { Doughnut } from 'react-chartjs-2';
@@ -26,12 +26,14 @@ const Index: React.FC = () => {
 
     const intl = useIntl();
 
+    const { Step } = Steps;
+
     Chart.register(ArcElement, ChartDataLabels);
     const labels = [
         'Fire',
-        'Wind',
         'Water',
         'Earth',
+        'Wind',
     ];
 
     const pieConfig = {
@@ -63,12 +65,12 @@ const Index: React.FC = () => {
                 formatter: (_: any, ctx: any) => {
                     const datasets = ctx.chart.data.datasets;
                     if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
-                        return labels[ctx.dataIndex]
+                        return labels[ctx.dataIndex];
                     } else {
                         return labels[0]
                     }
                 },
-                color: "#fff",
+                color: ["rgba(255, 99, 132, 1)", 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
                 font: {
                     weight: "bold",
                     size: "16px"
@@ -500,33 +502,27 @@ const Index: React.FC = () => {
                     <div className={style.title}>
                         {intl.formatMessage({
                             id: 'profit.title',
-                            defaultMessage: 'How to profit',
+                            defaultMessage: 'Profit from Ownership',
                         })}
                     </div>
-                    <div className={style.content}>
+                    <p className={style.content}>
                         {intl.formatMessage({
                             id: 'profit.content1',
-                            defaultMessage: 'Using the web3 global login feature, your MetaAstro can be obtained and utilized when using other Metaverse products. Initially there will be a limited number of 366 MetaAstro, one for each of the 365 days of the year plus leap year. The MetaAstro will be acquired through a Dutch Auction with no reservations.',
+                            defaultMessage: 'MetaAstro brings profits to its holder in many ways:',
                         })}
-                    </div>
-                    <div className={style.content}>
-                        {intl.formatMessage({
-                            id: 'profit.content2',
-                            defaultMessage: 'Each MetaAstro supports minting a limited number of same-date MetaAstros. The first generation MetaAstro can mint 1,024 same-date; the number of MetaAstros that can be minted in subsequent generations is then reduced by half.',
-                        })}
-                    </div>
+                    </p>
                     <div className={style.sections}>
                         <div className={`${style.section} ${style.sectionLeft}`}>
                             <div className={style.title}>
                                 {intl.formatMessage({
                                     id: 'profit.section1.title',
-                                    defaultMessage: 'Charge minting fees',
+                                    defaultMessage: 'Charge Minting Fees',
                                 })}
                             </div>
                             <div className={style.content}>
                                 {intl.formatMessage({
                                     id: 'profit.section1.content',
-                                    defaultMessage: 'With MetaAstro you can earn rewards by helping other users generate their own birth chart of the same date (you set your own price).',
+                                    defaultMessage: 'Earn rewards by helping others generate MetaAstros of the same date (you set your own minting fee).',
                                 })}
                             </div>
                         </div>
@@ -534,13 +530,13 @@ const Index: React.FC = () => {
                             <div className={style.title}>
                                 {intl.formatMessage({
                                     id: 'profit.section2.title',
-                                    defaultMessage: 'Trade',
+                                    defaultMessage: 'Trade on Marketplace',
                                 })}
                             </div>
                             <div className={style.content}>
                                 {intl.formatMessage({
                                     id: 'profit.section2.content',
-                                    defaultMessage: 'The earlier the generation of the MetaAstro, the rarer it is. It can also be minted with other same date charts (in a different year and/or at different birth time).',
+                                    defaultMessage: 'The rarity of a MetaAstro lies in its generation, its holder, and its certain features.',
                                 })}
                             </div>
                         </div>
@@ -548,17 +544,47 @@ const Index: React.FC = () => {
                             <div className={style.title}>
                                 {intl.formatMessage({
                                     id: 'profit.section3.title',
-                                    defaultMessage: 'Receive airdrops',
+                                    defaultMessage: 'Receive Airdrops',
                                 })}
                             </div>
                             <div className={style.content}>
                                 {intl.formatMessage({
                                     id: 'profit.section3.content',
-                                    defaultMessage: 'The MetaAstro serves as a strong identity symbol and can be used to get user rewards based on the characteristics of your MetaAstro.',
+                                    defaultMessage: 'A MetaAstro is soulbound to one’s Web3 idenity, serving as a voucher for precise airdrops.',
                                 })}
                             </div>
                         </div>
                     </div>
+                </div>
+                <div className={style.howtoContainer}>
+                    <div className={style.title}>
+                        {intl.formatMessage({
+                            id: 'howto.title',
+                            defaultMessage: 'Now it‘s time to mint your MetaAstro !',
+                        })}
+                    </div>
+                    <Steps
+                        progressDot
+                        current={2}
+                        className={style.steps}
+                        direction="vertical"
+                    >
+                        <Step
+                            title="Stage 1: Dutch Auction"
+                            description="From day 1 to day 31, a total of 366 Gen 0 MetaAstros are up for Dutch Auction. A Gen0 MetaAstro can breed unlimited number of same-date MetaAstros."
+                            className={style.step}
+                        />
+                        <Step
+                            title="Stage 2: Limited Mint"
+                            description="During the auction month, you can mint a MetaAstro of the same date that has already been minted. A Gen1 MetaAstro can breed 1,024 same-date MetaAstros."
+                            className={style.step}
+                        />
+                        <Step
+                            title="Stage 3: Unlimited Mint"
+                            description="You can mint a MetaAstro of any date. After Gen1, the number of MetaAstros that can be minted in subsequent generations is reduced by half."
+                            className={style.step}
+                        />
+                    </Steps>
                 </div>
                 <div className={style.partnerContainer}>
                     <div className={style.title}>
@@ -615,6 +641,13 @@ const Index: React.FC = () => {
                     style={{
                         right: popBottomBar ? '2rem' : '-30rem',
                     }}
+                    onClick={async () => {
+                        if (!!Account && avavible) {
+                            history.push('/mint');
+                        } else {
+                            await connect();
+                        }
+                    }}
                 >
                     <img
                         src={"/images/background/astronomy.svg"}
@@ -624,44 +657,18 @@ const Index: React.FC = () => {
                         <p className={style.titleTop}>
                             {intl.formatMessage({
                                 id: 'gotoMint.title1',
-                                defaultMessage: 'Explore',
+                                defaultMessage: 'MetaAstro',
                             })}
                         </p>
                         <p className={style.titleBottom}>
-                            MetaAstro
+                            Mint Now
+                            <RightOutlined
+                                style={{
+                                    marginLeft: '1rem',
+                                }}
+                            />
                         </p>
                     </div>
-                    {!!Account && avavible ? (
-                        <Button
-                            type="default"
-                            size="large"
-                            className={style.button}
-                            onClick={() => {
-                                history.push('/mint');
-                            }}
-                        >
-                            {intl.formatMessage({
-                                id: 'gotoMint.button',
-                                defaultMessage: 'MINT NOW',
-                            })}
-                            <ArrowRightOutlined />
-                        </Button>
-                    ) : (
-                        <Button
-                            type="default"
-                            size="large"
-                            className={style.button}
-                            onClick={async () => {
-                                await connect();
-                            }}
-                        >
-                            {intl.formatMessage({
-                                id: 'connect.button',
-                                defaultMessage: 'Connect',
-                            })}
-                            <ArrowRightOutlined />
-                        </Button>
-                    )}
                 </div>
             </div>
         </div>
