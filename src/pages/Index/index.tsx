@@ -6,11 +6,13 @@ import Background from '@/components/Background';
 import { Button, Col, Row } from 'antd';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { MdOutlineVerified } from 'react-icons/md';
-import { SiWeb3Dotjs } from 'react-icons/si';
-import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
-import { Pie } from '@ant-design/plots';
+import { GiScales } from 'react-icons/gi';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { SiTwitter, SiDiscord } from 'react-icons/si';
+import { RiArrowDownSLine } from 'react-icons/ri';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart, ArcElement } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
 const sloganBottomArr = 'TO METAVERSES'.split('');
@@ -20,97 +22,65 @@ const Index: React.FC = () => {
     const { Account, ChainId, connect } = useModel('web3');
     const [avavible, setAvavible] = useState<boolean>(false);
     const [popBottomBar, setPopBottomBar] = useState<boolean>(false);
+    const [PageScroll, setPageScroll] = useState<number>(0);
 
     const intl = useIntl();
 
-    const pieData = [
-        {
-            title: 'Fire',
-            value: 0.4,
-        },
-        {
-            title: 'Wind',
-            value: 0.375,
-        },
-        {
-            title: 'Water',
-            value: 0.125,
-        },
-        {
-            title: 'Earth',
-            value: 0.1,
-        },
+    Chart.register(ArcElement, ChartDataLabels);
+    const labels = [
+        'Fire',
+        'Wind',
+        'Water',
+        'Earth',
     ];
 
     const pieConfig = {
-        appendPadding: 0,
-        pieData,
-        angleField: 'value',
-        colorField: 'title',
-        radius: 1,
-        innerRadius: 0.6,
-        legend: false,
-        label: {
-            type: 'inner',
-            offset: '-50%',
-            content: '{name}',
-            style: {
-                textAlign: 'center',
-                fontSize: 14,
-            },
-        },
-        pieStyle: ({ title }: any) => {
-            if (title === 'Fire') {
-                return {
-                    fill: '#ac303e',
-                };
-            }
+        datasets: [{
+            data: [0.4, 0.375, 0.125, 0.1],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }],
+    };
 
-            if (title === 'Wind') {
-                return {
-                    fill: '#026d49',
-                }
-            }
-
-            if (title === 'Water') {
-                return {
-                    fill: '#2478d2',
-                }
-            }
-
-            if (title === 'Soil') {
-                return {
-                    fill: '#e8cc5e',
-                };
-            }
-        },
-        interactions: [
-            {
-                type: 'element-selected',
-            },
-            {
-                type: 'element-active',
-            },
-        ],
-        statistic: {
-            title: false,
-            content: {
-                style: {
-                    whiteSpace: 'pre-wrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    color: '#fff',
-                    fontSize: 16,
-                    lineHeight: 1.5,
+    const pieOptions = {
+        plugins: {
+            datalabels: {
+                formatter: (_: any, ctx: any) => {
+                    const datasets = ctx.chart.data.datasets;
+                    if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+                        return labels[ctx.dataIndex]
+                    } else {
+                        return labels[0]
+                    }
                 },
-                content: 'Adam’s\nzodiac\nelements',
-            },
-        },
+                color: "#fff",
+                font: {
+                    weight: "bold",
+                    size: "16px"
+                }
+            }
+        }
     };
 
     const handleScroll = async () => {
         const pageScroll = document.documentElement.scrollTop;
 
+        setPageScroll(pageScroll);
         if (pageScroll > 1320) {
             setPopBottomBar(true);
         } else {
@@ -174,17 +144,28 @@ const Index: React.FC = () => {
                             ))}
                         </p>
                     </div>
+                    <div
+                        className={style.mouse}
+                        style={{
+                            opacity: PageScroll > 100 ? 0 : 0.5,
+                        }}
+                    >
+                        <RiArrowDownSLine className={style.icon} />
+                    </div>
                 </div>
                 <div className={style.introContainer}>
-                    <Row gutter={[32, 32]}>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
+                    <Row gutter={[16, 16]}>
+                        <Col
+                            className={style.introCol}
+                            xs={24} sm={24} md={24} lg={12} xl={12}
+                        >
                             <div className={style.title}>
                                 {intl.formatMessage({
                                     id: 'intro.title',
                                     defaultMessage: 'What is MetaAstro?',
                                 })}
                             </div>
-                            <Row gutter={[32, 32]} className={style.introItem}>
+                            <Row gutter={[16, 16]} className={style.introItem}>
                                 <Col span={4} className={style.introItemCol}>
                                     <FaBirthdayCake
                                         className={style.icon}
@@ -194,18 +175,18 @@ const Index: React.FC = () => {
                                     <div className={style.subtitle}>
                                         {intl.formatMessage({
                                             id: 'intro.subtitle1',
-                                            defaultMessage: 'Natal chart',
+                                            defaultMessage: 'Natal chart for Metaverse',
                                         })}
                                     </div>
                                     <p className={style.content}>
                                         {intl.formatMessage({
                                             id: 'intro.content1',
-                                            defaultMessage: 'Take a snapshot of the sky at the time of your birth and that\'s what astrologers call a birth chart. This is a spiritual identity that connects our life to the vast universe.',
+                                            defaultMessage: 'Astrology based, hyper-personalized, infrastructure of Soulbound virtual character with attributes in Metaverse.',
                                         })}
                                     </p>
                                 </Col>
                             </Row>
-                            <Row gutter={[32, 32]} className={style.introItem}>
+                            <Row gutter={[16, 16]} className={style.introItem}>
                                 <Col span={4} className={style.introItemCol}>
                                     <MdOutlineVerified
                                         className={style.icon}
@@ -215,20 +196,20 @@ const Index: React.FC = () => {
                                     <div className={style.subtitle}>
                                         {intl.formatMessage({
                                             id: 'intro.subtitle2',
-                                            defaultMessage: 'ERC-721',
+                                            defaultMessage: 'ERC-721 based',
                                         })}
                                     </div>
                                     <p className={style.content}>
                                         {intl.formatMessage({
                                             id: 'intro.content2',
-                                            defaultMessage: 'The MetaAstro contract the governs ownership is a standard ERC-721 that works with any compatible service or exchange.',
+                                            defaultMessage: 'The MetaAstro contract works with any compatible service and exchange.',
                                         })}
                                     </p>
                                 </Col>
                             </Row>
-                            <Row gutter={[32, 32]} className={style.introItem}>
+                            <Row gutter={[16, 16]} className={style.introItem}>
                                 <Col span={4} className={style.introItemCol}>
-                                    <SiWeb3Dotjs
+                                    <GiScales
                                         className={style.icon}
                                     />
                                 </Col>
@@ -236,13 +217,13 @@ const Index: React.FC = () => {
                                     <div className={style.subtitle}>
                                         {intl.formatMessage({
                                             id: 'intro.subtitle3',
-                                            defaultMessage: 'Web 3',
+                                            defaultMessage: 'Fair Launch',
                                         })}
                                     </div>
                                     <p className={style.content}>
                                         {intl.formatMessage({
                                             id: 'intro.content3',
-                                            defaultMessage: 'MetaAstro stores this data on the blockchain that can be used to indicate individual characteristics and predict one’s future using Web 3 technology. If Loot is your Metaverse gear, MetaAstro is the seed to your Metaverse character.',
+                                            defaultMessage: 'No early access. No founder’s allocation. No investor privilege. No Ponzi scheme. No FOMO.',
                                         })}
                                     </p>
                                 </Col>
@@ -256,177 +237,37 @@ const Index: React.FC = () => {
                         </Col>
                     </Row>
                 </div>
-                <div className={style.bannerContainer}>
+                <div className={style.howContainer}>
                     <div className={style.title}>
                         {intl.formatMessage({
-                            id: 'astro.feature.card.title',
-                            defaultMessage: 'Sun in Aries',
-                        })}
-                    </div>
-                    <small>Moon in Sagittarius, Ascendant in Libra</small>
-                    <p className={style.content}>
-                        {intl.formatMessage({
-                            id: 'astro.feature.card.content',
-                            defaultMessage: '{strong} Your character has bold self-expression, a strong inner drive, walks down adventurous paths and thrives when challenged. While you may come off as sweet, polite, friendly and quite approachable, with an elegant appearance and sociable style, you have an independent soul and spontaneous emotional nature, nourished by exploration, learning and big picture views.'
-                        }, {
-                            strong: <strong>
-                                {intl.formatMessage({
-                                    id: 'astro.feature.card.strong',
-                                    defaultMessage: 'An elegant fighter nourished by exploration.',
-                                })}
-                            </strong>
-                        })}
-                    </p>
-                </div>
-                <div className={style.whyContainer}>
-                    <div className={style.title}>
-                        {intl.formatMessage({
-                            id: 'why.title',
-                            defaultMessage: 'Why on Blockchain?',
+                            id: 'how.title',
+                            defaultMessage: 'How does MetaAstro work?',
                         })}
                     </div>
                     <p className={style.content}>
                         {intl.formatMessage({
                             id: 'why.content1',
-                            defaultMessage: 'Initially, the MetaAstro will be available in limited quantities, and the content of the chart will be permanently stored on the blockchain (native to the blockchain, not dependent on third-party storage such as IPFS).',
+                            defaultMessage: 'MetaAstro will be available in limited quantities, and the content of the chart will be permanently and entirely stored on the blockchain. With our powerful natural-language engine using swiss ephemeris data, MetaAstro endows your metaverse character with a series of attributes which is relative to yourself.',
                         })}
                     </p>
-                    <p className={style.content}>
-                        {intl.formatMessage({
-                            id: 'why.content2',
-                            defaultMessage: 'Information generated from a MetaAstro provides continuous usability for many Metaverse scenarios. Such as gaining talents in an NFT game, finding your other half on-chain, or upgrading rarity by synastry to name a few.',
-                        })}
-                    </p>
-                </div>
-                <div className={style.tellConatiner}>
-                    <Row gutter={[32, 32]} className={style.tellConatinerRow}>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                            <div className={style.zodiacList}>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ☉
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Courage / Strength
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ↑
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Charm / Manner
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ☽
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Sensitivity / Empathy
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ♃
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Faith / Inclusivity
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ♂
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Attack damage
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ☿
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Intelligence / Speed
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ♄
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Construction / Endurance
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row gutter={[32, 32]} className={style.zodiacItem}>
-                                    <Col span={4} className={style.zodiacItemCol}>
-                                        <div className={style.icon}>
-                                            ♀
-                                        </div>
-                                    </Col>
-                                    <Col span={20}>
-                                        <div className={style.text}>
-                                            Ability power
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </div>
-                        </Col>
-                        <Col xs={24} sm={24} md={24} lg={12} xl={12}>
-                            <div className={style.title}>
-                                {intl.formatMessage({
-                                    id: 'tell.title',
-                                    defaultMessage: 'What your MetaAstro tells about you',
-                                })}
-                            </div>
-                        </Col>
-                    </Row>
                 </div>
                 <div className={style.adamContainer}>
                     <div className={style.title}>
                         {intl.formatMessage({
-                            id: 'adam.title',
-                            defaultMessage: 'How Adam is connected with his character in metaverse',
+                            id: 'user.title',
+                            defaultMessage: 'Connecting Users To Their Metaverse Characters',
                         })}
                     </div>
                     <Row gutter={[32, 32]} className={style.adamContainerRow}>
                         <Col
-                            xs={24} sm={24} md={24} lg={8} xl={8}
+                            xs={24} sm={24} md={24} lg={12} xl={12}
                             className={style.adamContainerCol}
                         >
                             <div className={style.attribute}>
                                 <div className={style.title}>
                                     {intl.formatMessage({
                                         id: 'adam.attribute.title',
-                                        defaultMessage: 'Adam’s attribute',
+                                        defaultMessage: 'User’s attribute',
                                     })}
                                 </div>
                                 <Row gutter={[16, 16]} className={style.zodiacItem}>
@@ -437,7 +278,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Strength
+                                            Courage / Strength
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -452,7 +293,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Charm
+                                            Charm / Manner
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -467,7 +308,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Sensitivity
+                                            Sensitivity / Empathy
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -482,7 +323,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Inclusivity
+                                            Faith / Inclusivity
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -512,7 +353,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Intelligence
+                                            Intelligence / Speed
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -527,7 +368,7 @@ const Index: React.FC = () => {
                                     </Col>
                                     <Col span={15}>
                                         <div className={style.text}>
-                                            Endurance
+                                            Construction / Endurance
                                         </div>
                                     </Col>
                                     <Col span={5}>
@@ -552,56 +393,14 @@ const Index: React.FC = () => {
                             </div>
                         </Col>
                         <Col
-                            xs={24} sm={24} md={24} lg={8} xl={8}
-                            className={style.adamContainerCol}
-                        >
-                            <div className={style.models}>
-                                <div className={style.rightArrow}>
-                                    <BiRightArrow className={style.icon} />
-                                </div>
-                                <div className={style.leftArrow}>
-                                    <BiLeftArrow className={style.icon} />
-                                </div>
-                                <div className={style.humanContainer}>
-                                    <img
-                                        src={"/images/male_23_dab10889bafab6e35b0bad276474374956e6d0ca.jpeg"}
-                                        className={style.image}
-                                    />
-                                    <span className={style.name}>
-                                        {intl.formatMessage({
-                                            id: 'adam.human.name',
-                                            defaultMessage: 'Adam in real world',
-                                        })}
-                                    </span>
-                                </div>
-                                <div className={style.line} />
-                                <div className={style.centerContainer}>
-                                    <span className={style.text}>
-                                        Adam’s MetaAstro
-                                    </span>
-                                    <div className={style.mask} />
-                                </div>
-                                <div className={style.line} />
-                                <div className={style.metaContainer}>
-                                    <img
-                                        src={"/images/model.svg"}
-                                        className={style.image}
-                                    />
-                                    <span className={style.name}>
-                                        {intl.formatMessage({
-                                            id: 'adam.meta.name',
-                                            defaultMessage: 'Adam in metaverse',
-                                        })}
-                                    </span>
-                                </div>
-                            </div>
-                        </Col>
-                        <Col
-                            xs={24} sm={24} md={24} lg={8} xl={8}
+                            xs={24} sm={24} md={24} lg={12} xl={12}
                             className={style.adamContainerCol}
                         >
                             <div className={style.pieChartContainer}>
-                                <Pie data={pieData} {...pieConfig} />
+                                <Doughnut
+                                    data={pieConfig}
+                                    options={pieOptions}
+                                />
                             </div>
                         </Col>
                     </Row>
@@ -609,177 +408,92 @@ const Index: React.FC = () => {
                 <div className={style.friendsContainer}>
                     <div className={style.title}>
                         {intl.formatMessage({
-                            id: 'adam.friends.title',
-                            defaultMessage: 'Adam and his friend with MetaAstro',
+                            id: 'user.friends.title',
+                            defaultMessage: 'User’s Interaction with MetaAstro Friends',
                         })}
                     </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag1',
-                                defaultMessage: 'Matched as life partner',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0x9afe....06d3
+                    <div className={style.astroList}>
+                        <div className={`${style.astroListItem} ${style.astroListItemLeft}`}>
+                            <div className={style.tag}>
+                                {intl.formatMessage({
+                                    id: 'connect.astroList.tag1',
+                                    defaultMessage: 'Matched as life partner',
+                                })}
                             </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Scorpio
+                            <div className={style.info}>
+                                <div className={style.astroListItemTitle}>
+                                    0x9afe....06d3
                                 </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Virgo
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Leo
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
-                    </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag2',
-                                defaultMessage: 'Matched as evil lover',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0x01ca....d15b
-                            </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Scorpio
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Cancer
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Leo
+                                <div className={style.astroListItemContent}>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☉</span>
+                                        Scorpio
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>↑</span>
+                                        Virgo
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☽</span>
+                                        Leo
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
-                    </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag3',
-                                defaultMessage: 'Perfect parent for you',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0x401a....0252
+                        <div className={style.astroListItem}>
+                            <div className={style.tag}>
+                                {intl.formatMessage({
+                                    id: 'connect.astroList.tag2',
+                                    defaultMessage: 'Matched as evil lover',
+                                })}
                             </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Pisces
+                            <div className={style.info}>
+                                <div className={style.astroListItemTitle}>
+                                    0x01ca....d15b
                                 </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Leo
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Libra
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
-                    </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag4',
-                                defaultMessage: 'To upgrade water element',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0xc364....fe88
-                            </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Aries
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Aquarius
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Sagittarius
+                                <div className={style.astroListItemContent}>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☉</span>
+                                        Scorpio
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>↑</span>
+                                        Cancer
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☽</span>
+                                        Leo
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
-                    </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag5',
-                                defaultMessage: 'Partner to make a fortune',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0x95a7....29bd
+                        <div className={`${style.astroListItem} ${style.astroListItemRight}`}>
+                            <div className={style.tag}>
+                                {intl.formatMessage({
+                                    id: 'connect.astroList.tag3',
+                                    defaultMessage: 'Perfect parent for you',
+                                })}
                             </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Pisces
+                            <div className={style.info}>
+                                <div className={style.astroListItemTitle}>
+                                    0x401a....0252
                                 </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Leo
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Sagittarius
-                                </div>
-                            </div>
-                        </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
-                    </div>
-                    <div className={style.astroListItem}>
-                        <div className={style.tag}>
-                            {intl.formatMessage({
-                                id: 'connect.astroList.tag6',
-                                defaultMessage: 'Totally different soul',
-                            })}
-                        </div>
-                        <div className={style.info}>
-                            <div className={style.astroListItemTitle}>
-                                0xeee1....9d88
-                            </div>
-                            <div className={style.astroListItemContent}>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☉</span>
-                                    Cancer
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>↑</span>
-                                    Virgo
-                                </div>
-                                <div className={style.astroListItemContentItem}>
-                                    <span>☽</span>
-                                    Cancer
+                                <div className={style.astroListItemContent}>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☉</span>
+                                        Pisces
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>↑</span>
+                                        Leo
+                                    </div>
+                                    <div className={style.astroListItemContentItem}>
+                                        <span>☽</span>
+                                        Libra
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={style.arrow}><ArrowRightOutlined /></div>
                     </div>
                 </div>
                 <div className={style.profitContainer}>

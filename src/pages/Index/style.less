@@ -44,6 +44,30 @@
     }
 }
 
+.mouse {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -20px;
+    z-index: 10;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    opacity: 0.5;
+    transition: all 1s;
+    cursor: pointer;
+
+    .icon {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-left: auto;
+        margin-right: auto;
+        animation: ani_arrow 1.5s linear .3s infinite both;
+    }
+}
+
 .introContainer {
     display: flex;
     flex-direction: row;
@@ -52,6 +76,13 @@
     width: 100%;
     margin-top: 3rem;
     margin-bottom: 3rem;
+
+    .introCol {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
 
     .title {
         font-size: 1.875rem;
@@ -80,7 +111,7 @@
             border-radius: 10px;
             width: 3rem;
             height: 3rem;
-            padding: 15px;
+            padding: 10px;
         }
 
         .text {
@@ -133,7 +164,7 @@
     }
 }
 
-.whyContainer {
+.howContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,11 +180,13 @@
         font-weight: 800;
         margin-bottom: 2.5rem;
         font-family: "Josefin Sans";
+        text-align: left;
+        width: 100%;
     }
 
     .content {
         font-size: 1.25rem;
-        line-height: 1.75rem;
+        line-height: 2.5rem;
 
         &:not(:last-child) {
             margin-bottom: 2.5rem;
@@ -231,8 +264,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 
     .title {
         font-size: 1.325rem;
@@ -443,8 +476,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 3rem;
-    margin-bottom: 3rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 
     .title {
         font-size: 1.325rem;
@@ -455,68 +488,84 @@
         font-family: "Josefin Sans";
     }
 
-    .astroListItem {
-        position: relative;
-        border: 1px solid #fff;
-        padding: 1rem;
-        width: 100%;
+    .astroList {
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        margin-top: 15px;
-        margin-bottom: 15px;
+        justify-content: center;
+        width: 100%;
+        margin-top: 150px;
+        margin-bottom: 150px;
 
-        .tag {
-            position: absolute;
-            top: -14px;
-            right: -10px;
-            background-color: #fff;
-            color: #000;
-            padding: 0.3rem 1rem;
-            font-weight: 900;
-            font-size: 1rem;
-            font-family: 'Gideon Roman', cursive;
-        }
-
-        .info {
+        .astroListItem {
+            position: relative;
+            border: 1px solid #fff;
+            padding: 1rem;
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            flex-direction: row;
+            align-items: center;
             justify-content: center;
-            width: 60%;
-            text-align: left;
-
-            .astroListItemTitle {
-                font-size: 1.3rem;
+            margin-top: 15px;
+            margin-bottom: 15px;
+    
+            .tag {
+                position: absolute;
+                top: -14px;
+                right: -10px;
+                background-color: #fff;
+                color: #000;
+                padding: 0.3rem 1rem;
+                font-weight: 900;
+                font-size: 1rem;
                 font-family: 'Gideon Roman', cursive;
-                font-weight: 800;
-                text-align: left;
-                width: 100%;
             }
-
-            .astroListItemContent {
+    
+            .info {
                 display: flex;
+                flex-direction: column;
                 align-items: center;
-                justify-content: space-between;
-                width: 100%;
-                margin-top: 1rem;
-
-                .astroListItemContentItem {
+                justify-content: center;
+                width: 60%;
+                text-align: left;
+    
+                .astroListItemTitle {
+                    font-size: 1.3rem;
+                    font-family: 'Gideon Roman', cursive;
+                    font-weight: 800;
+                    text-align: center;
+                    width: 100%;
+                }
+    
+                .astroListItemContent {
                     display: flex;
-                    flex-direction: row;
                     align-items: center;
-                    justify-content: center;
-
-                    span {
-                        margin-right: 10px;
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-top: 1rem;
+    
+                    .astroListItemContentItem {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+    
+                        span {
+                            margin-right: 10px;
+                        }
                     }
                 }
             }
         }
 
-        .arrow {
-            font-size: 1.2rem;
+        .astroListItemLeft {
+            margin-bottom: -20px;
+            margin-right: -50px;
+        }
+
+        .astroListItemRight {
+            margin-top: -20px;
+            margin-left: -50px;
         }
     }
 }
@@ -819,5 +868,64 @@
     .pieChartContainer {
         width: 100% !important;
         height: 100% !important;
+    }
+
+    .zodiacItem {
+        .text {
+            font-size: 0.8rem !important;
+            margin-left: 10px;
+        }
+    }
+
+    .astroList {
+        flex-direction: column !important;
+        margin-top: 50px !important;
+        margin-bottom: 50px !important;
+
+        .astroListItem {
+            padding: 40px !important;
+        }
+
+        .astroListItemLeft {
+            margin-bottom: unset !important;
+            margin-right: unset !important;
+        }
+
+        .astroListItemRight {
+            margin-top: unset !important;
+            margin-left: unset !important;
+        }
+    }
+}
+
+@keyframes ani_arrow {
+    0% {
+        transform: translateY(0);
+        transform-origin: 50% 0;
+        opacity: 0
+    }
+
+    25% {
+        transform: translateY(8px);
+        transform-origin: 50% 0;
+        opacity: 1
+    }
+
+    50% {
+        transform: translateY(16px);
+        transform-origin: 50% 0;
+        opacity: 1
+    }
+
+    75% {
+        transform: translateY(24px);
+        transform-origin: 50% 0;
+        opacity: 1
+    }
+
+    to {
+        transform: translateY(32px);
+        transform-origin: 50% 0;
+        opacity: 0
     }
 }

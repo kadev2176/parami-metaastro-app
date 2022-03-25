@@ -18,7 +18,6 @@ const BigModal: React.FC<{
         <Modal
             title={
                 title ? (
-
                     <>
                         <Title
                             level={3}
