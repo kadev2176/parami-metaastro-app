@@ -87,6 +87,7 @@ const Header: React.FC = () => {
                                     className={style.menuItem}
                                     onClick={async () => {
                                         await disconnect();
+                                        setMenu(false);
                                     }}
                                 >
                                     <LogoutOutlined className={style.icon} />
