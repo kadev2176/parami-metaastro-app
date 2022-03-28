@@ -33,7 +33,7 @@ const Index: React.FC = () => {
         'Fire',
         'Water',
         'Earth',
-        'Wind',
+        'Air',
     ];
 
     const pieConfig = {
