@@ -3,7 +3,7 @@ import styles from '@/style/common.less';
 import style from './style.less';
 import { useIntl, useModel, history } from 'umi';
 import Background from '@/components/Background';
-import { Col, Row, Steps } from 'antd';
+import { Col∂, Row, Steps } from 'antd';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { MdOutlineVerified } from 'react-icons/md';
 import { GiScales } from 'react-icons/gi';
@@ -13,16 +13,23 @@ import { RiArrowDownSLine } from 'react-icons/ri';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Countdown from 'antd/lib/statistic/Countdown';
 
 const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
 const sloganBottomArr = 'TO METAVERSES'.split('');
 const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
 const Index: React.FC = () => {
-    const { Account, ChainId, connect } = useModel('web3');
+    const { Web3Provider, ChainId, Account, connect } = useModel('web3');
     const [avavible, setAvavible] = useState<boolean>(false);
     const [popBottomBar, setPopBottomBar] = useState<boolean>(false);
     const [PageScroll, setPageScroll] = useState<number>(0);
+    const [startTime, setStartTime] = useState<number>(0);
+    const [endTime, setEndTime] = useState<number>(0);
+    const [onSale, setOnSale] = useState<boolean>(false);
+    const {
+        MintContract
+    } = useModel('astroContracts');
 
     const intl = useIntl();
 
@@ -90,6 +97,23 @@ const Index: React.FC = () => {
         }
     };
 
+    const getSalesTime = async () => {
+        const timeRange = await MintContract?.getSalesTimes();
+
+        const date = new Date();
+        const now = date.getTime() / 1000;
+        const currentDay = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()) / 1000;
+
+        setStartTime((timeRange[0].toNumber() + currentDay) * 1000);
+        setEndTime((timeRange[1].toNumber() + currentDay) * 1000);
+
+        if (now <= timeRange[0].toNumber() + currentDay || now >= timeRange[1].toNumber() + currentDay) {
+            setOnSale(false);
+        } else {
+            setOnSale(true);
+        }
+    };
+
     useEffect(() => {
         if (ChainId === 4) {
             setAvavible(true);
@@ -97,6 +121,12 @@ const Index: React.FC = () => {
             setAvavible(false);
         }
     }, [ChainId, Account, avavible]);
+
+    useEffect(() => {
+        if (!!MintContract && !!Web3Provider) {
+            getSalesTime();
+        }
+    }, [MintContract, Web3Provider]);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -146,6 +176,12 @@ const Index: React.FC = () => {
                             ))}
                         </p>
                     </div>
+                    {Account && onSale && (
+                        <Countdown title="The rest of the day's auction" value={endTime} />
+                    )}
+                    {Account && !onSale && (
+                        <Countdown title="Opening time of the next auction" value={startTime} />
+                    )}
                     <div
                         className={style.mouse}
                         style={{
