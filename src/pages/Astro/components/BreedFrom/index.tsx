@@ -189,7 +189,7 @@ const BreedFrom: React.FC<{
                                                 setDateOfBirth(dateString.split('/'));
                                                 await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
                                             }}
-                                            disabledDate={(date) => date.daysInMonth() !== CurrentDay}
+                                            disabledDate={(date) => CurrentDay > date.daysInMonth()}
                                             placeholder={intl.formatMessage({
                                                 id: 'astro.date.placeholder',
                                                 defaultMessage: 'YYYY/MM/DD',

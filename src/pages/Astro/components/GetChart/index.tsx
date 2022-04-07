@@ -226,7 +226,7 @@ const GetChart: React.FC<{
                                                     suffixIcon={undefined}
                                                     picker="month"
                                                     format={['YYYY/MM/DD', 'YY/MM/DD']}
-                                                    disabledDate={(date) => !AllowMonth.includes(date.month()) || date.daysInMonth() !== CurrentDay}
+                                                    disabledDate={(date) => !AllowMonth.includes(date.get('month')) || CurrentDay > date.daysInMonth()}
                                                     onChange={(_, dateString) => {
                                                         setDateOfBirth(dateString.split('/'));
                                                     }}
