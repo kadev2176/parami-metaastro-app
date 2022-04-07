@@ -3,7 +3,7 @@ import styles from '@/style/common.less';
 import style from './style.less';
 import { useIntl, useModel, history } from 'umi';
 import Background from '@/components/Background';
-import { Col∂, Row, Steps } from 'antd';
+import { Col, Row, Steps } from 'antd';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { MdOutlineVerified } from 'react-icons/md';
 import { GiScales } from 'react-icons/gi';
@@ -14,22 +14,23 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Countdown from 'antd/lib/statistic/Countdown';
+import { infuraProvider } from '@/config/web3provider';
+import { ethers } from 'ethers';
+import { contractAddresses } from '../Astro/config';
+import MintAbi from '@/pages/Astro/abi/Mint.json';
 
 const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
 const sloganBottomArr = 'TO METAVERSES'.split('');
 const sloganCopyArr = 'WITH ASTROLOGY POWER'.split('');
 
 const Index: React.FC = () => {
-    const { Web3Provider, ChainId, Account, connect } = useModel('web3');
+    const { ChainId, Account, connect } = useModel('web3');
     const [avavible, setAvavible] = useState<boolean>(false);
     const [popBottomBar, setPopBottomBar] = useState<boolean>(false);
     const [PageScroll, setPageScroll] = useState<number>(0);
     const [startTime, setStartTime] = useState<number>(0);
     const [endTime, setEndTime] = useState<number>(0);
     const [onSale, setOnSale] = useState<boolean>(false);
-    const {
-        MintContract
-    } = useModel('astroContracts');
 
     const intl = useIntl();
 
@@ -98,6 +99,9 @@ const Index: React.FC = () => {
     };
 
     const getSalesTime = async () => {
+        const provider = new ethers.providers.JsonRpcProvider(infuraProvider[4]);
+        const MintContract = await new ethers.Contract(contractAddresses.mint[4], MintAbi, provider);
+
         const timeRange = await MintContract?.getSalesTimes();
 
         const date = new Date();
@@ -123,10 +127,8 @@ const Index: React.FC = () => {
     }, [ChainId, Account, avavible]);
 
     useEffect(() => {
-        if (!!MintContract && !!Web3Provider) {
-            getSalesTime();
-        }
-    }, [MintContract, Web3Provider]);
+        getSalesTime();
+    }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -176,11 +178,22 @@ const Index: React.FC = () => {
                             ))}
                         </p>
                     </div>
-                    {Account && onSale && (
-                        <Countdown title="The rest of the day's auction" value={endTime} />
+                    {onSale && !!endTime && (
+                        <Countdown
+                            title={
+                                <div className={style.countdownTitle}>
+                                    The rest of the day’s auction
+                                </div>
+                            }
+                            className={style.countdown}
+                            value={endTime}
+                        />
                     )}
-                    {Account && !onSale && (
-                        <Countdown title="Opening time of the next auction" value={startTime} />
+                    {!onSale && !!startTime && (
+                        <Countdown
+                            title="Opening time of the next auction"
+                            value={startTime}
+                        />
                     )}
                     <div
                         className={style.mouse}
