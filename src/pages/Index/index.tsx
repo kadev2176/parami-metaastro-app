@@ -182,7 +182,7 @@ const Index: React.FC = () => {
                         <Countdown
                             title={
                                 <div className={style.countdownTitle}>
-                                    The rest of the day’s auction
+                                    Today’s auction end in
                                 </div>
                             }
                             className={style.countdown}
@@ -191,7 +191,11 @@ const Index: React.FC = () => {
                     )}
                     {!onSale && !!startTime && (
                         <Countdown
-                            title="Opening time of the next auction"
+                            title={
+                                <div className={style.countdownTitle}>
+                                    Next round begins in
+                                </div>
+                            }
                             value={startTime}
                         />
                     )}
