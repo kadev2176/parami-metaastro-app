@@ -67,3 +67,15 @@ export const isLeapYear = (year: number) => {
     }
     return true;
 };
+
+export const pad2 = (n: number) => {
+    return (n < 10 ? '0' : '') + n;
+};
+
+export const todayYYYYMMDD = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = pad2(date.getMonth() + 1);
+    const day = pad2(date.getDate());
+    return `${year}-${month}-${day}`;
+};

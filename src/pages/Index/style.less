@@ -44,6 +44,38 @@
     }
 }
 
+.leftTopContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+    color: #fff;
+    z-index: 2;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-family: 'Space Mono', monospace;
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin: 6px;
+        color: #fff;
+        letter-spacing: 0.01rem;
+        text-transform: uppercase;
+    }
+
+    h4 {
+        font-size: 1rem;
+        font-weight: 400;
+        margin: 3px 6px;
+        color: #fff;
+    }
+}
+
 .countdown {
     display: flex;
     flex-direction: column;
@@ -150,8 +182,23 @@
         }
     }
 
-    .demoChart {
-        width: 100%;
+    .demoChartItem {
+        position: relative;
+
+        .tag {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            color: #000;
+            font-size: 0.9rem;
+            font-weight: 900;
+            padding: 3px 10px;
+        }
+
+        .demoChart {
+            width: 100%;
+        }
     }
 }
 
@@ -858,6 +905,10 @@
                 margin-right: 0.23rem !important;
             }
         }
+    }
+
+    .leftTopContainer {
+        padding-top: 4rem;
     }
 
     .sections {

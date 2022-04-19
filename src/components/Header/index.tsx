@@ -9,6 +9,7 @@ import { opensea } from '@/pages/Astro/config';
 
 const Header: React.FC = () => {
     const { Account, ChainId, connect, disconnect } = useModel('web3');
+    const { initialState } = useModel('@@initialState');
     const [menu, setMenu] = useState<boolean>(false);
     const [breedPriceModal, setBreedPriceModal] = useState<boolean>(false);
     const [avavible, setAvavible] = useState<boolean>(false);
@@ -38,82 +39,87 @@ const Header: React.FC = () => {
                     />
                     <span>MetaAstro</span>
                 </div>
+                {console.log(initialState?.leftDays)}
                 <div className={style.connectWallet}>
-                    {!!Account && avavible ? (
-                        <div className={style.menuButton}>
-                            <Button
-                                type='default'
-                                size='large'
-                                shape='round'
-                                className={style.connectWalletBtn}
-                                icon={<FaWallet className={style.icon} />}
-                                onClick={() => {
-                                    setMenu(!menu);
-                                }}
-                            >
-                                {`${Account.substring(0, 6)}...${Account.slice(-4)}`}
-                            </Button>
-                            <div
-                                className={style.headerMenu}
-                                style={{
-                                    height: menu ? '220px' : '0',
-                                }}
-                            >
-                                <div
-                                    className={style.menuItem}
-                                    onClick={() => {
-                                        setBreedPriceModal(true);
-                                    }}
-                                >
-                                    <TagsFilled className={style.icon} />
-                                    {intl.formatMessage({
-                                        id: 'header.menu.breedPrice',
-                                        defaultMessage: 'Breed Price',
-                                    })}
+                    {initialState?.leftDays === 0 && (
+                        <>
+                            {!!Account && avavible ? (
+                                <div className={style.menuButton}>
+                                    <Button
+                                        type='default'
+                                        size='large'
+                                        shape='round'
+                                        className={style.connectWalletBtn}
+                                        icon={<FaWallet className={style.icon} />}
+                                        onClick={() => {
+                                            setMenu(!menu);
+                                        }}
+                                    >
+                                        {`${Account.substring(0, 6)}...${Account.slice(-4)}`}
+                                    </Button>
+                                    <div
+                                        className={style.headerMenu}
+                                        style={{
+                                            height: menu ? '220px' : '0',
+                                        }}
+                                    >
+                                        <div
+                                            className={style.menuItem}
+                                            onClick={() => {
+                                                setBreedPriceModal(true);
+                                            }}
+                                        >
+                                            <TagsFilled className={style.icon} />
+                                            {intl.formatMessage({
+                                                id: 'header.menu.breedPrice',
+                                                defaultMessage: 'Breed Price',
+                                            })}
+                                        </div>
+                                        <div
+                                            className={style.menuItem}
+                                            onClick={() => {
+                                                window.open(`${opensea.url}/${Account}/${opensea.collection}`, '_blank');
+                                            }}
+                                        >
+                                            <EyeFilled className={style.icon} />
+                                            {intl.formatMessage({
+                                                id: 'header.menu.onOpensea',
+                                                defaultMessage: 'On Opensea',
+                                            })}
+                                        </div>
+                                        <div
+                                            className={style.menuItem}
+                                            onClick={async () => {
+                                                await disconnect();
+                                                setMenu(false);
+                                            }}
+                                        >
+                                            <LogoutOutlined className={style.icon} />
+                                            {intl.formatMessage({
+                                                id: 'header.menu.logout',
+                                                defaultMessage: 'Logout',
+                                            })}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div
-                                    className={style.menuItem}
-                                    onClick={() => {
-                                        window.open(`${opensea.url}/${Account}/${opensea.collection}`, '_blank');
-                                    }}
-                                >
-                                    <EyeFilled className={style.icon} />
-                                    {intl.formatMessage({
-                                        id: 'header.menu.onOpensea',
-                                        defaultMessage: 'On Opensea',
-                                    })}
-                                </div>
-                                <div
-                                    className={style.menuItem}
+                            ) : (
+                                <Button
+                                    type='default'
+                                    size='large'
+                                    shape='round'
+                                    className={style.connectWalletBtn}
+                                    icon={<FaWallet className={style.icon} />}
                                     onClick={async () => {
-                                        await disconnect();
-                                        setMenu(false);
+                                        await connect();
                                     }}
                                 >
-                                    <LogoutOutlined className={style.icon} />
                                     {intl.formatMessage({
-                                        id: 'header.menu.logout',
-                                        defaultMessage: 'Logout',
+                                        id: 'header.connectWallet',
+                                        defaultMessage: 'Connect Wallet',
                                     })}
-                                </div>
-                            </div>
-                        </div>
-                    ) : (
-                        <Button
-                            type='default'
-                            size='large'
-                            shape='round'
-                            className={style.connectWalletBtn}
-                            icon={<FaWallet className={style.icon} />}
-                            onClick={async () => {
-                                await connect();
-                            }}
-                        >
-                            {intl.formatMessage({
-                                id: 'header.connectWallet',
-                                defaultMessage: 'Connect Wallet',
-                            })}
-                        </Button>
+                                </Button>
+                            )}
+                        </>
                     )}
                 </div>
             </div>

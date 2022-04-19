@@ -5,200 +5,204 @@ import { useEffect } from 'react';
 import style from './style.less';
 
 const Background: React.FC<{
-    speedup?: boolean;
-    pullup?: boolean;
-}> = ({ speedup, pullup }) => {
-    const textureLoader = new THREE.TextureLoader();
-    const shape = textureLoader.load('/particleShape/1.png');
+	speedup?: boolean;
+	pullup?: boolean;
+	leftDays?: number;
+}> = ({ speedup, pullup, leftDays }) => {
+	const count = [10000, 70000];
+	const randomness = [1, 0.3];
+	const stars = [1000, 9000];
 
-    // Scene
-    const scene = new THREE.Scene();
+	const textureLoader = new THREE.TextureLoader();
+	const shape = textureLoader.load('/particleShape/1.png');
 
-    // Galaxy Generator
-    const parameters = {
-        count: 70000,
-        size: 0.01,
-        radius: 5,
-        branches: 8,
-        spin: 1,
-        randomness: 0.3,
-        randomnessPower: 5,
-        stars: 9000,
-        starColor: '#1b3984',
-        insideColor: '#ff5b00',
-        outsideColor: '#1b3984',
-    };
+	// Scene
+	const scene = new THREE.Scene();
 
-    let geometry: any;
-    let material: any;
-    let points: any;
+	// Galaxy Generator
+	const parameters = {
+		count: !!leftDays ? ((count[1] - count[0]) / 7 * (7 - leftDays + 1)) : 70000,
+		size: 0.01,
+		radius: 5,
+		branches: !!leftDays ? 7 - leftDays + 1 : 7,
+		spin: 1,
+		randomness: !!leftDays ? ((randomness[1] - randomness[0]) / 7 * (7 - leftDays + 1)) : 0.3,
+		randomnessPower: 5,
+		stars: !!leftDays ? (stars[1] - stars[0] / 7 * (7 - leftDays + 1)) : 9000,
+		starColor: '#1b3984',
+		insideColor: '#ff5b00',
+		outsideColor: '#1b3984',
+	};
 
-    const generateGalaxy = () => {
-        geometry = new THREE.BufferGeometry();
+	let geometry: any;
+	let material: any;
+	let points: any;
 
-        const positions = new Float32Array(parameters.count * 3);
-        const colors = new Float32Array(parameters.count * 3);
+	const generateGalaxy = () => {
+		geometry = new THREE.BufferGeometry();
 
-        const colorInside = new THREE.Color(parameters.insideColor);
-        const colorOutside = new THREE.Color(parameters.outsideColor);
+		const positions = new Float32Array(parameters.count * 3);
+		const colors = new Float32Array(parameters.count * 3);
 
-        for (let i = 0; i < parameters.count; i++) {
-            // Position
-            const x = Math.random() * parameters.radius;
-            const branchAngle = (i % parameters.branches) / parameters.branches * 2 * Math.PI;
-            const spinAngle = x * parameters.spin;
+		const colorInside = new THREE.Color(parameters.insideColor);
+		const colorOutside = new THREE.Color(parameters.outsideColor);
 
-            const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
-            const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
-            const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
+		for (let i = 0; i < parameters.count; i++) {
+			// Position
+			const x = Math.random() * parameters.radius;
+			const branchAngle = (i % parameters.branches) / parameters.branches * 2 * Math.PI;
+			const spinAngle = x * parameters.spin;
 
-            positions[i * 3] = Math.sin(branchAngle + spinAngle) * x + randomX;
-            positions[i * 3 + 1] = randomY;
-            positions[i * 3 + 2] = Math.cos(branchAngle + spinAngle) * x + randomZ;
+			const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
+			const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
+			const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1);
 
-            // Color
+			positions[i * 3] = Math.sin(branchAngle + spinAngle) * x + randomX;
+			positions[i * 3 + 1] = randomY;
+			positions[i * 3 + 2] = Math.cos(branchAngle + spinAngle) * x + randomZ;
 
-            const mixedColor = colorInside.clone();
-            mixedColor.lerp(colorOutside, x / parameters.radius);
+			// Color
 
-            colors[i * 3 + 0] = mixedColor.r;
-            colors[i * 3 + 1] = mixedColor.g;
-            colors[i * 3 + 2] = mixedColor.b;
-        }
+			const mixedColor = colorInside.clone();
+			mixedColor.lerp(colorOutside, x / parameters.radius);
 
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+			colors[i * 3 + 0] = mixedColor.r;
+			colors[i * 3 + 1] = mixedColor.g;
+			colors[i * 3 + 2] = mixedColor.b;
+		}
 
-        material = new THREE.PointsMaterial({
-            color: 'white',
-            size: parameters.size,
-            depthWrite: false,
-            sizeAttenuation: true,
-            blending: AdditiveBlending,
-            vertexColors: true,
-            transparent: true,
-            alphaMap: shape
-        });
+		geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+		geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-        points = new THREE.Points(geometry, material);
-        scene.add(points);
-    };
+		material = new THREE.PointsMaterial({
+			color: 'white',
+			size: parameters.size,
+			depthWrite: false,
+			sizeAttenuation: true,
+			blending: AdditiveBlending,
+			vertexColors: true,
+			transparent: true,
+			alphaMap: shape
+		});
 
-
-    // Background Stars
-    let bgStarsGeometry: any;
-    let bgStarsMaterial: any;
-    let bgStars: any;
-
-    const generateBgStars = () => {
-        bgStarsGeometry = new THREE.BufferGeometry();
-        const bgStarsPositions = new Float32Array(parameters.stars * 3);
-
-        for (let j = 0; j < parameters.stars; j++) {
-            bgStarsPositions[j * 3 + 0] = (Math.random() - 0.5) * 20;
-            bgStarsPositions[j * 3 + 1] = (Math.random() - 0.5) * 20;
-            bgStarsPositions[j * 3 + 2] = (Math.random() - 0.5) * 20;
-        };
-
-        bgStarsGeometry.setAttribute('position', new THREE.BufferAttribute(bgStarsPositions, 3));
-
-        bgStarsMaterial = new THREE.PointsMaterial({
-            size: parameters.size,
-            depthWrite: false,
-            sizeAttenuation: true,
-            blending: AdditiveBlending,
-            color: parameters.starColor,
-            transparent: true,
-            alphaMap: shape
-        });
-
-        bgStars = new THREE.Points(bgStarsGeometry, bgStarsMaterial);
-        scene.add(bgStars);
-    }
+		points = new THREE.Points(geometry, material);
+		scene.add(points);
+	};
 
 
-    // Sizes
-    const sizes = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    };
+	// Background Stars
+	let bgStarsGeometry: any;
+	let bgStarsMaterial: any;
+	let bgStars: any;
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
-    camera.position.x = 3;
-    camera.position.y = 3;
-    camera.position.z = 3;
+	const generateBgStars = () => {
+		bgStarsGeometry = new THREE.BufferGeometry();
+		const bgStarsPositions = new Float32Array(parameters.stars * 3);
 
-    scene.add(camera);
-    // Animate
-    const clock = new THREE.Clock();
-    let g_renderer: any;
-    const tick = () => {
-        // Call tick again on the next frame
-        if (!!g_renderer) {
-            const elapsedTime = clock.getElapsedTime();
-            //Update the camera
-            points.rotation.y = elapsedTime * 0.1;
-            bgStars.rotation.y = - elapsedTime * 0.05;
-            if (speedup) {
-                points.rotation.y += points.rotation.y * 1.1;
-                bgStars.rotation.y += bgStars.rotation.y * 1.1;
-            }
-            if (pullup && camera.position.x > 1) {
-                camera.position.x -= 0.01;
-                camera.position.y -= 0.01;
-                camera.position.z -= 0.01;
-            }
-            // Render
-            g_renderer.render(scene, camera, points, bgStars);
-            window.requestAnimationFrame(tick);
-        } else {
-            window.requestAnimationFrame(tick);
-            return;
-        }
-    };
+		for (let j = 0; j < parameters.stars; j++) {
+			bgStarsPositions[j * 3 + 0] = (Math.random() - 0.5) * 20;
+			bgStarsPositions[j * 3 + 1] = (Math.random() - 0.5) * 20;
+			bgStarsPositions[j * 3 + 2] = (Math.random() - 0.5) * 20;
+		};
 
-    useEffect(() => {
-        // Canvas
-        const canvas = document.querySelector('canvas.webgl') as HTMLElement;
-        generateGalaxy();
-        generateBgStars();
-        // Controls
-        const controls = new OrbitControls(camera, canvas);
-        controls.enableDamping = true;
+		bgStarsGeometry.setAttribute('position', new THREE.BufferAttribute(bgStarsPositions, 3));
 
-        // Render
-        const renderer = new THREE.WebGLRenderer({
-            canvas: canvas
-        })
-        renderer.setSize(sizes.width, sizes.height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        g_renderer = renderer;
-        tick();
-        window.addEventListener('resize', () => {
-            // Update sizes
-            sizes.width = window.innerWidth;
-            sizes.height = window.innerHeight;
+		bgStarsMaterial = new THREE.PointsMaterial({
+			size: parameters.size,
+			depthWrite: false,
+			sizeAttenuation: true,
+			blending: AdditiveBlending,
+			color: parameters.starColor,
+			transparent: true,
+			alphaMap: shape
+		});
 
-            // Update camera
-            camera.aspect = sizes.width / sizes.height;
-            camera.updateProjectionMatrix();
-
-            // Update renderer
-            renderer.setSize(sizes.width, sizes.height);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        });
-
-    }, [speedup, pullup]);
+		bgStars = new THREE.Points(bgStarsGeometry, bgStarsMaterial);
+		scene.add(bgStars);
+	}
 
 
+	// Sizes
+	const sizes = {
+		width: window.innerWidth,
+		height: window.innerHeight
+	};
 
-    return (
-        <div className={style.backgroundContainer}>
-            <div className={style.mask} />
-            <canvas className='webgl' />
-        </div>
-    )
+	// Camera
+	const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+	camera.position.x = 3;
+	camera.position.y = 3;
+	camera.position.z = 3;
+
+	scene.add(camera);
+	// Animate
+	const clock = new THREE.Clock();
+	let g_renderer: any;
+	const tick = () => {
+		// Call tick again on the next frame
+		if (!!g_renderer) {
+			const elapsedTime = clock.getElapsedTime();
+			//Update the camera
+			points.rotation.y = elapsedTime * 0.1;
+			bgStars.rotation.y = - elapsedTime * 0.05;
+			if (speedup) {
+				points.rotation.y += points.rotation.y * 1.1;
+				bgStars.rotation.y += bgStars.rotation.y * 1.1;
+			}
+			if (pullup && camera.position.x > 1) {
+				camera.position.x -= 0.01;
+				camera.position.y -= 0.01;
+				camera.position.z -= 0.01;
+			}
+			// Render
+			g_renderer.render(scene, camera, points, bgStars);
+			window.requestAnimationFrame(tick);
+		} else {
+			window.requestAnimationFrame(tick);
+			return;
+		}
+	};
+
+	useEffect(() => {
+		// Canvas
+		const canvas = document.querySelector('canvas.webgl') as HTMLElement;
+		generateGalaxy();
+		generateBgStars();
+		// Controls
+		const controls = new OrbitControls(camera, canvas);
+		controls.enableDamping = true;
+
+		// Render
+		const renderer = new THREE.WebGLRenderer({
+			canvas: canvas
+		})
+		renderer.setSize(sizes.width, sizes.height);
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		g_renderer = renderer;
+		tick();
+		window.addEventListener('resize', () => {
+			// Update sizes
+			sizes.width = window.innerWidth;
+			sizes.height = window.innerHeight;
+
+			// Update camera
+			camera.aspect = sizes.width / sizes.height;
+			camera.updateProjectionMatrix();
+
+			// Update renderer
+			renderer.setSize(sizes.width, sizes.height);
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		});
+	}, [speedup, pullup, leftDays]);
+
+
+
+	return (
+		<div className={style.backgroundContainer}>
+			<div className={style.mask} />
+			<canvas className='webgl' />
+		</div>
+	)
 }
 
 export default Background;

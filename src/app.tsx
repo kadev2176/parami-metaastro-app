@@ -13,6 +13,7 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   loading?: boolean;
+  leftDays?: number;
 }> {
   return {
     settings: defaultSettings,
