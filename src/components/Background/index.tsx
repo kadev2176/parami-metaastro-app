@@ -21,14 +21,14 @@ const Background: React.FC<{
 
 	// Galaxy Generator
 	const parameters = {
-		count: !!leftDays ? ((count[1] - count[0]) / 7 * (7 - leftDays + 1)) : 70000,
+		count: !!leftDays && leftDays <= 7 ? ((count[1] - count[0]) / 7 * (7 - leftDays + 1)) : 70000,
 		size: 0.01,
 		radius: 5,
-		branches: !!leftDays ? 7 - leftDays + 1 : 7,
+		branches: !!leftDays && leftDays <= 7 ? 7 - leftDays + 1 : 7,
 		spin: 1,
-		randomness: !!leftDays ? ((randomness[1] - randomness[0]) / 7 * (7 - leftDays + 1)) : 0.3,
+		randomness: !!leftDays && leftDays <= 7 ? ((randomness[1] - randomness[0]) / 7 * (7 - leftDays + 1)) : 0.3,
 		randomnessPower: 5,
-		stars: !!leftDays ? (stars[1] - stars[0] / 7 * (7 - leftDays + 1)) : 9000,
+		stars: !!leftDays && leftDays <= 7 ? (stars[1] - stars[0] / 7 * (7 - leftDays + 1)) : 9000,
 		starColor: '#1b3984',
 		insideColor: '#ff5b00',
 		outsideColor: '#1b3984',

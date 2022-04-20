@@ -80,6 +80,7 @@ export default () => {
             setChainId(chainId);
             if (chainId !== 4) {
                 notification.error({
+                    key: 'unsupportedChain',
                     message: 'Unsupported Chain',
                     description: 'This feature is only supported on Rinkeby',
                     duration: null
@@ -99,6 +100,7 @@ export default () => {
                 setChainId(Number(newChainId));
                 if (Number(newChainId) !== 4) {
                     notification.error({
+                        key: 'unsupportedChain',
                         message: 'Unsupported Chain',
                         description: 'This feature is only supported on Rinkeby',
                         duration: null

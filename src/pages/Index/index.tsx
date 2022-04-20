@@ -19,6 +19,7 @@ import { ethers } from 'ethers';
 import { contractAddresses } from '../Astro/config';
 import MintAbi from '@/pages/Astro/abi/Mint.json';
 import { todayYYYYMMDD } from '@/utils/common';
+import Debug from '@/components/Debug';
 
 const sloganTopArr = 'CONNECT YOUR SOUL'.split('');
 const sloganBottomArr = 'TO METAVERSES'.split('');
@@ -34,14 +35,17 @@ const Index: React.FC = () => {
 	const [endTime, setEndTime] = useState<number>(0);
 	const [onSale, setOnSale] = useState<boolean>(false);
 	const [leftDays, setLeftDays] = useState<number>();
-	const [allDays, setAllDays] = useState<number>();
+
+	// Debug State
+	const [debugStartTime, setDebugStartTime] = useState<string>();
+	const [debugPreTime, setDebugPreTime] = useState<string>();
 
 	const intl = useIntl();
 
 	const { Step } = Steps;
 
-	const startDate: any = '2022-04-19';
-	const preDate: any = '2022-04-26';
+	const startDate: any = debugStartTime || '2022-04-19';
+	const preDate: any = debugPreTime || '2022-04-26';
 
 	Chart.register(ArcElement, ChartDataLabels);
 	const labels = [
@@ -126,16 +130,10 @@ const Index: React.FC = () => {
 	};
 
 	const preDayCountDown = async () => {
-		let dateSpan: number = 0;
 		let leftDateSpan: number = 0;
 		const preDateUnix = Date.parse(preDate);
 		const startDateUnix = Date.parse(startDate);
 		if (preDateUnix > startDateUnix) {
-			dateSpan = startDateUnix - preDateUnix;
-			dateSpan = Math.abs(dateSpan);
-			const iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
-			setAllDays(iDays);
-
 			const todayDateUnix = Date.parse(todayYYYYMMDD());
 			leftDateSpan = todayDateUnix - preDateUnix;
 			leftDateSpan = Math.abs(leftDateSpan);
@@ -159,7 +157,7 @@ const Index: React.FC = () => {
 	useEffect(() => {
 		preDayCountDown();
 		getSalesTime();
-	}, []);
+	}, [debugStartTime, debugPreTime]);
 
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
@@ -168,11 +166,14 @@ const Index: React.FC = () => {
 
 	return (
 		<div className={styles.mainContainer}>
+			<Debug
+				setPreTime={setDebugPreTime}
+				setStartTime={setDebugStartTime}
+			/>
 			<Background
 				leftDays={leftDays}
-				allDays={allDays}
 			/>
-			{leftDays !== 0 && (
+			{(!!leftDays && leftDays !== 0) && (
 				<div className={style.leftTopContainer}>
 					<h1>
 						Countdown to Genesis: <Countdown
@@ -190,7 +191,7 @@ const Index: React.FC = () => {
 			)}
 			<div className={styles.pageContainer}>
 				<div className={style.firstContainer}>
-					{leftDays === 0 && (
+					{(!leftDays || leftDays === 0) && (
 						<>
 							<div className={style.sloganContainer}>
 								<p className={style.sloganTop}>
@@ -777,7 +778,7 @@ const Index: React.FC = () => {
 						/>
 					</div>
 				</div>
-				{leftDays === 0 && (
+				{(!leftDays || leftDays === 0) && (
 					<div
 						className={style.gotoMintContainer}
 						style={{

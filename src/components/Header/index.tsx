@@ -39,9 +39,8 @@ const Header: React.FC = () => {
                     />
                     <span>MetaAstro</span>
                 </div>
-                {console.log(initialState?.leftDays)}
                 <div className={style.connectWallet}>
-                    {initialState?.leftDays === 0 && (
+                    {(!initialState?.leftDays || initialState?.leftDays === 0) && (
                         <>
                             {!!Account && avavible ? (
                                 <div className={style.menuButton}>
