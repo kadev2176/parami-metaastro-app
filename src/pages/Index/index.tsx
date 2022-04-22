@@ -45,7 +45,7 @@ const Index: React.FC = () => {
 	const { Step } = Steps;
 
 	const startDate: any = debugStartTime || '2022-04-19';
-	const preDate: any = debugPreTime || '2022-04-26';
+	const preDate: any = debugPreTime || '2022-04-22';
 
 	Chart.register(ArcElement, ChartDataLabels);
 	const labels = [
