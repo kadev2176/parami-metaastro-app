@@ -1,7 +1,7 @@
 ﻿export default [
   {
     path: '/',
-    name: 'Welcome',
+    name: '',
     hideInMenu: true,
     component: './Index',
   },

@@ -11,7 +11,7 @@ const Settings: LayoutSettings & {
   fixedHeader: true,
   fixSiderbar: false,
   colorWeak: true,
-  title: 'MetaAstro',
+  title: 'MetaAstro - Connect your soul to Metaverses',
   pwa: false,
   logo: '/images/background/moon.svg',
   iconfontUrl: '',

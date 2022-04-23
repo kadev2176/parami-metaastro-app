@@ -19,5 +19,5 @@ export const contractAddresses = {
 
 export const opensea = {
     url: 'https://testnets.opensea.io',
-    collection: 'meta-astro-9e06gd9hvs',
+    collection: 'meta-astro-1fxisntgxd',
 }

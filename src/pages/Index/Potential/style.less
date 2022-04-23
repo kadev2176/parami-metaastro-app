@@ -1,0 +1,29 @@
+.potentialContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  .title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color: rgba(255,255,255,1);
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    font-family: "Josefin Sans";
+    text-align: left;
+    width: 100%;
+  }
+
+  .content {
+    font-size: 1.25rem;
+    line-height: 2.5rem;
+
+    &:not(:last-child) {
+      margin-bottom: 2.5rem;
+    }
+  }
+}

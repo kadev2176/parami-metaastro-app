@@ -32,6 +32,7 @@ export default () => {
 	const [ChainName, setChainName] = useState<string>('');
 	const [Network, setNetwork] = useState<providers.Network>();
 	const [NoProvider, setNoProvider] = useState<boolean>(false);
+	const [WaitingChangeNetwork, setWaitingChangeNetwork] = useState<boolean>(false);
 
 	useEffect(() => {
 		Web3Provider?.on('block', (blockNo: number) => {
@@ -83,6 +84,9 @@ export default () => {
 					method: "wallet_switchEthereumChain",
 					params: [{ chainId: '0x4' }]
 				});
+				setWaitingChangeNetwork(true);
+			} else {
+				setWaitingChangeNetwork(false);
 			}
 
 			provider.on('accountsChanged', function (accounts: string[]) {
@@ -101,6 +105,9 @@ export default () => {
 						method: "wallet_switchEthereumChain",
 						params: [{ chainId: '0x4' }]
 					});
+					setWaitingChangeNetwork(true);
+				} else {
+					setWaitingChangeNetwork(false);
 				}
 			});
 			provider.on('disconnect', (error: ProviderRpcError) => {
@@ -124,6 +131,7 @@ export default () => {
 		ChainName,
 		NoProvider,
 		Network,
+		WaitingChangeNetwork,
 		connect,
 		disconnect,
 	}

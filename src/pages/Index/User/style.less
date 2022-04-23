@@ -1,0 +1,245 @@
+.userContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+
+  .title {
+    font-size: 1.325rem;
+    line-height: 2.25rem;
+    color: #fff;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    font-family: "Josefin Sans";
+  }
+
+  .desc {
+    font-size: 1rem;
+    line-height: 2.25rem;
+    color: #fff;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+  }
+
+  .userContainerRow {
+    width: 100%;
+  }
+
+  .userContainerCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .attribute {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    padding: 1.5rem;
+    padding-top: 3rem;
+    width: 100%;
+
+    .title {
+      position: absolute;
+      top: -14px;
+      left: -10px;
+      background-color: #fff;
+      color: #000;
+      padding: 0.3rem 1rem;
+      font-weight: 900;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      font-family: "Gideon Roman",cursive;
+    }
+
+    .zodiacItem {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    
+      &:not(:last-child) {
+        margin-bottom: 1.5rem;
+      }
+    
+      .icon {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        border: 2px solid #fff;
+        font-weight: 900;
+        border-radius: 10px;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 15px;
+      }
+    
+      .text {
+        flex: 9;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .models {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .leftArrow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      position: absolute;
+      top: calc((100% - 8px) / 2);
+      left: 0;
+      width: 100%;
+      height: 8px;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+      text-align: left;
+      font-size: 2rem;
+
+      .icon {
+        margin-left: -25px;
+      }
+    }
+
+    .rightArrow {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      position: absolute;
+      top: calc((100% - 8px) / 2);
+      right: 0;
+      width: 100%;
+      height: 8px;
+      border-top: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+      text-align: right;
+      font-size: 2rem;
+
+      .icon {
+        margin-right: -25px;
+      }
+    }
+
+    .line {
+      height: 30px;
+      width: 2px;
+      background-color: #fff;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .humanContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 8rem;
+
+      .image {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+    }
+
+    .centerContainer {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      background: url('/images/background/moon.svg');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      font-weight: 900;
+      overflow: hidden;
+
+      .text {
+        z-index: 2;
+        text-align: center;
+      }
+
+      .mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+
+    .metaContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 8rem;
+
+      .image {
+        width: 100%;
+        height: 100%;
+        border-radius: 100%;
+      }
+    }
+  }
+
+  .pieChartContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80%;
+
+    .litleTitle {
+      position: absolute;
+      font-size: 1rem;
+      line-height: 2.25rem;
+      color: #fff;
+      font-weight: 800;
+      font-family: "Josefin Sans";
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .pieChartContainer {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .zodiacItem {
+    .text {
+      font-size: 0.8rem !important;
+      margin-left: 10px;
+    }
+  }
+}

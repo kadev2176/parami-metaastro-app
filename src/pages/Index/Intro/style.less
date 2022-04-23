@@ -1,0 +1,80 @@
+.introContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  .introCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    color: rgba(255,255,255,1);
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    font-family: "Josefin Sans";
+  }
+
+  .introItem {
+    width: 100%;
+
+    &:not(:last-child) {
+      margin-bottom: 2.5rem;
+    }
+
+    .icon {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.5rem;
+      border: 2px solid #fff;
+      font-weight: 900;
+      border-radius: 10px;
+      width: 3rem;
+      height: 3rem;
+      padding: 10px;
+    }
+
+    .text {
+      flex: 9;
+    }
+
+    .subtitle {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .content {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  .demoChartItem {
+    position: relative;
+
+    .tag {
+      position: absolute;
+      bottom: 0.7rem;
+      left: 0.7rem;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 900;
+      padding: 3px 10px;
+    }
+
+    .demoChart {
+      width: 100%;
+    }
+  }
+}

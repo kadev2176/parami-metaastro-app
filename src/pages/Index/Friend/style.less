@@ -1,0 +1,122 @@
+.friendsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+
+  .title {
+    font-size: 1.325rem;
+    line-height: 2.25rem;
+    color: #fff;
+    font-weight: 800;
+    margin-bottom: 3.5rem;
+    font-family: "Josefin Sans";
+  }
+
+  .astroList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 90px;
+    margin-bottom: 150px;
+
+    .astroListItem {
+      position: relative;
+      border: 1px solid #fff;
+      padding: 3rem 1rem;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    
+      .tag {
+        position: absolute;
+        top: -14px;
+        right: -10px;
+        background-color: #fff;
+        color: #000;
+        padding: 0.3rem 1rem;
+        font-weight: 900;
+        font-size: 1rem;
+        font-family: 'Gideon Roman', cursive;
+      }
+    
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        text-align: left;
+    
+        .astroListItemTitle {
+          font-size: 1.3rem;
+          font-family: 'Gideon Roman', cursive;
+          font-weight: 800;
+          text-align: center;
+          width: 100%;
+        }
+    
+        .astroListItemContent {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          margin-top: 1rem;
+    
+          .astroListItemContentItem {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+    
+            span {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    .astroListItemLeft {
+      margin-top: -90px;
+      margin-right: -50px;
+
+    }
+
+    .astroListItemRight {
+      margin-bottom: -90px;
+      margin-left: -50px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .astroList {
+    flex-direction: column !important;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+
+    .astroListItem {
+      padding: 40px !important;
+    }
+
+    .astroListItemLeft {
+      margin-bottom: unset !important;
+      margin-right: unset !important;
+    }
+
+    .astroListItemRight {
+      margin-top: unset !important;
+      margin-left: unset !important;
+    }
+  }
+}

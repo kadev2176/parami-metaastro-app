@@ -1,0 +1,68 @@
+.landingContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.sloganContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 3.1rem;
+  line-height: 1;
+  font-weight: 900;
+  font-family: 'Josefin Sans';
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+
+  .copy {
+    font-size: 1rem;
+    font-weight: 300;
+
+    span:not(:last-child) {
+      margin-right: 0.73rem;
+    }
+  }
+
+  .sloganTop {
+    margin: 0 0 22px;
+  }
+
+  .sloganBottom {
+    margin: 0 0 16px;
+  }
+
+  .isAnimation {
+    animation: blurblur 2s cubic-bezier(0.005, 0.025, 0.045, 1.015) infinite alternate;
+  }
+}
+
+.learnMore {
+  color: #fff;
+  line-height: 2rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+  .sloganContainer {
+    font-size: 1.6rem !important;
+    font-weight: 900;
+    text-align: center;
+
+    .copy {
+      font-size: 1rem !important;
+            
+      span:not(:last-child) {
+        margin-right: 0.23rem !important;
+      }
+    }
+  }
+}
