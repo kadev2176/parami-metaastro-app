@@ -51,6 +51,50 @@
   font-size: 1rem;
 }
 
+.countdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Black Ops One', cursive;
+  font-size: 2rem;
+  border: 5px solid #fff;
+}
+
+.countdownTitle {
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: 'Josefin Sans';
+  background-color: #fff;
+  color: #000;
+  padding: 5px 15px;
+  min-width: 250px;
+}
+
+.mouse {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  margin-left: -20px;
+  z-index: 10;
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #fff;
+  border-radius: 100%;
+  opacity: 0.5;
+  transition: all 1s;
+  cursor: pointer;
+
+  .icon {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-left: auto;
+    margin-right: auto;
+    animation: ani_arrow 1.5s linear .3s infinite both;
+  }
+}
+
 @media (max-width: 767px) {
   .sloganContainer {
     font-size: 1.6rem !important;
@@ -64,5 +108,37 @@
         margin-right: 0.23rem !important;
       }
     }
+  }
+}
+
+@keyframes ani_arrow {
+  0% {
+    transform: translateY(0);
+    transform-origin: 50% 0;
+    opacity: 0
+  }
+
+  25% {
+    transform: translateY(8px);
+    transform-origin: 50% 0;
+    opacity: 1
+  }
+
+  50% {
+    transform: translateY(16px);
+    transform-origin: 50% 0;
+    opacity: 1
+  }
+
+  75% {
+    transform: translateY(24px);
+    transform-origin: 50% 0;
+    opacity: 1
+  }
+
+  to {
+    transform: translateY(32px);
+    transform-origin: 50% 0;
+    opacity: 0
   }
 }

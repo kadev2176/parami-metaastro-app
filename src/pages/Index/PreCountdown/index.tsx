@@ -33,7 +33,7 @@ const PreDayCountDown: React.FC<{
         className={style.learnMore}
       >
         Learn More About MetaAstro Phase I<br />
-        - GENESIS OF THE GODS -
+        - COMING OF THE GODS -
       </Button>
       <SNS />
     </div>
