@@ -66,7 +66,7 @@ const Landing: React.FC<{
           className={style.learnMore}
         >
           Learn More About MetaAstro Phase I<br />
-          - COMING OF THE GODS -
+          - GENESIS OF THE GODS -
         </Button>
       </div>
       {onSale && !!endTime && (

@@ -9,7 +9,6 @@ import { ethers } from 'ethers';
 import { contractAddresses } from '../Astro/config';
 import MintAbi from '@/pages/Astro/abi/Mint.json';
 import { todayYYYYMMDD } from '@/utils/common';
-import Debug from '@/components/Debug';
 import BigModal from '@/components/ParamiModal/BigModal';
 import Landing from './Landing';
 import PreDayCountDown from './PreCountdown';
@@ -34,14 +33,10 @@ const Index: React.FC = () => {
 	const [onSale, setOnSale] = useState<boolean>(false);
 	const [leftDays, setLeftDays] = useState<number>();
 
-	// Debug State
-	const [debugStartTime, setDebugStartTime] = useState<string>();
-	const [debugPreTime, setDebugPreTime] = useState<string>();
-
 	const intl = useIntl();
 
-	const startDate: any = debugStartTime || '2022-04-19';
-	const preDate: any = debugPreTime || '2022-04-22';
+	const startDate: any = '2022-04-19';
+	const preDate: any = '2022-04-20';
 
 	const handleScroll = async () => {
 		const pageScroll = document.documentElement.scrollTop;
@@ -110,7 +105,7 @@ const Index: React.FC = () => {
 	useEffect(() => {
 		preDayCountDown();
 		getSalesTime();
-	}, [debugStartTime, debugPreTime]);
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
@@ -119,10 +114,6 @@ const Index: React.FC = () => {
 
 	return (
 		<div className={styles.mainContainer}>
-			<Debug
-				setPreTime={setDebugPreTime}
-				setStartTime={setDebugStartTime}
-			/>
 			<Background
 				leftDays={leftDays}
 			/>
