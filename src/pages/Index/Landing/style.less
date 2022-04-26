@@ -10,6 +10,7 @@
 }
 
 .sloganContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -31,6 +32,23 @@
     }
   }
 
+  .countdown {
+    position: absolute;
+    top: -65px;
+    font-size: 7rem;
+    background: linear-gradient(to top, transparent 15%, #fff);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-family: 'Black Ops One', cursive;
+  }
+
+  .countdownTitle {
+    font-size: 1rem;
+    color: #fff;
+    padding: 5px 15px;
+    letter-spacing: 1rem;
+  }  
+  
   .sloganTop {
     margin: 0 0 22px;
   }
@@ -50,26 +68,6 @@
   margin-top: 2rem;
   font-size: 1rem;
   height: auto;
-}
-
-.countdown {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Black Ops One', cursive;
-  font-size: 2rem;
-  border: 5px solid #fff;
-}
-
-.countdownTitle {
-  font-size: 1rem;
-  font-weight: 900;
-  font-family: 'Josefin Sans';
-  background-color: #fff;
-  color: #000;
-  padding: 5px 15px;
-  min-width: 250px;
 }
 
 .mouse {
@@ -114,6 +112,16 @@
   .mouse {
     display: none;
   }
+
+  .countdown {
+    top: -30px !important;
+    font-size: 3.5rem !important;
+  }
+
+  .countdownTitle {
+    font-size: 0.4rem !important;
+    letter-spacing: 0.4rem !important;
+  }  
 }
 
 @keyframes ani_arrow {

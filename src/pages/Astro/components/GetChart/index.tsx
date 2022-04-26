@@ -9,7 +9,7 @@ import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses, oddMonth, opensea } from '../../config';
-import { errorParse } from '@/utils/common';
+import { engDay, errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { isLeapYear } from '../../../../utils/common';
 import classNames from 'classnames';
@@ -147,7 +147,7 @@ const GetChart: React.FC<{
 				<div className={styles.contentContainer}>
 					<div className={style.flexContainer}>
 						<div className={style.currentDay}>
-							Today you can mint the <span>{CurrentDay}th</span> of any available month.
+							Mint the {engDay(CurrentDay)} of any available month.
 						</div>
 						<div className={styles.priceContainer}>
 							<div className={styles.currentPrice}>

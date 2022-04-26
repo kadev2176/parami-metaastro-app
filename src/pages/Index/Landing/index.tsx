@@ -20,6 +20,27 @@ const Landing: React.FC<{
   return (
     <div className={style.landingContainer}>
       <div className={style.sloganContainer}>
+        {onSale && !!endTime && (
+          <Countdown
+            title={
+              <div className={style.countdownTitle}>
+                Today’s auction end in
+              </div>
+            }
+            className={style.countdown}
+            value={endTime}
+          />
+        )}
+        {!onSale && !!startTime && (
+          <Countdown
+            title={
+              <div className={style.countdownTitle}>
+                Next round begins in
+              </div>
+            }
+            value={startTime}
+          />
+        )}
         <p className={style.sloganTop}>
           {sloganTopArr.map((char, index) => (
             <span
@@ -69,27 +90,6 @@ const Landing: React.FC<{
           - GENESIS OF THE GODS -
         </Button>
       </div>
-      {onSale && !!endTime && (
-        <Countdown
-          title={
-            <div className={style.countdownTitle}>
-              Today’s auction end in
-            </div>
-          }
-          className={style.countdown}
-          value={endTime}
-        />
-      )}
-      {!onSale && !!startTime && (
-        <Countdown
-          title={
-            <div className={style.countdownTitle}>
-              Next round begins in
-            </div>
-          }
-          value={startTime}
-        />
-      )}
       <div
         className={style.mouse}
         style={{
