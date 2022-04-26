@@ -39,7 +39,9 @@ const BigModal: React.FC<{
 						icon={
 							<CloseOutlined
 								style={{
-									color: '#ee8240',
+									color: '#fff',
+									fontSize: '2rem',
+									fontWeight: 900,
 								}}
 								onClick={close}
 							/>

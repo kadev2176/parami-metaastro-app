@@ -1,232 +1,275 @@
 .getchartContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-
-    .inputContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin-top: 2rem;
-    }
-
-    .userInputContainer {
-        display: block;
-        width: 100%;
-        color: #fff;
-        padding-bottom: 4.5rem;
-        line-height: 2rem;
-        font-size: 20px;
-
-        .input {
-            border: unset;
-            border-bottom: 1px dashed #fff;
-            background-color: transparent !important;
-            color: #fff !important;
-            border-radius: unset !important;
-            padding: 0;
-            -webkit-appearance: none;
-            text-align: center;
-            transition: 0.5s;
-            outline: none !important;
-            box-shadow: unset !important;
-            max-width: 160px;
-            width: 100%;
-
-            input {
-                font-size: 16px !important;
-                color: #fff !important;
-                text-align: center !important;
-
-                &::placeholder {
-                    color: #fff;
-                }
-            }
-
-            &:focus {
-                outline: none !important;
-                box-shadow: unset !important;
-            }
-        }
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-
-        .button {
-            font-weight: 700;
-            font-size: 20px;
-            height: auto;
-            padding: 10px 30px;
-    
-            &:not(:last-child) {
-                margin-right: 20px;
-            }
-        }
-    }
-
-    .geoSuggest {
-        position: relative;
-        display: inline-block;
-    }
-
-    .geoInput {
-        background: transparent !important;
-        outline: none !important;
-        box-shadow: unset !important;
-        border-radius: unset !important;
-        border: unset !important;
-        border-bottom: 1px dashed #fff !important;
-        -webkit-appearance: none;
-        text-align: center;
-        color: #fff !important;
-        font-size: 16px !important;
-        transition: 0.5s;
-
-        &::placeholder {
-            color: #fff;
-        }
-    }
-
-    :global(.geosuggest__suggests-wrapper) {
-        position: absolute;
-        left: 0;
-        z-index: 1000;
-        min-width: 160px;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        text-align: left;
-        list-style: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0,0,0,.15);
-        border-radius: 4px;
-        box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-    }
-
-    .geoSuggestWrapper {
-        padding: 0;
-        margin: 0;
-    }
-
-    .geoSuggestWrapperItem {
-        display: block;
-        padding: 10px 20px;
-        clear: both;
-        font-weight: 400;
-        line-height: 1.42857143;
-        color: #333;
-        white-space: nowrap;
-        cursor: pointer;
-
-        &:hover {
-            background: rgba(0,0,0,.05);
-        }
-    }
-
-    .geoSuggestWrapperShow {
-        display: block;
-    }
-
-    .geoSuggestWrapperHidden {
-        display: none;
-    }
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 
 .flexContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 3.5rem;
-    margin-bottom: 3.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 3.5rem;
+	margin-bottom: 3.5rem;
 }
 
 .currentDay {
-    display: block;
-    width: 100%;
-    font-size: 1.4rem;
-    font-family: 'Josefin Sans';
-    margin-bottom: 2rem;
+	display: block;
+	width: 100%;
+	font-size: 1.4rem;
+	font-family: 'Josefin Sans';
+	margin-bottom: 2rem;
 
-    span {
-        width: auto;
-        margin-left: 10px;
-        margin-right: 10px;
-        font-size: 2rem;
-        font-weight: 900;
-    }
+	span {
+		width: auto;
+		margin-left: 10px;
+		margin-right: 10px;
+		font-size: 2rem;
+		font-weight: 900;
+	}
 }
 
 .modalContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-    .background {
-        position: absolute;
-        width: 100%;
-    }
+	.background {
+		position: absolute;
+		width: 100%;
+	}
 
-    .chartContainer {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 5.5rem 2.3rem;
+	.chartContainer {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 5.5rem 2.3rem;
 
-        .chart {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            margin-top: 4rem;
-            margin-bottom: 4rem;
-            padding: 1rem;
-        }
+		.chart {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			padding: 1rem;
+		}
     
-        img,svg {
-            width: 100%;
-            height: 100%;
-            transform: scale(1.3);
-            object-fit: cover;
-            display: inline-block;
-        }
-    }
+		img,svg {
+			width: 100%;
+			height: 100%;
+			transform: scale(1.3);
+			object-fit: cover;
+			display: inline-block;
+		}
+	}
 
-    .openSeaLink {
-        position: absolute;
-        bottom: 80px;
-        font-size: 1.5rem;
-        font-weight: 800;
-        height: auto !important;
-        color: #ee8240 !important;
-    }
+	.openSeaLink {
+		position: absolute;
+		bottom: 80px;
+		font-size: 1.5rem;
+		font-weight: 800;
+		height: auto !important;
+		color: #ee8240 !important;
+	}
+}
+
+.nftContainer {
+	width: 100%;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+
+	.nftItem {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 100%;
+		border: 5px solid #fff;
+		padding-top: 1.5rem;
+		padding-bottom: 1.5rem;
+		font-size: 1.5rem;
+		font-family: 'Josefin Sans';
+		cursor: pointer;
+		font-weight: 900;
+		transition: all 0.5s;
+
+		&.active {
+			background-color: #fff;
+			color: #000;
+		}
+	}
+
+	.locationYearInput {
+		display: block;
+		width: 100%;
+		margin-bottom: 2rem;
+		line-height: 2rem;
+		font-size: 20px;
+	}
+
+	.timeInput {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 2rem;
+		line-height: 2rem;
+		font-size: 20px;
+	}
+
+	.input {
+		border: unset;
+		border-bottom: 1px dashed #fff;
+		background-color: transparent !important;
+		color: #fff !important;
+		border-radius: unset !important;
+		padding: 0;
+		-webkit-appearance: none;
+		text-align: center;
+		transition: 0.5s;
+		outline: none !important;
+		box-shadow: unset !important;
+		max-width: 160px;
+		width: 100%;
+
+		input {
+			font-size: 16px !important;
+			color: #fff !important;
+			text-align: center !important;
+
+			&::placeholder {
+				font-size: 16px !important;
+				color: #fff;
+			}
+		}
+
+		&:focus {
+			outline: none !important;
+			box-shadow: unset !important;
+		}
+	}
+
+	.geoSuggest {
+		position: relative;
+		display: inline-block;
+	}
+
+	.geoInput {
+		background: transparent !important;
+		outline: none !important;
+		box-shadow: unset !important;
+		border-radius: unset !important;
+		border: unset !important;
+		border-bottom: 1px dashed #fff !important;
+		-webkit-appearance: none;
+		text-align: center;
+		color: #fff !important;
+		font-size: 16px !important;
+		transition: 0.5s;
+
+		&::placeholder {
+			color: #fff;
+		}
+	}
+
+	:global(.geosuggest__suggests-wrapper) {
+		position: absolute;
+		left: 0;
+		z-index: 1000;
+		min-width: 160px;
+		padding: 0;
+		margin: 0;
+		font-size: 14px;
+		text-align: left;
+		list-style: none;
+		background-color: #fff;
+		background-clip: padding-box;
+		border: 1px solid rgba(0,0,0,.15);
+		border-radius: 4px;
+		box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+	}
+
+	.geoSuggestWrapper {
+		padding: 0;
+		margin: 0;
+	}
+
+	.geoSuggestWrapperItem {
+		display: block;
+		padding: 10px 20px;
+		clear: both;
+		font-weight: 400;
+		line-height: 1.42857143;
+		color: #333;
+		white-space: nowrap;
+		cursor: pointer;
+
+		&:hover {
+			background: rgba(0,0,0,.05);
+		}
+	}
+
+	.geoSuggestWrapperShow {
+		display: block;
+	}
+
+	.geoSuggestWrapperHidden {
+		display: none;
+	}
+
+	.generating {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 2rem;
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 2rem;
+
+		.button {
+			font-weight: 700;
+			font-size: 20px;
+			height: auto;
+			padding: 10px 30px;
+    
+			&:not(:last-child) {
+				margin-right: 20px;
+			}
+		}
+	}
 }
 
 @media (max-width: 767px) {
-    .modalContainer {
-        .chartContainer {
-            padding: 3.2rem 2.3rem;
-        }
-    }
+	.modalContainer {
+		.chartContainer {
+			padding: 3.2rem 2.3rem;
+		}
+	}
+
+	.flexContainer {
+		padding-top: 6rem;
+		padding-bottom: 6rem;
+	}
 }

@@ -21,3 +21,13 @@ export const opensea = {
     url: 'https://testnets.opensea.io',
     collection: 'meta-astro-1fxisntgxd',
 }
+
+export const oddMonth = {
+    1: 'Jan',
+    3: 'Mar',
+    5: 'May',
+    7: 'Jul',
+    8: 'Aug',
+    10: 'Oct',
+    12: 'Dec'
+};
