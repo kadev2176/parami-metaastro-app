@@ -7,7 +7,7 @@
   },
   {
     path: '/mint',
-    name: 'Explore',
+    name: 'Mint Your MetaAstro',
     hideInMenu: true,
     component: './Astro',
   },
