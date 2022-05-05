@@ -65,7 +65,9 @@ const BreedFrom: React.FC<{
 		if (tokenId.toNumber() !== 0) {
 			setPrimaryTokenId(tokenId.toNumber());
 		}
-		setCurrentPrice(price[1]);
+		if (!!price) {
+			setCurrentPrice(price[1]);
+		}
 	};
 
 	useEffect(() => {
@@ -226,8 +228,10 @@ const BreedFrom: React.FC<{
 											className={style.input}
 											type="number"
 											min={1}
-											onChange={(e: any) => {
+											onChange={async (e: any) => {
 												setPrimaryTokenId(e);
+												const price = await BreedContract?.getBreedConfig(e);
+												setCurrentPrice(price[1]);
 											}}
 											defaultValue={tokenID}
 											placeholder={intl.formatMessage({

@@ -9,7 +9,7 @@ import { notification } from 'antd';
 
 const Astro: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
-	const [GEN, setGEN] = useState<number>(1);
+	const [GEN, setGEN] = useState<number>(2);
 	const [pullup, setPullup] = useState<boolean>(false);
 	const [speedup, setSpeedup] = useState<boolean>(false);
 
