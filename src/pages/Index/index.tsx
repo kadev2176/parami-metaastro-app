@@ -7,7 +7,7 @@ import { RightOutlined } from '@ant-design/icons';
 import { infuraProvider } from '@/config/web3provider';
 import { ethers } from 'ethers';
 import { contractAddresses } from '../Astro/config';
-import MintAbi from '@/pages/Astro/abi/Mint.json';
+import PrimeAbi from '@/pages/Astro/abi/Prime.json';
 import { todayYYYYMMDD } from '@/utils/common';
 import BigModal from '@/components/ParamiModal/BigModal';
 import Landing from './Landing';
@@ -51,7 +51,7 @@ const Index: React.FC = () => {
 
 	const getSalesTime = async () => {
 		const provider = new ethers.providers.JsonRpcProvider(infuraProvider[4]);
-		const MintContract = await new ethers.Contract(contractAddresses.mint[4], MintAbi, provider);
+		const MintContract = await new ethers.Contract(contractAddresses.prime[4], PrimeAbi, provider);
 
 		const timeRange = await MintContract?.getSalesTimes();
 
