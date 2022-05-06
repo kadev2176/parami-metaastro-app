@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import style from './style.less';
 import { useIntl, useModel } from 'umi';
 import BigModal from '@/components/ParamiModal/BigModal';
-import { Button, InputNumber, message } from 'antd';
+import { Button, InputNumber, notification } from 'antd';
 import { errorParse } from '@/utils/common';
 import { ethers } from 'ethers';
 
@@ -33,10 +33,10 @@ const BreedPrice: React.FC<{
         try {
             const owner = await PrimeContract?.ownerOf(tokenId);
             if (owner !== ethers.utils.getAddress(Account)) {
-                message.error(intl.formatMessage({
-                    id: 'astro.breed.error.notOwner',
-                    defaultMessage: 'You are not the owner of this token.',
-                }));
+                notification.error({
+                    message: 'You are not the owner of this token.',
+                    duration: null,
+                });
                 setLoading(false);
                 return;
             }
@@ -49,7 +49,10 @@ const BreedPrice: React.FC<{
         } catch (e: any) {
             console.log(e.message);
             const error = errorParse(e.message).body?.message;
-            message.error(error);
+            notification.error({
+                message: error,
+                duration: null,
+            });
             setLoading(false);
         }
     };

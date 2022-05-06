@@ -1,4 +1,4 @@
-import { Button, DatePicker, notification, TimePicker, message, Spin, InputNumber } from 'antd';
+import { Button, DatePicker, notification, TimePicker, Spin, InputNumber } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Geosuggest from 'react-geosuggest';
 import { useIntl, useModel } from 'umi';
@@ -14,10 +14,8 @@ import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const Ordinary: React.FC<{
-	setSpeedup: (value: React.SetStateAction<boolean>) => void;
-	setPullup: (value: React.SetStateAction<boolean>) => void;
 	tokenID: string | undefined;
-}> = ({ setSpeedup, setPullup, tokenID }) => {
+}> = ({ tokenID }) => {
 	const { Account, ChainId } = useModel('web3');
 	const [suggestList, setSuggestList] = useState<boolean>(false);
 	const [lat, setLat] = useState<number>(0);
@@ -78,7 +76,7 @@ const Ordinary: React.FC<{
 
 	const handleSubmit = async () => {
 		setLoading(true);
-		setSpeedup(true);
+
 		try {
 			const encryptStr = await RSAEncrypt(`${Number(dateOfBirth[0])},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
@@ -108,7 +106,6 @@ const Ordinary: React.FC<{
 					setAstroSVG('data:image/svg+xml;base64,' + baseImg);
 					setLoadSVG(false);
 					clearInterval(timer);
-					setPullup(true);
 					setModal(true);
 				};
 			}, 3000);
@@ -116,10 +113,11 @@ const Ordinary: React.FC<{
 			setLoading(false);
 		} catch (e: any) {
 			const error = errorParse(e.message).body?.message;
-			message.error(error);
+			notification.error({
+				message: error,
+				duration: null,
+			});
 			setLoading(false);
-			setSpeedup(false);
-			setPullup(false);
 		}
 	};
 
@@ -345,8 +343,6 @@ const Ordinary: React.FC<{
 				}}
 				close={() => {
 					setModal(false);
-					setSpeedup(false);
-					setPullup(false);
 				}}
 			/>
 		</>

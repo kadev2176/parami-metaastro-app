@@ -15,10 +15,7 @@ import { isLeapYear } from '../../../../utils/common';
 import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const Prime: React.FC<{
-	setSpeedup: (value: React.SetStateAction<boolean>) => void;
-	setPullup: (value: React.SetStateAction<boolean>) => void;
-}> = ({ setSpeedup, setPullup }) => {
+const Prime: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
 	const [suggestList, setSuggestList] = useState<boolean>(false);
 	const [lat, setLat] = useState<number>(0);
@@ -89,7 +86,6 @@ const Prime: React.FC<{
 
 	const handleSubmit = async () => {
 		setLoading(true);
-		setSpeedup(true);
 
 		try {
 			const encryptStr = await RSAEncrypt(`${yearOfBirth},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
@@ -120,7 +116,6 @@ const Prime: React.FC<{
 					setAstroSVG('data:image/svg+xml;base64,' + baseImg);
 					setLoadSVG(false);
 					clearInterval(timer);
-					setPullup(true);
 					setModal(true);
 				};
 			}, 3000);
@@ -136,8 +131,6 @@ const Prime: React.FC<{
 				duration: null,
 			});
 			setLoading(false);
-			setSpeedup(false);
-			setPullup(false);
 		}
 	};
 
@@ -415,8 +408,6 @@ const Prime: React.FC<{
 				}}
 				close={() => {
 					setModal(false);
-					setSpeedup(false);
-					setPullup(false);
 				}}
 			/>
 		</>

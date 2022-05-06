@@ -9,9 +9,7 @@ import { notification } from 'antd';
 
 const Astro: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
-	const [GEN, setGEN] = useState<number>(2);
-	const [pullup, setPullup] = useState<boolean>(false);
-	const [speedup, setSpeedup] = useState<boolean>(false);
+	const [GEN, setGEN] = useState<number>(1);
 
 	const {
 		PrimeContract
@@ -31,6 +29,7 @@ const Astro: React.FC = () => {
 			notification.error({
 				message: 'Not in sales time',
 				description: 'Please wait for the next sales time',
+				duration: null,
 			});
 			history.push('/');
 		}
@@ -52,22 +51,14 @@ const Astro: React.FC = () => {
 	return (
 		<>
 			<div className={styles.mainContainer}>
-				<Background
-					speedup={speedup}
-					pullup={pullup}
-				/>
+				<Background />
 				<div className={style.centerContainer}>
 					<div className={style.firstContainer}>
 						{GEN === 1 && (
-							<Prime
-								setSpeedup={setSpeedup}
-								setPullup={setPullup}
-							/>
+							<Prime />
 						)}
 						{GEN === 2 && (
 							<Ordinary
-								setSpeedup={setSpeedup}
-								setPullup={setPullup}
 								tokenID={tokenID}
 							/>
 						)}
