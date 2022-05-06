@@ -13,7 +13,7 @@ import { errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const BreedFrom: React.FC<{
+const Ordinary: React.FC<{
 	setSpeedup: (value: React.SetStateAction<boolean>) => void;
 	setPullup: (value: React.SetStateAction<boolean>) => void;
 	tokenID: string | undefined;
@@ -37,8 +37,8 @@ const BreedFrom: React.FC<{
 	const intl = useIntl();
 
 	const {
-		MintContract,
-		BreedContract
+		PrimeContract,
+		OrdinaryContract
 	} = useModel('astroContracts');
 
 	const CurrentDay = new Date().getDate();
@@ -55,13 +55,13 @@ const BreedFrom: React.FC<{
 	}, [ChainId, Account]);
 
 	const getCurrentInfo = async () => {
-		const fee = await BreedContract?.getOracleGasFee();
+		const fee = await OrdinaryContract?.getOracleGasFee();
 		setCurrentFee(fee);
 	};
 
 	const getTokenIdAndPrice = async (month: string, day: string) => {
-		const tokenId = await MintContract?.getTokenIdByMonthAndDay(Number(month), Number(day));
-		const price = await BreedContract?.getBreedConfig(tokenId);
+		const tokenId = await PrimeContract?.getTokenIdByMonthAndDay(Number(month), Number(day));
+		const price = await OrdinaryContract?.getBreedConfig(tokenId);
 		if (tokenId.toNumber() !== 0) {
 			setPrimaryTokenId(tokenId.toNumber());
 		}
@@ -71,10 +71,10 @@ const BreedFrom: React.FC<{
 	};
 
 	useEffect(() => {
-		if (!!BreedContract && !!Account) {
+		if (!!OrdinaryContract && !!Account) {
 			getCurrentInfo();
 		}
-	}, [Account, BreedContract]);
+	}, [Account, OrdinaryContract]);
 
 	const handleSubmit = async () => {
 		setLoading(true);
@@ -82,7 +82,7 @@ const BreedFrom: React.FC<{
 		try {
 			const encryptStr = await RSAEncrypt(`${Number(dateOfBirth[0])},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
-			const tx = await BreedContract?.breedFrom(
+			const tx = await OrdinaryContract?.breedFrom(
 				PrimaryTokenId,
 				[Number(dateOfBirth[1]), Number(dateOfBirth[2])],
 				encodeURIComponent(encryptStr),
@@ -95,14 +95,14 @@ const BreedFrom: React.FC<{
 			setLoadSVG(true);
 
 			const timer = setInterval(async () => {
-				const svg = await MintContract?.tokenURI(tokenId);
+				const svg = await OrdinaryContract?.tokenURI(tokenId);
 				const base64Content = svg.substring("data:application/json;base64,".length);
 				const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
 				const jsonContent = JSON.parse(debase64Content);
 				const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('utf8');
 				if (debaseImage.indexOf('generating') === -1) {
 					const replaceImage = debaseImage.replace(/\<g\>.*\<path.*?\<\/g\>/, '')
-						.replace(/\<rect.*?stroke=\"#b49d5d\".*?\/>/, '')
+						.replace(/\<rect.*?fill=\"none\".*?\/>/, '')
 						.replace(/\<radialGradient id=\"darkLight\"\>.*?\<\/radialGradient\>/, '<radialGradient id="darkLight"><stop offset="0%" stop-color="#707070" /><stop offset="3%" stop-color="#1b1b1b" /><stop offset="8%" stop-color="#000000" /></radialGradient>');
 					const baseImg = Buffer.from(replaceImage).toString('base64');;
 					setAstroSVG('data:image/svg+xml;base64,' + baseImg);
@@ -230,7 +230,7 @@ const BreedFrom: React.FC<{
 											min={1}
 											onChange={async (e: any) => {
 												setPrimaryTokenId(e);
-												const price = await BreedContract?.getBreedConfig(e);
+												const price = await OrdinaryContract?.getBreedConfig(e);
 												setCurrentPrice(price[1]);
 											}}
 											defaultValue={tokenID}
@@ -324,7 +324,7 @@ const BreedFrom: React.FC<{
 							type='link'
 							size='large'
 							onClick={() => {
-								window.open(`${opensea.url}/assets/${contractAddresses.breed[4]}/${TokenId?.toString()}`, '_blank');
+								window.open(`${opensea.url}/assets/${contractAddresses.ordinary[4]}/${TokenId?.toString()}`, '_blank');
 							}}
 							className={style.openSeaLink}
 						>
@@ -353,4 +353,4 @@ const BreedFrom: React.FC<{
 	)
 }
 
-export default BreedFrom;
+export default Ordinary;

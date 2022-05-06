@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/style/common.less';
 import style from './style.less';
-import GetChart from './components/GetChart';
 import { useModel, history } from 'umi';
-import BreedFrom from './components/BreedFrom';
+import Prime from './components/Prime';
+import Ordinary from './components/Ordinary';
 import Background from '@/components/Background';
 import { notification } from 'antd';
 
@@ -14,14 +14,14 @@ const Astro: React.FC = () => {
 	const [speedup, setSpeedup] = useState<boolean>(false);
 
 	const {
-		MintContract
+		PrimeContract
 	} = useModel('astroContracts');
 
 	const { hash } = history.location;
 	const tokenID = hash?.substring(1);
 
 	const getSalesTime = async () => {
-		const timeRange = await MintContract?.getSalesTimes();
+		const timeRange = await PrimeContract?.getSalesTimes();
 
 		const date = new Date();
 		const now = date.getTime() / 1000;
@@ -44,10 +44,10 @@ const Astro: React.FC = () => {
 	}, [ChainId, Account]);
 
 	useEffect(() => {
-		if (!!MintContract && !!Account && Account !== '') {
+		if (!!PrimeContract && !!Account && Account !== '') {
 			getSalesTime();
 		}
-	}, [MintContract, Account]);
+	}, [PrimeContract, Account]);
 
 	return (
 		<>
@@ -59,13 +59,13 @@ const Astro: React.FC = () => {
 				<div className={style.centerContainer}>
 					<div className={style.firstContainer}>
 						{GEN === 1 && (
-							<GetChart
+							<Prime
 								setSpeedup={setSpeedup}
 								setPullup={setPullup}
 							/>
 						)}
 						{GEN === 2 && (
-							<BreedFrom
+							<Ordinary
 								setSpeedup={setSpeedup}
 								setPullup={setPullup}
 								tokenID={tokenID}

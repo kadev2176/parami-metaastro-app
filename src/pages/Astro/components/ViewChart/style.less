@@ -1,108 +1,108 @@
 .viewChartModal {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    left: -26px;
-    box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
-    background-color: #fff;
-    color: #000;
-    font-size: 1.1rem;
-    font-weight: 900;
-    padding: 1rem 0.5rem;
-    padding-left: 35px;
-    writing-mode: tb;
-    text-transform:uppercase;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	left: -26px;
+	box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
+	background-color: #fff;
+	color: #000;
+	font-size: 1.1rem;
+	font-weight: 900;
+	padding: 1rem 0.5rem;
+	padding-left: 35px;
+	writing-mode: tb;
+	text-transform:uppercase;
+	text-align: center;
+	cursor: pointer;
+	transition: all 0.3s;
 
-    &:hover {
-        left: 0;
-    }
+	&:hover {
+		left: 0;
+	}
     
-    .arrowIcon {
-        position: absolute;
-        left: 4px;
-        height: 35px;
-        font-size: 1.5rem;
-        top: calc((100% - 35px) / 2);
-    }
+	.arrowIcon {
+		position: absolute;
+		left: 4px;
+		height: 35px;
+		font-size: 1.5rem;
+		top: calc((100% - 35px) / 2);
+	}
 }
 
 .viewChartModalContent {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
-    background-color: #fff;
-    color: #000;
-    height: 70vh;
-    width: 100px;
-    border-radius: 0 10px 10px 0;
-    z-index: 99;
-    transition: all 0.3s;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	left: 0;
+	box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
+	background-color: #fff;
+	color: #000;
+	height: 70vh;
+	width: 100px;
+	border-radius: 0 10px 10px 0;
+	z-index: 99;
+	transition: all 0.3s;
 
-    .title {
-        font-size: 1rem;
-        font-weight: 900;
-        margin-bottom: 1.5rem;
-    }
+	.title {
+		font-size: 1rem;
+		font-weight: 900;
+		margin-bottom: 1.5rem;
+	}
 
-    .chartItem {
-        font-size: 1.6rem;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        cursor: pointer;
+	.chartItem {
+		font-size: 1.6rem;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		cursor: pointer;
 
-        &:not(:last-child) {
-            border-bottom: 1px solid #ccc;
-        }
-    }
+		&:not(:last-child) {
+			border-bottom: 1px solid #ccc;
+		}
+	}
 
-    .rightButton {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        right: -40px;
-        font-size: 2rem;
-        color: #000;
+	.rightButton {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		right: -40px;
+		font-size: 2rem;
+		color: #000;
 
-        .closeBtn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-            background-color: #fff;
-            border-radius: 0 10px 10px 0;
-            width: 40px;
-        }
+		.closeBtn {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
+			margin-bottom: 2rem;
+			background-color: #fff;
+			border-radius: 0 10px 10px 0;
+			width: 40px;
+		}
 
-        .viewMyOpensea {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            padding-top: 1.5rem;
-            padding-bottom: 1.5rem;
-            font-size: 1rem;
-            font-weight: 900;
-            writing-mode: tb;
-            background-color: #fff;
-            border-radius: 0 10px 10px 0;
-            width: 40px;
-        }
-    }
+		.viewMyOpensea {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
+			font-size: 1rem;
+			font-weight: 900;
+			writing-mode: tb;
+			background-color: #fff;
+			border-radius: 0 10px 10px 0;
+			width: 40px;
+		}
+	}
 }

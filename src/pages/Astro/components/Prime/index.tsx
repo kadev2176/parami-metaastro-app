@@ -15,7 +15,7 @@ import { isLeapYear } from '../../../../utils/common';
 import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const GetChart: React.FC<{
+const Prime: React.FC<{
 	setSpeedup: (value: React.SetStateAction<boolean>) => void;
 	setPullup: (value: React.SetStateAction<boolean>) => void;
 }> = ({ setSpeedup, setPullup }) => {
@@ -42,7 +42,7 @@ const GetChart: React.FC<{
 	const intl = useIntl();
 
 	const {
-		MintContract
+		PrimeContract
 	} = useModel('astroContracts');
 
 	useEffect(() => {
@@ -59,9 +59,9 @@ const GetChart: React.FC<{
 	const CurrentDay = new Date().getDate();
 
 	const getCurrentInfo = async () => {
-		const price = await MintContract?.getPrice();
-		const fee = await MintContract?.getOracleGasFee();
-		const supply = await MintContract?.totalSupply();
+		const price = await PrimeContract?.getPrice();
+		const fee = await PrimeContract?.getOracleGasFee();
+		const supply = await PrimeContract?.totalSupply();
 		setCurrentPrice(price);
 		setCurrentFee(fee);
 		setCurrentSupply(supply);
@@ -71,7 +71,7 @@ const GetChart: React.FC<{
 		const currentDay = new Date().getDate();
 		const months = [];
 		for (let month = 0; month < 12; month++) {
-			const tokenId = await MintContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
+			const tokenId = await PrimeContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
 			if (tokenId.toNumber() === 0) {
 				months.push(month);
 			}
@@ -81,11 +81,11 @@ const GetChart: React.FC<{
 	};
 
 	useEffect(() => {
-		if (!!MintContract && !!Account) {
+		if (!!PrimeContract && !!Account) {
 			getCurrentInfo();
 			isAvailable();
 		}
-	}, [Account, MintContract]);
+	}, [Account, PrimeContract]);
 
 	const handleSubmit = async () => {
 		setLoading(true);
@@ -94,7 +94,7 @@ const GetChart: React.FC<{
 		try {
 			const encryptStr = await RSAEncrypt(`${yearOfBirth},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
-			const tx = await MintContract?.initialMint(
+			const tx = await PrimeContract?.initialMint(
 				ethers.utils.getAddress(Account),
 				[monthOfBirth, dayOfBirth],
 				encodeURIComponent(encryptStr),
@@ -107,7 +107,7 @@ const GetChart: React.FC<{
 			setLoadSVG(true);
 
 			const timer = setInterval(async () => {
-				const svg = await MintContract?.tokenURI(tokenId);
+				const svg = await PrimeContract?.tokenURI(tokenId);
 				const base64Content = svg.substring("data:application/json;base64,".length);
 				const debase64Content = Buffer.from(base64Content, 'base64').toString('binary');
 				const jsonContent = JSON.parse(debase64Content);
@@ -394,7 +394,7 @@ const GetChart: React.FC<{
 							type='link'
 							size='large'
 							onClick={() => {
-								window.open(`${opensea.url}/assets/${contractAddresses.mint[4]}/${TokenId?.toString()}`, '_blank');
+								window.open(`${opensea.url}/assets/${contractAddresses.prime[4]}/${TokenId?.toString()}`, '_blank');
 							}}
 							className={style.openSeaLink}
 						>
@@ -423,4 +423,4 @@ const GetChart: React.FC<{
 	)
 }
 
-export default GetChart;
+export default Prime;

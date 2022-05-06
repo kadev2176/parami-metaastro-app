@@ -1,42 +1,42 @@
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 // abi
-import MintAbi from '@/pages/Astro/abi/Mint.json';
-import BreedAbi from '@/pages/Astro/abi/Breed.json';
+import PrimeAbi from '@/pages/Astro/abi/Prime.json';
+import OrdinaryAbi from '@/pages/Astro/abi/Ordinary.json';
 import { useModel } from 'umi';
 import { contractAddresses } from '@/pages/Astro/config';
 
 export default () => {
-    const {
-        Account,
-        ChainId,
-        Provider,
-        Signer,
-    } = useModel('web3');
+	const {
+		Account,
+		ChainId,
+		Provider,
+		Signer,
+	} = useModel('web3');
 
-    // Contract instances
-    const [MintContract, setMintContract] = useState<ethers.Contract | null>(null);
-    const [BreedContract, setBreedContract] = useState<ethers.Contract | null>(null);
-    // Initialize contract instances
-    useEffect(() => {
-        if (!!Account) {
-            if (ChainId !== 1 && ChainId !== 4) {
-                setMintContract(null);
-                setBreedContract(null);
-                return;
-            }
-            if (!Provider || !Signer) {
-                return;
-            }
-            const mint = new ethers.Contract(contractAddresses.mint[ChainId], MintAbi, Signer);
-            const breed = new ethers.Contract(contractAddresses.breed[ChainId], BreedAbi, Signer);
-            setMintContract(mint);
-            setBreedContract(breed);
-        }
-    }, [Account, Provider, Signer, ChainId]);
+	// Contract instances
+	const [PrimeContract, setPrimeContract] = useState<ethers.Contract | null>(null);
+	const [OrdinaryContract, setOrdinaryContract] = useState<ethers.Contract | null>(null);
+	// Initialize contract instances
+	useEffect(() => {
+		if (!!Account) {
+			if (ChainId !== 1 && ChainId !== 4) {
+				setPrimeContract(null);
+				setOrdinaryContract(null);
+				return;
+			}
+			if (!Provider || !Signer) {
+				return;
+			}
+			const prime = new ethers.Contract(contractAddresses.prime[ChainId], PrimeAbi, Signer);
+			const ordinary = new ethers.Contract(contractAddresses.ordinary[ChainId], OrdinaryAbi, Signer);
+			setPrimeContract(prime);
+			setOrdinaryContract(ordinary);
+		}
+	}, [Account, Provider, Signer, ChainId]);
 
-    return {
-        MintContract,
-        BreedContract,
-    };
+	return {
+		PrimeContract,
+		OrdinaryContract,
+	};
 }

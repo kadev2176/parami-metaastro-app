@@ -18,8 +18,8 @@ const BreedPrice: React.FC<{
     const intl = useIntl();
 
     const {
-        MintContract,
-        BreedContract
+        PrimeContract,
+        OrdinaryContract
     } = useModel('astroContracts');
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const BreedPrice: React.FC<{
     const handleSubmit = async () => {
         setLoading(true);
         try {
-            const owner = await MintContract?.ownerOf(tokenId);
+            const owner = await PrimeContract?.ownerOf(tokenId);
             if (owner !== ethers.utils.getAddress(Account)) {
                 message.error(intl.formatMessage({
                     id: 'astro.breed.error.notOwner',
@@ -41,7 +41,7 @@ const BreedPrice: React.FC<{
                 return;
             }
 
-            const tx = await BreedContract?.setBreedPrice(tokenId, price);
+            const tx = await OrdinaryContract?.setBreedPrice(tokenId, price);
             console.log('tx', tx);
 
             setLoading(false);
