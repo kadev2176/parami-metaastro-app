@@ -147,11 +147,8 @@ const Index: React.FC = () => {
 							right: popBottomBar ? '2rem' : '-30rem',
 						}}
 						onClick={async () => {
-							if (!!Account && avavible) {
-								history.push('/mint');
-							} else {
-								await connect();
-							}
+							await connect();
+							history.push('/mint');
 						}}
 					>
 						<img
