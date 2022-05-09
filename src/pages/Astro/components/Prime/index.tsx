@@ -1,6 +1,5 @@
-import { Button, DatePicker, notification, TimePicker, Row, Col, Spin } from 'antd';
+import { Button, notification, Row, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Geosuggest from 'react-geosuggest';
 import { useIntl, useModel } from 'umi';
 import styles from '../../style.less';
 import style from './style.less';
@@ -8,16 +7,17 @@ import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
-import { contractAddresses, oddMonth, opensea } from '../../config';
+import { contractAddresses, opensea } from '../../config';
 import { engDay, errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
-import { isLeapYear } from '../../../../utils/common';
-import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
+import Place from './Place';
+import Year from './Year';
+import MonthAndDay from './MonthAndDay';
+import Time from './Time';
 
 const Prime: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
-	const [suggestList, setSuggestList] = useState<boolean>(false);
 	const [lat, setLat] = useState<number>(0);
 	const [lng, setLng] = useState<number>(0);
 	const [utcOffset, setUTCOffset] = useState<number>(0);
@@ -33,8 +33,7 @@ const Prime: React.FC = () => {
 	const [astroSVG, setAstroSVG] = useState<string>();
 	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
 	const [modal, setModal] = useState<boolean>(false);
-	const [AllowMonth, setAllowMonth] = useState<number[]>([]);
-	const [AvailableLoading, setAvailableLoading] = useState<boolean>(true);
+	const [step, setStep] = useState<number>(1);
 
 	const intl = useIntl();
 
@@ -64,23 +63,9 @@ const Prime: React.FC = () => {
 		setCurrentSupply(supply);
 	};
 
-	const isAvailable = async () => {
-		const currentDay = new Date().getDate();
-		const months = [];
-		for (let month = 0; month < 12; month++) {
-			const tokenId = await PrimeContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
-			if (tokenId.toNumber() === 0) {
-				months.push(month);
-			}
-		}
-		setAllowMonth(months);
-		setAvailableLoading(false);
-	};
-
 	useEffect(() => {
 		if (!!PrimeContract && !!Account) {
 			getCurrentInfo();
-			isAvailable();
 		}
 	}, [Account, PrimeContract]);
 
@@ -121,7 +106,6 @@ const Prime: React.FC = () => {
 			}, 3000);
 
 			setLoading(false);
-			isAvailable();
 		} catch (e: any) {
 			console.log(e.message);
 			const error = errorParse(e.message).body?.message;
@@ -172,202 +156,113 @@ const Prime: React.FC = () => {
 							})}
 						</div>
 						<div className={style.nftContainer}>
-							<Row gutter={[32, 32]}>
-								<Col span={24}>
-									<div className={style.locationYearInput}>
-										{intl.formatMessage({
-											id: 'astro.userinput',
-											defaultMessage: 'I was born in {city}, on {year}, '
-										}, {
-											city: (
-												<Geosuggest
-													onSuggestSelect={(res) => {
-														if (!!res?.location) {
-															setLat(res.location.lat);
-															setLng(res.location.lng);
-															setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
-														}
-														setSuggestList(false)
-													}}
-													placeholder={
-														intl.formatMessage({
-															id: 'astro.city.placeholder',
-															defaultMessage: 'a city',
-														})
-													}
-													inputClassName={style.geoInput}
-													className={style.geoSuggest}
-													suggestsClassName={style.geoSuggestWrapper}
-													suggestItemClassName={style.geoSuggestWrapperItem}
-													suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
-													maxFixtures={5}
-													types={["(cities)"]}
-													ignoreTab
-													ignoreEnter
-												/>
-											),
-											year: (
-												<DatePicker
-													inputReadOnly
-													className={style.input}
-													allowClear={false}
-													suffixIcon={undefined}
-													picker="year"
-													format={['YYYY', 'YY']}
-													onChange={(_, dateString) => {
-														setYearOfBirth(Number(dateString));
-													}}
-													placeholder={'YYYY'}
-												/>
-											)
-										})}
-									</div>
-								</Col>
-							</Row>
-							{(!!yearOfBirth && !AvailableLoading) ? (
-								<Row gutter={[32, 32]}>
-									{AllowMonth.map((value) => {
-										const month = value + 1;
-										if (!isLeapYear(Number(yearOfBirth)) && month === 2 && CurrentDay > 28) {
-											return null;
-										} else if (CurrentDay > 30 && !oddMonth[month]) {
-											return null;
-										} else return (
-											<Col
-												key={month}
-												xs={12} sm={12} md={8} lg={6} xl={4}
-												onClick={() => {
-													setMonthOfBirth(month);
-													setDayOfBirth(CurrentDay);
-												}}
-											>
-												<div
-													className={classNames(style.nftItem, monthOfBirth === month ? style.active : '')}
-													onClick={() => setMonthOfBirth(month)}
-												>
-													{month}-{CurrentDay}
-												</div>
-											</Col>
-										)
-									})}
-								</Row>
-							) : (
-								<Spin
-									indicator={
-										<LoadingOutlined
-											style={{
-												fontSize: 24,
-												color: '#fff',
-											}}
-											spin
-										/>
-									}
-									tip={
-										<span
-											style={{
-												color: '#fff',
-											}}
-										>
-											Querying available month...
-										</span>
-									}
+							{step === 1 && (
+								<Place
+									lat={lat}
+									lng={lng}
+									utcOffset={utcOffset}
+									setStep={setStep}
+									setLat={setLat}
+									setLng={setLng}
+									setUTCOffset={setUTCOffset}
 								/>
 							)}
-							<Row gutter={[32, 32]}>
-								<Col span={24}>
-									<div className={style.timeInput}>
-										{intl.formatMessage({
-											id: 'astro.userinput',
-											defaultMessage: 'at {hhmmss}.'
-										}, {
-											hhmmss: (
-												<TimePicker
-													inputReadOnly
-													className={style.input}
-													allowClear={false}
-													suffixIcon={undefined}
-													format={['HH:mm:ss']}
-													placeholder={intl.formatMessage({
-														id: 'astro.time.placeholder',
-														defaultMessage: 'HH:mm:ss',
-													})}
-													onChange={(_, timeString) => {
-														setTimeOfBirth(timeString.split(':'));
-													}}
-												/>
-											)
-										})}
-									</div>
-								</Col>
-							</Row>
-							<Row gutter={[48, 48]}>
-								{loadSVG && (
-									<Spin
-										size="large"
-										className={style.generating}
-										indicator={
-											<LoadingOutlined
-												style={{
-													color: '#fff',
-													marginLeft: '10px',
-													marginRight: '10px',
-												}}
-												spin
+							{step === 2 && (
+								<Year
+									yearOfBirth={yearOfBirth}
+									setStep={setStep}
+									setYearOfBirth={setYearOfBirth}
+								/>
+							)}
+							{step === 3 && (
+								<MonthAndDay
+									yearOfBirth={yearOfBirth}
+									monthOfBirth={monthOfBirth}
+									dayOfBirth={dayOfBirth}
+									setStep={setStep}
+									setMonthOfBirth={setMonthOfBirth}
+									setDayOfBirth={setDayOfBirth}
+								/>
+							)}
+							{step === 4 && (
+								<Time
+									timeOfBirth={timeOfBirth}
+									setStep={setStep}
+									setTimeOfBirth={setTimeOfBirth}
+								/>
+							)}
+							{step === 5 && (
+								<>
+									<Row gutter={[48, 48]}>
+										{loadSVG && (
+											<Spin
+												size="large"
+												className={style.generating}
+												indicator={
+													<LoadingOutlined
+														style={{
+															color: '#fff',
+															marginLeft: '10px',
+															marginRight: '10px',
+														}}
+														spin
+													/>
+												}
+												tip={(
+													<div
+														style={{
+															color: '#fff',
+														}}
+													>
+														{intl.formatMessage({
+															id: 'astro.generating',
+															defaultMessage: 'Generating...',
+														})}
+													</div>
+												)}
 											/>
-										}
-										tip={(
-											<div
-												style={{
-													color: '#fff',
-												}}
-											>
-												{intl.formatMessage({
-													id: 'astro.generating',
-													defaultMessage: 'Generating...',
-												})}
-											</div>
 										)}
-									/>
-								)}
-							</Row>
-							<Row gutter={[48, 48]}>
-								<div className={style.buttons}>
-									{!loadSVG && !astroSVG && (
-										<Button
-											size='large'
-											shape='round'
-											type='primary'
-											className={style.button}
-											disabled={!lat || !lng || !utcOffset || !yearOfBirth || !monthOfBirth || !dayOfBirth || !timeOfBirth.length}
-											loading={loading}
-											onClick={() => {
-												handleSubmit();
-											}}
-										>
-											{intl.formatMessage({
-												id: 'astro.getURChart',
-												defaultMessage: 'Mint Your MetaAstro',
-											})}
-										</Button>
-									)}
-									{astroSVG && (
-										<Button
-											size='large'
-											shape='round'
-											type='primary'
-											className={style.button}
-											onClick={() => {
-												setModal(true);
-											}}
-										>
-											{intl.formatMessage({
-												id: 'astro.viewMyChart',
-												defaultMessage: 'View Your MetaAstro',
-											})}
-										</Button>
-									)}
-								</div>
-							</Row>
+									</Row>
+									<Row gutter={[48, 48]}>
+										<div className={style.buttons}>
+											{!loadSVG && !astroSVG && (
+												<Button
+													size='large'
+													shape='round'
+													type='primary'
+													className={style.button}
+													disabled={!lat || !lng || !utcOffset || !yearOfBirth || !monthOfBirth || !dayOfBirth || !timeOfBirth.length}
+													loading={loading}
+													onClick={() => {
+														handleSubmit();
+													}}
+												>
+													{intl.formatMessage({
+														id: 'astro.getURChart',
+														defaultMessage: 'Mint Your MetaAstro',
+													})}
+												</Button>
+											)}
+											{astroSVG && (
+												<Button
+													size='large'
+													shape='round'
+													type='primary'
+													className={style.button}
+													onClick={() => {
+														setModal(true);
+													}}
+												>
+													{intl.formatMessage({
+														id: 'astro.viewMyChart',
+														defaultMessage: 'View Your MetaAstro',
+													})}
+												</Button>
+											)}
+										</div>
+									</Row>
+								</>
+							)}
 						</div>
 					</div>
 				</div>

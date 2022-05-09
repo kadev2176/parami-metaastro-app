@@ -99,7 +99,7 @@ const Ordinary: React.FC<{
 				const jsonContent = JSON.parse(debase64Content);
 				const debaseImage = Buffer.from(jsonContent.image.substring("data:image/svg+xml;base64,".length), 'base64').toString('utf8');
 				if (debaseImage.indexOf('generating') === -1) {
-					const replaceImage = debaseImage.replace(/\<g\>.*\<path.*?\<\/g\>/, '')
+					const replaceImage = debaseImage.replace(/\<path.*?/, '')
 						.replace(/\<rect.*?fill=\"none\".*?\/>/, '')
 						.replace(/\<radialGradient id=\"darkLight\"\>.*?\<\/radialGradient\>/, '<radialGradient id="darkLight"><stop offset="0%" stop-color="#707070" /><stop offset="3%" stop-color="#1b1b1b" /><stop offset="8%" stop-color="#000000" /></radialGradient>');
 					const baseImg = Buffer.from(replaceImage).toString('base64');;
@@ -315,14 +315,16 @@ const Ordinary: React.FC<{
 				content={
 					<div className={style.modalContainer}>
 						<div className={style.chartContainer}>
-							<img src={astroSVG} />
+							<div className={style.chart}>
+								<img src={astroSVG} />
+							</div>
 						</div>
 						<Button
 							block
 							type='link'
 							size='large'
 							onClick={() => {
-								window.open(`${opensea.url}/assets/${contractAddresses.ordinary[4]}/${TokenId?.toString()}`, '_blank');
+								window.open(`${opensea.url}/assets/${contractAddresses.prime[4]}/${TokenId?.toString()}`, '_blank');
 							}}
 							className={style.openSeaLink}
 						>
@@ -336,10 +338,10 @@ const Ordinary: React.FC<{
 				footer={false}
 				bodyStyle={{
 					backgroundColor: '#000',
-					borderRadius: 10,
 					background: 'url(/images/background/tarot.svg) #000',
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
+					padding: 0,
 				}}
 				close={() => {
 					setModal(false);

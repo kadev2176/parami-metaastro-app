@@ -54,7 +54,7 @@ const Intro: React.FC = () => {
               </div>
               <img
                 className={style.demoChart}
-                src={'/images/demo/earth.svg'}
+                src={'/images/demo/earth.png'}
               />
             </Col>
             <Col span={12} className={style.demoChartItem}>
@@ -63,7 +63,7 @@ const Intro: React.FC = () => {
               </div>
               <img
                 className={style.demoChart}
-                src={'/images/demo/fire.svg'}
+                src={'/images/demo/fire.png'}
               />
             </Col>
             <Col span={12} className={style.demoChartItem}>
@@ -72,7 +72,7 @@ const Intro: React.FC = () => {
               </div>
               <img
                 className={style.demoChart}
-                src={'/images/demo/water.svg'}
+                src={'/images/demo/water.png'}
               />
             </Col>
             <Col span={12} className={style.demoChartItem}>
@@ -81,7 +81,7 @@ const Intro: React.FC = () => {
               </div>
               <img
                 className={style.demoChart}
-                src={'/images/demo/wind.svg'}
+                src={'/images/demo/wind.png'}
               />
             </Col>
           </Row>

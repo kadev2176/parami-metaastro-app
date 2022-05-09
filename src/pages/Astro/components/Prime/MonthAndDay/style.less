@@ -1,0 +1,63 @@
+.nftWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  margin-top: 3.5rem;
+  border: 2px solid #fff;
+
+  .nftTitle {
+    position: absolute;
+    top: -20px;
+    background-color: #fff;
+    color: #000;
+    padding: 0.3rem 1rem;
+    font-weight: 900;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    font-family: "Gideon Roman", cursive;
+    max-width: 80%;
+  }
+
+  .nftItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border: 5px solid #fff;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-family: 'Josefin Sans';
+    cursor: pointer;
+    font-weight: 900;
+    transition: all 0.5s;
+
+    &.active {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+
+    .button {
+      font-weight: 700;
+      font-size: 20px;
+      height: auto;
+      padding: 10px 30px;
+    
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}

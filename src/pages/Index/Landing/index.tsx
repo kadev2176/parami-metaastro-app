@@ -38,6 +38,7 @@ const Landing: React.FC<{
                 Next round begins in
               </div>
             }
+            className={style.countdown}
             value={startTime}
           />
         )}
