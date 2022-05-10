@@ -1,6 +1,5 @@
-import { Button, DatePicker, notification, TimePicker, Spin, InputNumber } from 'antd';
+import { Button, notification, Spin, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import Geosuggest from 'react-geosuggest';
 import { useIntl, useModel } from 'umi';
 import styles from '../../style.less';
 import style from './style.less';
@@ -12,12 +11,15 @@ import { contractAddresses, opensea } from '../../config';
 import { errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
+import Place from './Place';
+import Date from './Date';
+import Time from './Time';
+import TokenID from './TokenID';
 
 const Ordinary: React.FC<{
 	tokenID: string | undefined;
 }> = ({ tokenID }) => {
 	const { Account, ChainId } = useModel('web3');
-	const [suggestList, setSuggestList] = useState<boolean>(false);
 	const [lat, setLat] = useState<number>(0);
 	const [lng, setLng] = useState<number>(0);
 	const [utcOffset, setUTCOffset] = useState<number>(0);
@@ -31,15 +33,13 @@ const Ordinary: React.FC<{
 	const [PrimaryTokenId, setPrimaryTokenId] = useState<number>();
 	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
 	const [modal, setModal] = useState<boolean>(false);
+	const [step, setStep] = useState<number>(1);
 
 	const intl = useIntl();
 
 	const {
-		PrimeContract,
 		OrdinaryContract
 	} = useModel('astroContracts');
-
-	const CurrentDay = new Date().getDate();
 
 	useEffect(() => {
 		if (!!Account && ChainId !== 4) {
@@ -55,17 +55,6 @@ const Ordinary: React.FC<{
 	const getCurrentInfo = async () => {
 		const fee = await OrdinaryContract?.getOracleGasFee();
 		setCurrentFee(fee);
-	};
-
-	const getTokenIdAndPrice = async (month: string, day: string) => {
-		const tokenId = await PrimeContract?.getTokenIdByMonthAndDay(Number(month), Number(day));
-		const price = await OrdinaryContract?.getBreedConfig(tokenId);
-		if (tokenId.toNumber() !== 0) {
-			setPrimaryTokenId(tokenId.toNumber());
-		}
-		if (!!price) {
-			setCurrentPrice(price[1]);
-		}
 	};
 
 	useEffect(() => {
@@ -146,165 +135,115 @@ const Ordinary: React.FC<{
 								})}
 							</div>
 						</div>
-						<div className={style.inputContainer}>
-							<div className={style.userInputContainer}>
-								{intl.formatMessage({
-									id: 'astro.userinput',
-									defaultMessage: 'I was born in {city}, on {ddyymm} at {hhmmss}.'
-								}, {
-									city: (
-										<Geosuggest
-											onSuggestSelect={(res) => {
-												if (!!res?.location) {
-													setLat(res.location.lat);
-													setLng(res.location.lng);
-													setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
-												}
-												setSuggestList(false)
-											}}
-											placeholder={
-												intl.formatMessage({
-													id: 'astro.city.placeholder',
-													defaultMessage: 'a city',
-												})
-											}
-											inputClassName={style.geoInput}
-											className={style.geoSuggest}
-											suggestsClassName={style.geoSuggestWrapper}
-											suggestItemClassName={style.geoSuggestWrapperItem}
-											suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
-											maxFixtures={5}
-											types={["(cities)"]}
-											ignoreTab
-											ignoreEnter
-										/>
-									),
-									ddyymm: (
-										<DatePicker
-											inputReadOnly
-											className={style.input}
-											allowClear={false}
-											suffixIcon={undefined}
-											format={['YYYY/MM/DD', 'YY/MM/DD']}
-											onChange={async (_, dateString) => {
-												setDateOfBirth(dateString.split('/'));
-												await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
-											}}
-											disabledDate={(date) => CurrentDay > date.daysInMonth()}
-											placeholder={intl.formatMessage({
-												id: 'astro.date.placeholder',
-												defaultMessage: 'YYYY/MM/DD',
-											})}
-										/>
-									),
-									hhmmss: (
-										<TimePicker
-											inputReadOnly
-											className={style.input}
-											allowClear={false}
-											suffixIcon={undefined}
-											format={['HH:mm:ss']}
-											placeholder={intl.formatMessage({
-												id: 'astro.time.placeholder',
-												defaultMessage: 'HH:mm:ss',
-											})}
-											onChange={(_, timeString) => {
-												setTimeOfBirth(timeString.split(':'));
-											}}
-										/>
-									)
-								})}
-							</div>
-							<div className={style.breedTokenIdContainer}>
-								{intl.formatMessage({
-									id: 'astro.breed',
-									defaultMessage: 'Breed From (TokenID): {tokenId}',
-								}, {
-									tokenId: (
-										<InputNumber
-											size='large'
-											className={style.input}
-											type="number"
-											min={1}
-											onChange={async (e: any) => {
-												setPrimaryTokenId(e);
-												const price = await OrdinaryContract?.getBreedConfig(e);
-												setCurrentPrice(price[1]);
-											}}
-											defaultValue={tokenID}
-											placeholder={intl.formatMessage({
-												id: 'astro.tokenId.placeholder',
-												defaultMessage: 'TokenID',
-											})}
-											value={tokenID || PrimaryTokenId}
-										/>
-									)
-								})}
-							</div>
-							{loadSVG && (
-								<Spin
-									size="large"
-									className={style.generating}
-									indicator={
-										<LoadingOutlined
-											style={{
-												color: '#fff',
-												marginLeft: '10px',
-												marginRight: '10px',
-											}}
-											spin
-										/>
-									}
-									tip={(
-										<div
-											style={{
-												color: '#fff',
-											}}
-										>
-											{intl.formatMessage({
-												id: 'astro.generating',
-												defaultMessage: 'Generating...',
-											})}
-										</div>
-									)}
+						<div className={style.nftContainer}>
+							{step === 1 && (
+								<Place
+									lat={lat}
+									lng={lng}
+									utcOffset={utcOffset}
+									setStep={setStep}
+									setLat={setLat}
+									setLng={setLng}
+									setUTCOffset={setUTCOffset}
 								/>
 							)}
-							<div className={style.buttons}>
-								{!loadSVG && !astroSVG && (
-									<Button
-										size='large'
-										shape='round'
-										type='primary'
-										className={style.button}
-										disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
-										loading={loading}
-										onClick={() => {
-											handleSubmit();
-										}}
-									>
-										{intl.formatMessage({
-											id: 'astro.getURChart',
-											defaultMessage: 'Mint Your MetaAstro',
-										})}
-									</Button>
-								)}
-								{astroSVG && (
-									<Button
-										size='large'
-										shape='round'
-										type='primary'
-										className={style.button}
-										onClick={() => {
-											setModal(true);
-										}}
-									>
-										{intl.formatMessage({
-											id: 'astro.viewMyChart',
-											defaultMessage: 'View Your MetaAstro',
-										})}
-									</Button>
-								)}
-							</div>
+							{step === 2 && (
+								<Date
+									dateOfBirth={dateOfBirth}
+									setStep={setStep}
+									setDateOfBirth={setDateOfBirth}
+									setPrimaryTokenId={setPrimaryTokenId}
+									setCurrentPrice={setCurrentPrice}
+								/>
+							)}
+							{step === 3 && (
+								<Time
+									timeOfBirth={timeOfBirth}
+									setStep={setStep}
+									setTimeOfBirth={setTimeOfBirth}
+								/>
+							)}
+							{step === 4 && (
+								<TokenID
+									tokenID={tokenID}
+									PrimaryTokenId={PrimaryTokenId}
+									setStep={setStep}
+									setPrimaryTokenId={setPrimaryTokenId}
+									setCurrentPrice={setCurrentPrice}
+								/>
+							)}
+							{step === 5 && (
+								<>
+									<Row gutter={[48, 48]}>
+										{loadSVG && (
+											<Spin
+												size="large"
+												className={style.generating}
+												indicator={
+													<LoadingOutlined
+														style={{
+															color: '#fff',
+															marginLeft: '10px',
+															marginRight: '10px',
+														}}
+														spin
+													/>
+												}
+												tip={(
+													<div
+														style={{
+															color: '#fff',
+														}}
+													>
+														{intl.formatMessage({
+															id: 'astro.generating',
+															defaultMessage: 'Generating...',
+														})}
+													</div>
+												)}
+											/>
+										)}
+									</Row>
+									<Row gutter={[48, 48]}>
+										<div className={style.buttons}>
+											{!loadSVG && !astroSVG && (
+												<Button
+													size='large'
+													shape='round'
+													type='primary'
+													className={style.button}
+													disabled={!lat || !lng || !utcOffset || !dateOfBirth.length || !timeOfBirth.length}
+													loading={loading}
+													onClick={() => {
+														handleSubmit();
+													}}
+												>
+													{intl.formatMessage({
+														id: 'astro.getURChart',
+														defaultMessage: 'Mint Your MetaAstro',
+													})}
+												</Button>
+											)}
+											{astroSVG && (
+												<Button
+													size='large'
+													shape='round'
+													type='primary'
+													className={style.button}
+													onClick={() => {
+														setModal(true);
+													}}
+												>
+													{intl.formatMessage({
+														id: 'astro.viewMyChart',
+														defaultMessage: 'View Your MetaAstro',
+													})}
+												</Button>
+											)}
+										</div>
+									</Row>
+								</>
+							)}
 						</div>
 					</div>
 				</div>

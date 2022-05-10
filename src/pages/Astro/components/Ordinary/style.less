@@ -1,213 +1,216 @@
 .getchartContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 
-    .inputContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin-top: 2rem;
-    }
+	.userInputContainer,
+	.breedTokenIdContainer {
+		display: block;
+		width: 100%;
+		color: #fff;
+		padding-bottom: 4.5rem;
+		line-height: 2rem;
+		font-size: 20px;
 
-    .userInputContainer,
-    .breedTokenIdContainer {
-        display: block;
-        width: 100%;
-        color: #fff;
-        padding-bottom: 4.5rem;
-        line-height: 2rem;
-        font-size: 20px;
+		.input {
+			border: unset;
+			border-bottom: 1px dashed #fff;
+			background-color: transparent !important;
+			color: #fff !important;
+			border-radius: unset !important;
+			padding: 0;
+			-webkit-appearance: none;
+			text-align: center;
+			transition: 0.5s;
+			outline: none !important;
+			box-shadow: unset !important;
+			max-width: 100px;
+			width: 100%;
 
-        .input {
-            border: unset;
-            border-bottom: 1px dashed #fff;
-            background-color: transparent !important;
-            color: #fff !important;
-            border-radius: unset !important;
-            padding: 0;
-            -webkit-appearance: none;
-            text-align: center;
-            transition: 0.5s;
-            outline: none !important;
-            box-shadow: unset !important;
-            max-width: 100px;
-            width: 100%;
+			input {
+				font-size: 16px !important;
+				color: #fff !important;
+				text-align: center !important;
 
-            input {
-                font-size: 16px !important;
-                color: #fff !important;
-                text-align: center !important;
+				&::placeholder {
+					color: #fff;
+				}
+			}
 
-                &::placeholder {
-                    color: #fff;
-                }
-            }
+			&:focus {
+				outline: none !important;
+				box-shadow: unset !important;
+			}
+		}
+	}
 
-            &:focus {
-                outline: none !important;
-                box-shadow: unset !important;
-            }
-        }
-    }
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
 
-    .userInputContainer {
-        padding-bottom: 1rem;
-    }
-
-    .buttons {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-
-        .button {
-            font-weight: 700;
-            font-size: 20px;
-            height: auto;
-            padding: 10px 30px;
+		.button {
+			font-weight: 700;
+			font-size: 20px;
+			height: auto;
+			padding: 10px 30px;
     
-            &:not(:last-child) {
-                margin-right: 20px;
-            }
-        }
-    }
-
-    .geoSuggest {
-        position: relative;
-        display: inline-block;
-    }
-
-    .geoInput {
-        background: transparent !important;
-        outline: none !important;
-        box-shadow: unset !important;
-        border-radius: unset !important;
-        border: unset !important;
-        border-bottom: 1px dashed #fff !important;
-        -webkit-appearance: none;
-        text-align: center;
-        color: #fff !important;
-        font-size: 16px !important;
-        transition: 0.5s;
-
-        &::placeholder {
-            color: #fff;
-        }
-    }
-
-    :global(.geosuggest__suggests-wrapper) {
-        position: absolute;
-        left: 0;
-        z-index: 1000;
-        min-width: 160px;
-        padding: 0;
-        margin: 0;
-        font-size: 14px;
-        text-align: left;
-        list-style: none;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0,0,0,.15);
-        border-radius: 4px;
-        box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-    }
-
-    .geoSuggestWrapper {
-        padding: 0;
-        margin: 0;
-    }
-
-    .geoSuggestWrapperItem {
-        display: block;
-        padding: 10px 20px;
-        clear: both;
-        font-weight: 400;
-        line-height: 1.42857143;
-        color: #333;
-        white-space: nowrap;
-        cursor: pointer;
-
-        &:hover {
-            background: rgba(0,0,0,.05);
-        }
-    }
-
-    .geoSuggestWrapperShow {
-        display: block;
-    }
-
-    .geoSuggestWrapperHidden {
-        display: none;
-    }
+			&:not(:last-child) {
+				margin-right: 20px;
+			}
+		}
+	}
 }
 
 .flexContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 3.5rem;
-    margin-bottom: 3.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 3.5rem;
+	margin-bottom: 3.5rem;
 }
 
 .modalContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-    .background {
-        position: absolute;
-        width: 100%;
-    }
+	.background {
+		position: absolute;
+		width: 100%;
+	}
 
-    .chartContainer {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 5.5rem 2.3rem;
+	.tipContainer {
+		position: absolute;
+		top: 75px;
+		font-size: 1rem;
+		font-weight: 800;
+		height: auto !important;
+		color: #ee8240 !important;
+		text-align: center;
+		z-index: 2;
 
-        .chart {
-            position: relative;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            margin-top: 4rem;
-            margin-bottom: 4rem;
-            padding: 1rem;
-        }
+		.monthAndDay {
+			font-size: 1.5rem;
+		}
+	}
+
+	.chartContainer {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		padding: 5.5rem 2.3rem;
+
+		.chart {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			margin-top: 4rem;
+			margin-bottom: 4rem;
+			padding: 1rem;
+			pointer-events: none;
+		}
     
-        img,svg {
-            width: 100%;
-            height: 100%;
-            transform: scale(1.3);
-            object-fit: cover;
-            display: inline-block;
-        }
-    }
+		img,svg {
+			width: 100%;
+			height: 100%;
+			transform: scale(1.3);
+			object-fit: cover;
+			display: inline-block;
+			pointer-events: none;
+		}
+	}
 
-    .openSeaLink {
-        position: absolute;
-        bottom: 80px;
-        font-size: 1.5rem;
-        font-weight: 800;
-        height: auto !important;
-        color: #ee8240 !important;
-    }
+	.openSeaLink {
+		position: absolute;
+		bottom: 80px;
+		font-size: 1.5rem;
+		font-weight: 800;
+		height: auto !important;
+		color: #ee8240 !important;
+	}
+}
+
+.nftContainer {
+	width: 100%;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding-left: 10%;
+	padding-right: 10%;
+
+	.locationYearInput {
+		display: block;
+		width: 100%;
+		margin-bottom: 2rem;
+		line-height: 2rem;
+		font-size: 20px;
+	}
+
+	.generating {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 2rem;
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		margin-top: 2rem;
+
+		.button {
+			font-weight: 700;
+			font-size: 20px;
+			height: auto;
+			padding: 10px 30px;
+    
+			&:not(:last-child) {
+				margin-right: 20px;
+			}
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.nftContainer {
+		padding-left: 2%;
+		padding-right: 2%;
+	}
+
+	.modalContainer {
+		.tipContainer {
+			font-size: 1.2rem;
+		}
+
+		.chartContainer {
+			padding: 3.2rem 2.3rem;
+		}
+	}
+
+	.flexContainer {
+		padding-top: 6rem;
+		padding-bottom: 6rem;
+	}
 }
