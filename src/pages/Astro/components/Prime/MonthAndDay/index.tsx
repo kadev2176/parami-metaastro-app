@@ -41,10 +41,10 @@ const MonthAndDay: React.FC<{
   };
 
   useEffect(() => {
-    if (!!PrimeContract && !!Account) {
+    if (!!yearOfBirth && !!PrimeContract && !!Account) {
       isAvailable();
     }
-  }, [Account, PrimeContract]);
+  }, [yearOfBirth, Account, PrimeContract]);
 
   return (
     <div className={style.nftWrapper}>
