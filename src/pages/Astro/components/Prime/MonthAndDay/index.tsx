@@ -58,7 +58,12 @@ const MonthAndDay: React.FC<{
         })}
       </div>
       {!!yearOfBirth && !AvailableLoading ? (
-        <Row gutter={[32, 32]}>
+        <Row
+          gutter={[32, 32]}
+          style={{
+            width: '100%',
+          }}
+        >
           {AllowMonth.map((value) => {
             const month = value + 1;
             if (!isLeapYear(Number(yearOfBirth)) && month === 2 && CurrentDay > 28) {
