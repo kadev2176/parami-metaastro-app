@@ -15,9 +15,7 @@ const MonthAndDay: React.FC<{
   setMonthOfBirth: React.Dispatch<React.SetStateAction<number | undefined>>;
   setDayOfBirth: React.Dispatch<React.SetStateAction<number | undefined>>;
 }> = ({ yearOfBirth, monthOfBirth, dayOfBirth, setStep, setMonthOfBirth, setDayOfBirth }) => {
-  const {
-    PrimeContract
-  } = useModel('astroContracts');
+  const { PrimeContract } = useModel('astroContracts');
   const { Account } = useModel('web3');
 
   const [AllowMonth, setAllowMonth] = useState<number[]>([]);
@@ -29,10 +27,15 @@ const MonthAndDay: React.FC<{
 
   const isAvailable = async () => {
     const currentDay = new Date().getDate();
-    const months = [];
+    const promises = [];
     for (let month = 0; month < 12; month++) {
-      const tokenId = await PrimeContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
-      if (tokenId.toNumber() === 0) {
+      const query = PrimeContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
+      promises.push(query);
+    }
+    const months = [];
+    const results = await Promise.all(promises);
+    for (let month = 0; month < results.length; month++) {
+      if (results[month].toNumber() === 0) {
         months.push(month);
       }
     }
@@ -54,7 +57,7 @@ const MonthAndDay: React.FC<{
           defaultMessage: 'And then, you need to choose the month you were born',
         })}
       </div>
-      {(!!yearOfBirth && !AvailableLoading) ? (
+      {!!yearOfBirth && !AvailableLoading ? (
         <Row gutter={[32, 32]}>
           {AllowMonth.map((value) => {
             const month = value + 1;
@@ -62,23 +65,31 @@ const MonthAndDay: React.FC<{
               return null;
             } else if (CurrentDay > 30 && !oddMonth[month]) {
               return null;
-            } else return (
-              <Col
-                key={month}
-                xs={12} sm={12} md={8} lg={6} xl={4}
-                onClick={() => {
-                  setMonthOfBirth(month);
-                  setDayOfBirth(CurrentDay);
-                }}
-              >
-                <div
-                  className={classNames(style.nftItem, monthOfBirth === month ? style.active : '')}
-                  onClick={() => setMonthOfBirth(month)}
+            } else
+              return (
+                <Col
+                  key={month}
+                  xs={12}
+                  sm={12}
+                  md={8}
+                  lg={6}
+                  xl={4}
+                  onClick={() => {
+                    setMonthOfBirth(month);
+                    setDayOfBirth(CurrentDay);
+                  }}
                 >
-                  {month}-{CurrentDay}
-                </div>
-              </Col>
-            )
+                  <div
+                    className={classNames(
+                      style.nftItem,
+                      monthOfBirth === month ? style.active : '',
+                    )}
+                    onClick={() => setMonthOfBirth(month)}
+                  >
+                    {month}-{CurrentDay}
+                  </div>
+                </Col>
+              );
           })}
         </Row>
       ) : (
@@ -103,14 +114,12 @@ const MonthAndDay: React.FC<{
           }
         />
       )}
-      <div
-        className={style.buttons}
-      >
+      <div className={style.buttons}>
         <Button
           block
-          size='large'
-          shape='round'
-          type='primary'
+          size="large"
+          shape="round"
+          type="primary"
           className={style.button}
           disabled={!yearOfBirth || !monthOfBirth || !dayOfBirth}
           onClick={() => {
@@ -124,7 +133,7 @@ const MonthAndDay: React.FC<{
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default MonthAndDay;
