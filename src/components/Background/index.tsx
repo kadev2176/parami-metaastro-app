@@ -129,7 +129,7 @@ const Background: React.FC<{
 	};
 
 	// Camera
-	const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+	const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 50);
 	camera.position.x = 3;
 	camera.position.y = 3;
 	camera.position.z = 3;
@@ -174,10 +174,15 @@ const Background: React.FC<{
 
 		// Render
 		const renderer = new THREE.WebGLRenderer({
-			canvas: canvas
-		})
+			canvas: canvas,
+			stencil: false,
+			powerPreference: 'low-power',
+			depth: false,
+			logarithmicDepthBuffer: true,
+			failIfMajorPerformanceCaveat: true,
+		});
 		renderer.setSize(sizes.width, sizes.height);
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
 		g_renderer = renderer;
 		tick();
 		window.addEventListener('resize', () => {
@@ -191,11 +196,9 @@ const Background: React.FC<{
 
 			// Update renderer
 			renderer.setSize(sizes.width, sizes.height);
-			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
 		});
 	}, [speedup, pullup, leftDays]);
-
-
 
 	return (
 		<div className={style.backgroundContainer}>

@@ -273,7 +273,11 @@ const Prime: React.FC = () => {
 				content={
 					<div className={style.modalContainer}>
 						<div className={style.tipContainer}>
-							Congrats! You have been the god of 11.20!
+							Congratulations!<br />
+							You are the god of<br />
+							<div className={style.monthAndDay}>
+								{monthOfBirth}.{dayOfBirth}
+							</div>
 						</div>
 						<div className={style.chartContainer}>
 							<div className={style.chart}>
