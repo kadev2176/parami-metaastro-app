@@ -77,7 +77,7 @@ const Intro: React.FC = () => {
             </Col>
             <Col span={12} className={style.demoChartItem}>
               <div className={`${style.tag} ${style.wind}`}>
-                Wind Style
+                Air Style
               </div>
               <img
                 className={style.demoChart}

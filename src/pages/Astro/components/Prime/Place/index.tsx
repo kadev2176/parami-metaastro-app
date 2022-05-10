@@ -14,6 +14,7 @@ const Place: React.FC<{
   setUTCOffset: React.Dispatch<React.SetStateAction<number>>;
 }> = ({ lat, lng, utcOffset, setStep, setLat, setLng, setUTCOffset }) => {
   const [suggestList, setSuggestList] = useState<boolean>(false);
+  const [placeholder, setPlaceholder] = useState<string>('Please select your city');
 
   const intl = useIntl();
 
@@ -34,12 +35,13 @@ const Place: React.FC<{
           }
           setSuggestList(false)
         }}
-        placeholder={
-          intl.formatMessage({
-            id: 'astro.city.placeholder',
-            defaultMessage: 'Please select city',
-          })
-        }
+        placeholder={placeholder}
+        onFocus={() => {
+          setPlaceholder('');
+        }}
+        onBlur={() => {
+          setPlaceholder('Please select your city');
+        }}
         inputClassName={style.geoInput}
         className={style.geoSuggest}
         suggestsClassName={style.geoSuggestWrapper}

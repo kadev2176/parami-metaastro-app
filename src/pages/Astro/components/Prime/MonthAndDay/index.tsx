@@ -112,22 +112,6 @@ const MonthAndDay: React.FC<{
           shape='round'
           type='primary'
           className={style.button}
-          disabled={!yearOfBirth}
-          onClick={() => {
-            setStep(2);
-          }}
-        >
-          {intl.formatMessage({
-            id: 'astro.previousStep',
-            defaultMessage: 'Previous Step',
-          })}
-        </Button>
-        <Button
-          block
-          size='large'
-          shape='round'
-          type='primary'
-          className={style.button}
           disabled={!yearOfBirth || !monthOfBirth || !dayOfBirth}
           onClick={() => {
             setStep(4);
