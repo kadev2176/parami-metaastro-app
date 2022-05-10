@@ -216,7 +216,7 @@ const Prime: React.FC = () => {
 													>
 														{intl.formatMessage({
 															id: 'astro.generating',
-															defaultMessage: 'Generating...',
+															defaultMessage: 'Waiting for oracle...',
 														})}
 													</div>
 												)}
