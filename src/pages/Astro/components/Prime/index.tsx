@@ -272,6 +272,9 @@ const Prime: React.FC = () => {
 				title={undefined}
 				content={
 					<div className={style.modalContainer}>
+						<div className={style.tipContainer}>
+							Congrats! You have been the god of 11.20!
+						</div>
 						<div className={style.chartContainer}>
 							<div className={style.chart}>
 								<img src={astroSVG} />
