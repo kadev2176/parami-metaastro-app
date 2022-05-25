@@ -146,15 +146,6 @@ const Prime: React.FC = () => {
 								})}
 							</div>
 						</div>
-						<div className={styles.mintCount}>
-							{intl.formatMessage({
-								id: 'astro.subTitle',
-								defaultMessage: 'Gen 0 MetaAstro already minted: {minted}/{total}',
-							}, {
-								minted: currentSupply?.toString(),
-								total: '366',
-							})}
-						</div>
 						<div className={style.nftContainer}>
 							{step === 1 && (
 								<Place
@@ -265,6 +256,15 @@ const Prime: React.FC = () => {
 							)}
 						</div>
 					</div>
+				</div>
+				<div className={styles.mintCount}>
+					{intl.formatMessage({
+						id: 'astro.subTitle',
+						defaultMessage: 'Gen 0 MetaAstro already minted: {minted}/{total}',
+					}, {
+						minted: currentSupply?.toString(),
+						total: '366',
+					})}
 				</div>
 			</div>
 			<BigModal

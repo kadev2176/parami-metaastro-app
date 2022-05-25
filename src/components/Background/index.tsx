@@ -8,7 +8,8 @@ const Background: React.FC<{
 	speedup?: boolean;
 	pullup?: boolean;
 	leftDays?: number;
-}> = ({ speedup, pullup, leftDays }) => {
+	complex?: boolean;
+}> = ({ speedup, pullup, leftDays, complex }) => {
 	const count = [10000, 70000];
 	const randomness = [1, 0.3];
 	const stars = [1000, 9000];
@@ -21,12 +22,12 @@ const Background: React.FC<{
 
 	// Galaxy Generator
 	const parameters = {
-		count: !!leftDays && leftDays <= 7 ? ((count[1] - count[0]) / 7 * (7 - leftDays + 1)) : 70000,
+		count: !!leftDays && leftDays <= 7 ? ((count[1] - count[0]) / 7 * (7 - leftDays + 1)) : complex ? 70000 : 10000,
 		size: 0.01,
 		radius: 5,
 		branches: !!leftDays && leftDays <= 7 ? 7 - leftDays + 1 : 7,
 		spin: 1,
-		randomness: !!leftDays && leftDays <= 7 ? ((randomness[1] - randomness[0]) / 7 * (7 - leftDays + 1)) : 0.3,
+		randomness: !!leftDays && leftDays <= 7 ? ((randomness[1] - randomness[0]) / 7 * (7 - leftDays + 1)) : complex ? 0.3 : 0.1,
 		randomnessPower: 5,
 		stars: !!leftDays && leftDays <= 7 ? (stars[1] - stars[0] / 7 * (7 - leftDays + 1)) : 9000,
 		starColor: '#1b3984',
@@ -176,13 +177,13 @@ const Background: React.FC<{
 		const renderer = new THREE.WebGLRenderer({
 			canvas: canvas,
 			stencil: false,
-			powerPreference: 'low-power',
-			depth: false,
-			logarithmicDepthBuffer: true,
+			powerPreference: complex ? 'high-performance' : 'low-power',
+			depth: complex ? true : false,
+			logarithmicDepthBuffer: complex ? false : true,
 			failIfMajorPerformanceCaveat: true,
 		});
 		renderer.setSize(sizes.width, sizes.height);
-		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+		renderer.setPixelRatio(Math.min(window.devicePixelRatio, complex ? 3 : 1));
 		g_renderer = renderer;
 		tick();
 		window.addEventListener('resize', () => {
@@ -196,7 +197,7 @@ const Background: React.FC<{
 
 			// Update renderer
 			renderer.setSize(sizes.width, sizes.height);
-			renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+			renderer.setPixelRatio(Math.min(window.devicePixelRatio, complex ? 3 : 1));
 		});
 	}, [speedup, pullup, leftDays]);
 

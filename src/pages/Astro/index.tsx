@@ -51,7 +51,9 @@ const Astro: React.FC = () => {
 	return (
 		<>
 			<div className={styles.mainContainer}>
-				<Background />
+				<Background
+					complex={false}
+				/>
 				<div className={style.centerContainer}>
 					<div className={style.firstContainer}>
 						{GEN === 1 && (

@@ -116,6 +116,7 @@ const Index: React.FC = () => {
 		<div className={styles.mainContainer}>
 			<Background
 				leftDays={leftDays}
+				complex={true}
 			/>
 			{(!!leftDays && leftDays !== 0) && (
 				<PreDayCountDown

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import style from './style.less';
 import { useIntl } from 'umi';
 import { Button, DatePicker } from 'antd';
+import moment from 'moment';
+import { useEffect } from 'react';
 
 const Year: React.FC<{
   yearOfBirth: number | undefined;
@@ -11,6 +13,10 @@ const Year: React.FC<{
   const [placeholder, setPlaceholder] = useState<string>('Please select your year of birth');
 
   const intl = useIntl();
+
+  useEffect(() => {
+    setYearOfBirth(1990);
+  }, []);
 
   return (
     <div className={style.nftWrapper}>
@@ -30,6 +36,7 @@ const Year: React.FC<{
         onChange={(_, dateString) => {
           setYearOfBirth(Number(dateString));
         }}
+        defaultValue={moment('1990', 'YYYY')}
         placeholder={yearOfBirth?.toString() || placeholder}
         onClick={() => {
           setPlaceholder('');
