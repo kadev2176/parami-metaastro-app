@@ -121,7 +121,6 @@ const MonthAndDay: React.FC<{
       )}
       <div className={style.buttons}>
         <Button
-          block
           size="large"
           shape="round"
           type="primary"

@@ -61,7 +61,6 @@ const Date: React.FC<{
         className={style.buttons}
       >
         <Button
-          block
           size='large'
           shape='round'
           type='primary'
