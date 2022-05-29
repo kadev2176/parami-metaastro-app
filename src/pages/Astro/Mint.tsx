@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from '@/style/common.less';
 import style from './style.less';
 import { useModel, history } from 'umi';
 import Prime from './components/Prime';
-import Ordinary from './components/Ordinary';
 import Background from '@/components/Background';
 import { notification } from 'antd';
 
-const Astro: React.FC = () => {
+const Mint: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
-	const [GEN, setGEN] = useState<number>(1);
 
 	const {
 		PrimeContract
 	} = useModel('astroContracts');
-
-	const { hash } = history.location;
-	const tokenID = hash?.substring(1);
 
 	const getSalesTime = async () => {
 		const timeRange = await PrimeContract?.getSalesTimes();
@@ -56,14 +51,7 @@ const Astro: React.FC = () => {
 				/>
 				<div className={style.centerContainer}>
 					<div className={style.firstContainer}>
-						{GEN === 1 && (
-							<Prime />
-						)}
-						{GEN === 2 && (
-							<Ordinary
-								tokenID={tokenID}
-							/>
-						)}
+						<Prime />
 					</div>
 				</div>
 			</div>
@@ -71,4 +59,4 @@ const Astro: React.FC = () => {
 	)
 }
 
-export default Astro;
+export default Mint;

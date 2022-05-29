@@ -26,32 +26,40 @@ const Place: React.FC<{
           defaultMessage: 'First, you need to choose the city where you were born',
         })}
       </div>
-      <Geosuggest
-        onSuggestSelect={(res) => {
-          if (!!res?.location) {
-            setLat(res.location.lat);
-            setLng(res.location.lng);
-            setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
-          }
-          setSuggestList(false)
-        }}
-        placeholder={placeholder}
-        onFocus={() => {
-          setPlaceholder('');
-        }}
-        onBlur={() => {
-          setPlaceholder('Please select your city');
-        }}
-        inputClassName={style.geoInput}
-        className={style.geoSuggest}
-        suggestsClassName={style.geoSuggestWrapper}
-        suggestItemClassName={style.geoSuggestWrapperItem}
-        suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
-        maxFixtures={5}
-        types={["(cities)"]}
-        ignoreTab
-        ignoreEnter
-      />
+      <div className={style.inputContainer}>
+        <div className={style.prefix}>
+          {intl.formatMessage({
+            id: 'astro.city.prefix',
+            defaultMessage: 'I was born in',
+          })}
+        </div>
+        <Geosuggest
+          onSuggestSelect={(res) => {
+            if (!!res?.location) {
+              setLat(res.location.lat);
+              setLng(res.location.lng);
+              setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
+            }
+            setSuggestList(false)
+          }}
+          placeholder={placeholder}
+          onFocus={() => {
+            setPlaceholder('');
+          }}
+          onBlur={() => {
+            setPlaceholder('Please select your city');
+          }}
+          inputClassName={style.geoInput}
+          className={style.geoSuggest}
+          suggestsClassName={style.geoSuggestWrapper}
+          suggestItemClassName={style.geoSuggestWrapperItem}
+          suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
+          maxFixtures={5}
+          types={["(cities)"]}
+          ignoreTab
+          ignoreEnter
+        />
+      </div>
       <div
         className={style.buttons}
       >

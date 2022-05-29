@@ -1,6 +1,6 @@
 import { Button, notification, Spin, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useIntl, useModel } from 'umi';
+import { useIntl, useModel, history } from 'umi';
 import styles from '../../style.less';
 import style from './style.less';
 import type { BigNumber } from 'ethers';
@@ -12,9 +12,8 @@ import { errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
 import Place from './Place';
-import Date from './Date';
 import Time from './Time';
-import TokenID from './TokenID';
+import Year from './Year';
 
 const Ordinary: React.FC<{
 	tokenID: string | undefined;
@@ -23,6 +22,7 @@ const Ordinary: React.FC<{
 	const [lat, setLat] = useState<number>(0);
 	const [lng, setLng] = useState<number>(0);
 	const [utcOffset, setUTCOffset] = useState<number>(0);
+	const [yearOfBirth, setYearOfBirth] = useState<number>();
 	const [dateOfBirth, setDateOfBirth] = useState<string[]>([]);
 	const [timeOfBirth, setTimeOfBirth] = useState<string[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
@@ -30,8 +30,7 @@ const Ordinary: React.FC<{
 	const [currentPrice, setCurrentPrice] = useState<BigNumber>();
 	const [currentFee, setCurrentFee] = useState<BigNumber>();
 	const [astroSVG, setAstroSVG] = useState<string>();
-	const [PrimaryTokenId, setPrimaryTokenId] = useState<number>();
-	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
+	const [newTokenId, setNewTokenId] = useState<ethers.BigNumber>();
 	const [modal, setModal] = useState<boolean>(false);
 	const [step, setStep] = useState<number>(1);
 
@@ -54,12 +53,53 @@ const Ordinary: React.FC<{
 
 	const getCurrentInfo = async () => {
 		const fee = await OrdinaryContract?.getOracleGasFee();
-		setCurrentFee(fee);
+		const price = await OrdinaryContract?.getBreedConfig(tokenID);
+
+		if (!!price) {
+			setCurrentPrice(price[1]);
+		}
+
+		if (!!fee) {
+			setCurrentFee(fee);
+		}
+	};
+
+	const getPrimeToken = async () => {
+		try {
+			const res = await OrdinaryContract?.getAstroArgsOf(tokenID);
+			if (res?.exists) {
+				setDateOfBirth(res?.monthAndDay);
+			} else {
+				notification.error({
+					message: intl.formatMessage({
+						id: 'astro.error.notFound',
+						defaultMessage: 'Not found this token ID, please check it again',
+					}),
+					duration: null,
+				});
+				history.push('/');
+			}
+		} catch (e: any) {
+			notification.error({
+				message: intl.formatMessage({
+					id: 'astro.error.notFound',
+					defaultMessage: 'Not found this token ID, please check it again',
+				}),
+				duration: null,
+			});
+			history.push('/');
+		}
 	};
 
 	useEffect(() => {
 		if (!!OrdinaryContract && !!Account) {
 			getCurrentInfo();
+		}
+	}, [Account, OrdinaryContract]);
+
+	useEffect(() => {
+		if (!!OrdinaryContract && !!Account) {
+			getPrimeToken();
 		}
 	}, [Account, OrdinaryContract]);
 
@@ -70,14 +110,14 @@ const Ordinary: React.FC<{
 			const encryptStr = await RSAEncrypt(`${Number(dateOfBirth[0])},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
 			const tx = await OrdinaryContract?.breedFrom(
-				PrimaryTokenId,
+				tokenID,
 				[Number(dateOfBirth[1]), Number(dateOfBirth[2])],
 				encodeURIComponent(encryptStr),
 				{ value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
 			);
 
 			const tokenId = await extractTokenIdFromEvent(tx);
-			setTokenId(tokenId);
+			setNewTokenId(tokenId);
 
 			setLoadSVG(true);
 
@@ -148,12 +188,10 @@ const Ordinary: React.FC<{
 								/>
 							)}
 							{step === 2 && (
-								<Date
-									dateOfBirth={dateOfBirth}
+								<Year
+									yearOfBirth={yearOfBirth}
 									setStep={setStep}
-									setDateOfBirth={setDateOfBirth}
-									setPrimaryTokenId={setPrimaryTokenId}
-									setCurrentPrice={setCurrentPrice}
+									setYearOfBirth={setYearOfBirth}
 								/>
 							)}
 							{step === 3 && (
@@ -164,15 +202,6 @@ const Ordinary: React.FC<{
 								/>
 							)}
 							{step === 4 && (
-								<TokenID
-									tokenID={tokenID}
-									PrimaryTokenId={PrimaryTokenId}
-									setStep={setStep}
-									setPrimaryTokenId={setPrimaryTokenId}
-									setCurrentPrice={setCurrentPrice}
-								/>
-							)}
-							{step === 5 && (
 								<>
 									<Row gutter={[48, 48]}>
 										{loadSVG && (
@@ -247,6 +276,15 @@ const Ordinary: React.FC<{
 						</div>
 					</div>
 				</div>
+				<div className={styles.mintCount}>
+					{intl.formatMessage({
+						id: 'astro.monthAndDay',
+						defaultMessage: 'You will mint the MetaAstro of {month}/{day}',
+					}, {
+						month: dateOfBirth[0],
+						day: dateOfBirth[1],
+					})}
+				</div>
 			</div>
 			<BigModal
 				visable={modal}
@@ -263,7 +301,7 @@ const Ordinary: React.FC<{
 							type='link'
 							size='large'
 							onClick={() => {
-								window.open(`${opensea.url}/assets/${contractAddresses.prime[4]}/${TokenId?.toString()}`, '_blank');
+								window.open(`${opensea.url}/assets/${contractAddresses.prime[4]}/${newTokenId?.toString()}`, '_blank');
 							}}
 							className={style.openSeaLink}
 						>

@@ -20,23 +20,31 @@ const Time: React.FC<{
           defaultMessage: 'And, you need to choose the time you were born',
         })}
       </div>
-      <TimePicker
-        inputReadOnly
-        className={style.input}
-        allowClear={false}
-        suffixIcon={undefined}
-        format={['HH:mm:ss']}
-        placeholder={placeholder}
-        onChange={(_, timeString) => {
-          setTimeOfBirth(timeString.split(':'));
-        }}
-        onFocus={() => {
-          setPlaceholder('');
-        }}
-        onBlur={() => {
-          setPlaceholder('Please select your time of birth');
-        }}
-      />
+      <div className={style.inputContainer}>
+        <div className={style.prefix}>
+          {intl.formatMessage({
+            id: 'astro.time.prefix',
+            defaultMessage: 'I was born at',
+          })}
+        </div>
+        <TimePicker
+          inputReadOnly
+          className={style.input}
+          allowClear={false}
+          suffixIcon={undefined}
+          format={['HH:mm:ss']}
+          placeholder={placeholder}
+          onChange={(_, timeString) => {
+            setTimeOfBirth(timeString.split(':'));
+          }}
+          onFocus={() => {
+            setPlaceholder('');
+          }}
+          onBlur={() => {
+            setPlaceholder('Please select your time of birth');
+          }}
+        />
+      </div>
       <div
         className={style.buttons}
       >

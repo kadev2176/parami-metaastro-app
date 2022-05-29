@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './style.less';
 import { useIntl, useModel } from 'umi';
 import { Button, InputNumber } from 'antd';
-import { BigNumber } from 'ethers';
+import type { BigNumber } from 'ethers';
 
 const TokenID: React.FC<{
   tokenID: string | undefined;
@@ -27,26 +27,34 @@ const TokenID: React.FC<{
           defaultMessage: 'Last, you need to input your referred token ID',
         })}
       </div>
-      <InputNumber
-        size='large'
-        className={style.input}
-        type="number"
-        min={1}
-        onChange={async (e: any) => {
-          setPrimaryTokenId(e);
-          const price = await OrdinaryContract?.getBreedConfig(e);
-          setCurrentPrice(price[1]);
-        }}
-        defaultValue={tokenID}
-        placeholder={placeholder}
-        value={tokenID || PrimaryTokenId}
-        onFocus={() => {
-          setPlaceholder('');
-        }}
-        onBlur={() => {
-          setPlaceholder('Please input your referred token ID');
-        }}
-      />
+      <div className={style.inputContainer}>
+        <div className={style.prefix}>
+          {intl.formatMessage({
+            id: 'astro.tokenID.prefix',
+            defaultMessage: 'My referred token ID is',
+          })}
+        </div>
+        <InputNumber
+          size='large'
+          className={style.input}
+          type="number"
+          min={1}
+          onChange={async (e: any) => {
+            setPrimaryTokenId(e);
+            const price = await OrdinaryContract?.getBreedConfig(e);
+            setCurrentPrice(price[1]);
+          }}
+          defaultValue={tokenID}
+          placeholder={placeholder}
+          value={tokenID || PrimaryTokenId}
+          onFocus={() => {
+            setPlaceholder('');
+          }}
+          onBlur={() => {
+            setPlaceholder('Please input your referred token ID');
+          }}
+        />
+      </div>
       <div
         className={style.buttons}
       >

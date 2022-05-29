@@ -39,24 +39,32 @@ const Date: React.FC<{
           defaultMessage: 'Then, you need to choose the year you were born',
         })}
       </div>
-      <DatePicker
-        inputReadOnly
-        className={style.input}
-        allowClear={false}
-        suffixIcon={undefined}
-        format={['YYYY/MM/DD', 'YY/MM/DD']}
-        onChange={async (_, dateString) => {
-          setDateOfBirth(dateString.split('/'));
-          await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
-        }}
-        placeholder={placeholder}
-        onClick={() => {
-          setPlaceholder('');
-        }}
-        onBlur={() => {
-          setPlaceholder('Please select your year of birth');
-        }}
-      />
+      <div className={style.inputContainer}>
+        <div className={style.prefix}>
+          {intl.formatMessage({
+            id: 'astro.date.prefix',
+            defaultMessage: 'I was born on',
+          })}
+        </div>
+        <DatePicker
+          inputReadOnly
+          className={style.input}
+          allowClear={false}
+          suffixIcon={undefined}
+          format={['YYYY/MM/DD', 'YY/MM/DD']}
+          onChange={async (_, dateString) => {
+            setDateOfBirth(dateString.split('/'));
+            await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
+          }}
+          placeholder={placeholder}
+          onClick={() => {
+            setPlaceholder('');
+          }}
+          onBlur={() => {
+            setPlaceholder('Please select your year of birth');
+          }}
+        />
+      </div>
       <div
         className={style.buttons}
       >
