@@ -107,11 +107,11 @@ const Ordinary: React.FC<{
 		setLoading(true);
 
 		try {
-			const encryptStr = await RSAEncrypt(`${Number(dateOfBirth[0])},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
+			const encryptStr = await RSAEncrypt(`${Number(yearOfBirth)},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
 			const tx = await OrdinaryContract?.breedFrom(
 				tokenID,
-				[Number(dateOfBirth[1]), Number(dateOfBirth[2])],
+				[Number(dateOfBirth[0]), Number(dateOfBirth[1])],
 				encodeURIComponent(encryptStr),
 				{ value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
 			);
