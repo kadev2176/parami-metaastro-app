@@ -40,6 +40,8 @@ const BreedFrom: React.FC<{
         BreedContract
     } = useModel('astroContracts');
 
+    const CurrentDay = new Date().getDate();
+
     useEffect(() => {
         if (!!Account && ChainId !== 4) {
             notification.error({
@@ -187,6 +189,7 @@ const BreedFrom: React.FC<{
                                                 setDateOfBirth(dateString.split('/'));
                                                 await getTokenIdAndPrice(dateString.split('/')[1], dateString.split('/')[2]);
                                             }}
+                                            disabledDate={(date) => date.daysInMonth() !== CurrentDay}
                                             placeholder={intl.formatMessage({
                                                 id: 'astro.date.placeholder',
                                                 defaultMessage: 'YYYY/MM/DD',
@@ -263,7 +266,7 @@ const BreedFrom: React.FC<{
                                 />
                             )}
                             <div className={style.buttons}>
-                                {!loadSVG && (
+                                {!loadSVG && !astroSVG && (
                                     <Button
                                         size='large'
                                         shape='round'

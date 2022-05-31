@@ -226,7 +226,7 @@ const GetChart: React.FC<{
                                                     suffixIcon={undefined}
                                                     picker="month"
                                                     format={['YYYY/MM/DD', 'YY/MM/DD']}
-                                                    disabledDate={(date) => !AllowMonth.includes(date.month())}
+                                                    disabledDate={(date) => !AllowMonth.includes(date.month()) || date.daysInMonth() !== CurrentDay}
                                                     onChange={(_, dateString) => {
                                                         setDateOfBirth(dateString.split('/'));
                                                     }}
@@ -285,7 +285,7 @@ const GetChart: React.FC<{
                                 />
                             )}
                             <div className={style.buttons}>
-                                {!loadSVG && (
+                                {!loadSVG && !astroSVG && (
                                     <Button
                                         size='large'
                                         shape='round'
