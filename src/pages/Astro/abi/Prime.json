@@ -212,6 +212,13 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "beginNoDateLimitMint",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "bytes32",
@@ -288,42 +295,6 @@
 				],
 				"internalType": "struct AstroChartArgs",
 				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getChartData",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint16[]",
-						"name": "cusps",
-						"type": "uint16[]"
-					},
-					{
-						"internalType": "uint16[]",
-						"name": "planets",
-						"type": "uint16[]"
-					},
-					{
-						"internalType": "bool",
-						"name": "exists",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct BaseOraclizedAstroChart.AstroChartResponse",
-				"name": "response",
 				"type": "tuple"
 			}
 		],
@@ -499,6 +470,19 @@
 	},
 	{
 		"inputs": [],
+		"name": "isNoDateLimitMintBegan",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "name",
 		"outputs": [
 			{
@@ -540,6 +524,29 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint16[]",
+				"name": "monthAndDay",
+				"type": "uint16[]"
+			},
+			{
+				"internalType": "string",
+				"name": "remaining",
+				"type": "string"
+			}
+		],
+		"name": "regenerate",
+		"outputs": [],
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{

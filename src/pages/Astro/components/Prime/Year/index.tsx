@@ -23,7 +23,7 @@ const Year: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputYear',
-          defaultMessage: 'Then, you need to choose the year you were born',
+          defaultMessage: 'Next, select the year you were born',
         })}
       </div>
       <div className={style.inputContainer}>

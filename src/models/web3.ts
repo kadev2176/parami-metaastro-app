@@ -101,11 +101,14 @@ export default () => {
 			provider.on('chainChanged', async (newChainId: number) => {
 				setChainId(Number(newChainId));
 				if (Number(newChainId) !== 4) {
-					await provider.request({
-						method: "wallet_switchEthereumChain",
-						params: [{ chainId: '0x4' }]
-					});
+					setProvider(null);
+					setWeb3Provider(null);
+					setSigner(null);
+					setAccount('');
+					setNetwork(undefined);
 					setWaitingChangeNetwork(true);
+					message.error('Please switch to the target network');
+					return;
 				} else {
 					setWaitingChangeNetwork(false);
 				}
@@ -113,7 +116,7 @@ export default () => {
 			provider.on('disconnect', (error: ProviderRpcError) => {
 				console.log('disconnect', error.code, error.message, error.data);
 				disconnect();
-				Provider.removeAllListeners();
+				Provider?.removeAllListeners();
 			});
 		} catch (e: any) {
 			message.error(e.message || e);

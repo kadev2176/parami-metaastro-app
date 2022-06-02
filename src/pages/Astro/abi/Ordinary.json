@@ -362,46 +362,15 @@
 						"internalType": "uint256",
 						"name": "breedPrice",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "bredFromRootTokenId",
+						"type": "uint256"
 					}
 				],
 				"internalType": "struct BreedConfig",
 				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getChartData",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "uint16[]",
-						"name": "cusps",
-						"type": "uint16[]"
-					},
-					{
-						"internalType": "uint16[]",
-						"name": "planets",
-						"type": "uint16[]"
-					},
-					{
-						"internalType": "bool",
-						"name": "exists",
-						"type": "bool"
-					}
-				],
-				"internalType": "struct BaseOraclizedAstroChart.AstroChartResponse",
-				"name": "response",
 				"type": "tuple"
 			}
 		],

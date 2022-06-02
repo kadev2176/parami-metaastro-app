@@ -277,13 +277,23 @@ const Ordinary: React.FC<{
 					</div>
 				</div>
 				<div className={styles.mintCount}>
-					{intl.formatMessage({
-						id: 'astro.monthAndDay',
-						defaultMessage: 'You will mint the MetaAstro of {month}/{day}',
-					}, {
-						month: dateOfBirth[0],
-						day: dateOfBirth[1],
-					})}
+					<p>
+						{intl.formatMessage({
+							id: 'astro.monthAndDay',
+							defaultMessage: 'You will mint the MetaAstro of {month}/{day}',
+						}, {
+							month: dateOfBirth[0],
+							day: dateOfBirth[1],
+						})}
+					</p>
+					<p>
+						{intl.formatMessage({
+							id: 'astro.createNewGod',
+							defaultMessage: 'A new God is being created, blessed by the power of the previous generation God (tokenID={tokenID})',
+						}, {
+							tokenID: tokenID,
+						})}
+					</p>
 				</div>
 			</div>
 			<BigModal
@@ -301,7 +311,7 @@ const Ordinary: React.FC<{
 							type='link'
 							size='large'
 							onClick={() => {
-								window.open(`${opensea.url}/assets/${contractAddresses.prime[4]}/${newTokenId?.toString()}`, '_blank');
+								window.open(`${opensea.url}/assets/${contractAddresses.ordinary[4]}/${newTokenId?.toString()}`, '_blank');
 							}}
 							className={style.openSeaLink}
 						>
