@@ -15,6 +15,7 @@ import Place from './Place';
 import Year from './Year';
 import MonthAndDay from './MonthAndDay';
 import Time from './Time';
+import NoLimitMonthAndDay from './NoLimitMonthAndDay';
 
 const Prime: React.FC = () => {
 	const { Account, ChainId } = useModel('web3');
@@ -30,6 +31,7 @@ const Prime: React.FC = () => {
 	const [currentPrice, setCurrentPrice] = useState<BigNumber>();
 	const [currentFee, setCurrentFee] = useState<BigNumber>();
 	const [currentSupply, setCurrentSupply] = useState<BigNumber>();
+	const [isLimited, setIsLimited] = useState<boolean>(false);
 	const [astroSVG, setAstroSVG] = useState<string>();
 	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
 	const [modal, setModal] = useState<boolean>(false);
@@ -58,9 +60,11 @@ const Prime: React.FC = () => {
 		const price = await PrimeContract?.getPrice();
 		const fee = await PrimeContract?.getOracleGasFee();
 		const supply = await PrimeContract?.totalSupply();
+		const limit = await PrimeContract?.isNoDateLimitMintBegan();
 		setCurrentPrice(price);
 		setCurrentFee(fee);
 		setCurrentSupply(supply);
+		setIsLimited(limit);
 	};
 
 	useEffect(() => {
@@ -165,8 +169,18 @@ const Prime: React.FC = () => {
 									setYearOfBirth={setYearOfBirth}
 								/>
 							)}
-							{step === 3 && (
+							{step === 3 && !isLimited && (
 								<MonthAndDay
+									yearOfBirth={yearOfBirth}
+									monthOfBirth={monthOfBirth}
+									dayOfBirth={dayOfBirth}
+									setStep={setStep}
+									setMonthOfBirth={setMonthOfBirth}
+									setDayOfBirth={setDayOfBirth}
+								/>
+							)}
+							{step === 3 && isLimited && (
+								<NoLimitMonthAndDay
 									yearOfBirth={yearOfBirth}
 									monthOfBirth={monthOfBirth}
 									dayOfBirth={dayOfBirth}

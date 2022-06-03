@@ -7,7 +7,7 @@ import { oddMonth } from '@/pages/Astro/config';
 import classNames from 'classnames';
 import { LoadingOutlined } from '@ant-design/icons';
 
-const MonthAndDay: React.FC<{
+const NoLimitMonthAndDay: React.FC<{
   yearOfBirth: number | undefined;
   monthOfBirth: number | undefined;
   dayOfBirth: number | undefined;
@@ -18,28 +18,28 @@ const MonthAndDay: React.FC<{
   const { PrimeContract } = useModel('astroContracts');
   const { Account } = useModel('web3');
 
-  const [AllowMonth, setAllowMonth] = useState<number[]>([]);
+  const [CurrentMonth, setCurrentMonth] = useState<number>(0);
+  const [AllowDay, setAllowDay] = useState<any[]>([]);
   const [AvailableLoading, setAvailableLoading] = useState<boolean>(true);
-
-  const CurrentDay = new Date().getDate();
 
   const intl = useIntl();
 
   const isAvailable = async () => {
-    const currentDay = new Date().getDate();
+    setAvailableLoading(true);
+    setAllowDay([]);
     const promises = [];
-    for (let month = 0; month < 12; month++) {
-      const query = PrimeContract?.getTokenIdByMonthAndDay(month + 1, currentDay);
+    for (let day = 0; day < 31; day++) {
+      const query = await PrimeContract?.getTokenIdByMonthAndDay(CurrentMonth + 1, day + 1);
       promises.push(query);
     }
-    const months = [];
+    const days = [];
     const results = await Promise.all(promises);
-    for (let month = 0; month < results.length; month++) {
-      if (results[month].toNumber() === 0) {
-        months.push(month);
+    for (let day = 0; day < 31; day++) {
+      if (results[day].toNumber() === 0) {
+        days.push(day);
       }
     }
-    setAllowMonth(months);
+    setAllowDay(days);
     setAvailableLoading(false);
   };
 
@@ -54,8 +54,58 @@ const MonthAndDay: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputMonthAndDay',
-          defaultMessage: 'Select your birth month',
+          defaultMessage: 'Select your birth month and day',
         })}
+      </div>
+      <div
+        className={style.buttons}
+        style={{
+          marginBottom: '2rem',
+        }}
+      >
+        <Row
+          gutter={[8, 8]}
+          style={{
+            width: '100%'
+          }}
+        >
+          <Col span={12}>
+            <Button
+              block
+              size="large"
+              shape="round"
+              type="primary"
+              onClick={async () => {
+                setCurrentMonth(CurrentMonth - 1);
+                await isAvailable();
+              }}
+              disabled={CurrentMonth <= 0}
+            >
+              {intl.formatMessage({
+                id: 'astro.previousMonth',
+                defaultMessage: 'Previous',
+              })}
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              size="large"
+              shape="round"
+              type="primary"
+              onClick={async () => {
+                setCurrentMonth(CurrentMonth + 1);
+                await isAvailable();
+              }}
+              disabled={CurrentMonth >= 11}
+            >
+              {intl.formatMessage({
+                id: 'astro.nextMonth',
+                defaultMessage: 'Next',
+              })}
+            </Button>
+          </Col>
+        </Row>
       </div>
       {!!yearOfBirth && !AvailableLoading ? (
         <Row
@@ -64,11 +114,12 @@ const MonthAndDay: React.FC<{
             width: '100%',
           }}
         >
-          {AllowMonth.map((value) => {
-            const month = value + 1;
-            if (!isLeapYear(Number(yearOfBirth)) && month === 2 && CurrentDay > 28) {
+          {AllowDay.map((value) => {
+            const month = CurrentMonth + 1;
+            const day = value + 1;
+            if (!isLeapYear(Number(yearOfBirth)) && month === 2 && day > 28) {
               return null;
-            } else if (CurrentDay > 30 && !oddMonth[month]) {
+            } else if (day > 30 && !oddMonth[month]) {
               return null;
             } else
               return (
@@ -81,7 +132,7 @@ const MonthAndDay: React.FC<{
                   xl={4}
                   onClick={() => {
                     setMonthOfBirth(month);
-                    setDayOfBirth(CurrentDay);
+                    setDayOfBirth(day);
                   }}
                 >
                   <div
@@ -91,7 +142,7 @@ const MonthAndDay: React.FC<{
                     )}
                     onClick={() => setMonthOfBirth(month)}
                   >
-                    {month}-{CurrentDay}
+                    {month}-{day}
                   </div>
                 </Col>
               );
@@ -114,14 +165,14 @@ const MonthAndDay: React.FC<{
                 color: '#fff',
               }}
             >
-              Querying available months...
+              Querying available days...
             </span>
           }
         />
       )}
       <div className={style.buttons}>
         <Button
-          size="large"
+          size="middle"
           shape="round"
           type="primary"
           className={style.button}
@@ -140,4 +191,4 @@ const MonthAndDay: React.FC<{
   );
 };
 
-export default MonthAndDay;
+export default NoLimitMonthAndDay;
