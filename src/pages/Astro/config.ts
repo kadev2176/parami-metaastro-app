@@ -15,7 +15,7 @@ export const contractAddresses = {
 
 export const opensea = {
 	url: 'https://testnets.opensea.io',
-	collection: 'meta-astro-1fxisntgxd',
+	collection: 'meta-astro-vx1zd3bjrn',
 }
 
 export const oddMonth = {
