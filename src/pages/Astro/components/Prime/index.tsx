@@ -1,4 +1,4 @@
-import { Button, notification, Row, Spin } from 'antd';
+import { Button, notification, Row, Spin, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useIntl, useModel } from 'umi';
 import styles from '../../style.less';
@@ -11,6 +11,7 @@ import { contractAddresses, opensea } from '../../config';
 import { engDay, errorParse } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
+import copy from 'copy-to-clipboard';
 import Place from './Place';
 import Year from './Year';
 import MonthAndDay from './MonthAndDay';
@@ -34,7 +35,7 @@ const Prime: React.FC = () => {
 	const [isLimited, setIsLimited] = useState<boolean>(false);
 	const [astroSVG, setAstroSVG] = useState<string>();
 	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
-	const [modal, setModal] = useState<boolean>(false);
+	const [modal, setModal] = useState<boolean>(true);
 	const [step, setStep] = useState<number>(1);
 
 	const intl = useIntl();
@@ -77,13 +78,16 @@ const Prime: React.FC = () => {
 		setLoading(true);
 
 		try {
+			const price = await PrimeContract?.getPrice();
+			const fee = await PrimeContract?.getOracleGasFee();
+
 			const encryptStr = await RSAEncrypt(`${yearOfBirth},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
 			const tx = await PrimeContract?.initialMint(
 				ethers.utils.getAddress(Account),
 				[monthOfBirth, dayOfBirth],
 				encodeURIComponent(encryptStr),
-				{ value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
+				{ value: ethers.BigNumber.from(price).add(ethers.BigNumber.from(fee)) },
 			);
 
 			const tokenId = await extractTokenIdFromEvent(tx);
@@ -298,6 +302,21 @@ const Prime: React.FC = () => {
 								<img src={astroSVG} />
 							</div>
 						</div>
+						<Button
+							block
+							type='link'
+							size='large'
+							onClick={() => {
+								copy(`${window.location.origin}/breed?tokenID=${TokenId?.toString()}`);
+								message.success('Copy Success!');
+							}}
+							className={style.copyBreedLink}
+						>
+							{intl.formatMessage({
+								id: 'astro.copyBreedLink',
+								defaultMessage: 'Copy Breed Link',
+							})}
+						</Button>
 						<Button
 							block
 							type='link'

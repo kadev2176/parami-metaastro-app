@@ -7,126 +7,127 @@ import { errorParse } from '@/utils/common';
 import { ethers } from 'ethers';
 
 const BreedPrice: React.FC<{
-    setBreedPriceModal: React.Dispatch<React.SetStateAction<boolean>>;
-    breedPriceModal: boolean;
+  setBreedPriceModal: React.Dispatch<React.SetStateAction<boolean>>;
+  breedPriceModal: boolean;
 }> = ({ setBreedPriceModal, breedPriceModal }) => {
-    const { Account, ChainId } = useModel('web3');
-    const [tokenId, setTokenId] = useState<any>();
-    const [price, setPrice] = useState<any>();
-    const [loading, setLoading] = useState<boolean>(false);
+  const { Account, ChainId } = useModel('web3');
+  const [tokenId, setTokenId] = useState<any>();
+  const [price, setPrice] = useState<any>();
+  const [loading, setLoading] = useState<boolean>(false);
 
-    const intl = useIntl();
+  const intl = useIntl();
 
-    const {
-        PrimeContract,
-        OrdinaryContract
-    } = useModel('astroContracts');
+  const {
+    PrimeContract,
+    OrdinaryContract
+  } = useModel('astroContracts');
 
-    useEffect(() => {
-        if (!!Account && ChainId !== 1 && ChainId !== 4) {
-            return;
+  useEffect(() => {
+    if (!!Account && ChainId !== 1 && ChainId !== 4) {
+      return;
+    }
+  }, [ChainId, Account]);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const owner = await PrimeContract?.ownerOf(tokenId);
+      if (owner !== ethers.utils.getAddress(Account)) {
+        notification.error({
+          message: 'You are not the owner of this token.',
+          duration: null,
+        });
+        setLoading(false);
+        return;
+      }
+
+      const tx = await OrdinaryContract?.setBreedPrice(tokenId, price);
+      console.log('tx', tx);
+
+      setLoading(false);
+      setBreedPriceModal(false);
+    } catch (e: any) {
+      console.log(e.message);
+      const error = errorParse(e.message).body?.message;
+      notification.error({
+        message: error,
+        duration: null,
+      });
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <BigModal
+        visable={breedPriceModal}
+        title={undefined}
+        bodyStyle={{
+          backgroundColor: '#000',
+          border: '2px solid #fff',
+        }}
+        content={
+          <div className={style.breedPriceInputContainer}>
+            <div className={style.userInputContainer}>
+              {intl.formatMessage({
+                id: 'astro.breedPriceInput',
+                defaultMessage: 'I want to set {tokenId} breed price to {price}.',
+              }, {
+                tokenId: (
+                  <InputNumber
+                    className={style.input}
+                    placeholder={intl.formatMessage({
+                      id: 'astro.tokenIdInputPlaceholder',
+                      defaultMessage: 'Token ID',
+                    })}
+                    type="number"
+                    min={1}
+                    onChange={(e) => {
+                      setTokenId(e);
+                    }}
+                  />
+                ),
+                price: (
+                  <InputNumber
+                    className={style.input}
+                    placeholder={intl.formatMessage({
+                      id: 'astro.breedPriceInputPlaceholder',
+                      defaultMessage: 'Price',
+                    })}
+                    type="number"
+                    min={0}
+                    onChange={(e: number) => {
+                      if (!!e) {
+                        setPrice(ethers.utils.parseEther(e.toString()).toString());
+                      }
+                    }}
+                  />
+                ),
+              })}
+            </div>
+            <Button
+              size='large'
+              shape='round'
+              type='primary'
+              className={style.button}
+              disabled={!tokenId || !price}
+              loading={loading}
+              onClick={() => {
+                handleSubmit();
+              }}
+            >
+              {intl.formatMessage({
+                id: 'astro.confirm',
+                defaultMessage: 'Confirm',
+              })}
+            </Button>
+          </div>
         }
-    }, [ChainId, Account]);
-
-    const handleSubmit = async () => {
-        setLoading(true);
-        try {
-            const owner = await PrimeContract?.ownerOf(tokenId);
-            if (owner !== ethers.utils.getAddress(Account)) {
-                notification.error({
-                    message: 'You are not the owner of this token.',
-                    duration: null,
-                });
-                setLoading(false);
-                return;
-            }
-
-            const tx = await OrdinaryContract?.setBreedPrice(tokenId, price);
-            console.log('tx', tx);
-
-            setLoading(false);
-            setBreedPriceModal(false);
-        } catch (e: any) {
-            console.log(e.message);
-            const error = errorParse(e.message).body?.message;
-            notification.error({
-                message: error,
-                duration: null,
-            });
-            setLoading(false);
-        }
-    };
-
-    return (
-        <>
-            <BigModal
-                visable={breedPriceModal}
-                title={intl.formatMessage({
-                    id: 'astro.breedPrice.title',
-                    defaultMessage: 'Breed Price',
-                })}
-                content={
-                    <div className={style.breedPriceInputContainer}>
-                        <div className={style.userInputContainer}>
-                            {intl.formatMessage({
-                                id: 'astro.breedPriceInput',
-                                defaultMessage: 'I want to set {tokenId} breed price to {price}.',
-                            }, {
-                                tokenId: (
-                                    <InputNumber
-                                        className={style.input}
-                                        placeholder={intl.formatMessage({
-                                            id: 'astro.tokenIdInputPlaceholder',
-                                            defaultMessage: 'Token ID',
-                                        })}
-                                        type="number"
-                                        min={1}
-                                        onChange={(e) => {
-                                            setTokenId(e);
-                                        }}
-                                    />
-                                ),
-                                price: (
-                                    <InputNumber
-                                        className={style.input}
-                                        placeholder={intl.formatMessage({
-                                            id: 'astro.breedPriceInputPlaceholder',
-                                            defaultMessage: 'Price',
-                                        })}
-                                        type="number"
-                                        min={0}
-                                        onChange={(e: number) => {
-                                            if (!!e) {
-                                                setPrice(ethers.utils.parseEther(e.toString()).toString());
-                                            }
-                                        }}
-                                    />
-                                ),
-                            })}
-                        </div>
-                        <Button
-                            size='large'
-                            shape='round'
-                            type='primary'
-                            className={style.button}
-                            disabled={!tokenId || !price}
-                            loading={loading}
-                            onClick={() => {
-                                handleSubmit();
-                            }}
-                        >
-                            {intl.formatMessage({
-                                id: 'astro.confirm',
-                                defaultMessage: 'Confirm',
-                            })}
-                        </Button>
-                    </div>
-                }
-                footer={false}
-                close={() => { setBreedPriceModal(false) }}
-            />
-        </>
-    );
+        footer={false}
+        close={() => { setBreedPriceModal(false) }}
+      />
+    </>
+  );
 }
 
 export default BreedPrice;

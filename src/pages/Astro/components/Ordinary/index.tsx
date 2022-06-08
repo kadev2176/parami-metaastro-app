@@ -1,4 +1,4 @@
-import { Button, notification, Spin, Row } from 'antd';
+import { Button, notification, Spin, Row, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useIntl, useModel, history } from 'umi';
 import styles from '../../style.less';
@@ -14,6 +14,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import Place from './Place';
 import Time from './Time';
 import Year from './Year';
+import copy from 'copy-to-clipboard';
 
 const Ordinary: React.FC<{
 	tokenID: string | undefined;
@@ -107,13 +108,16 @@ const Ordinary: React.FC<{
 		setLoading(true);
 
 		try {
+			const fee = await OrdinaryContract?.getOracleGasFee();
+			const price = await OrdinaryContract?.getBreedConfig(tokenID);
+
 			const encryptStr = await RSAEncrypt(`${Number(yearOfBirth)},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(timeOfBirth[2])},${Math.round(lng * 100)},${Math.round(lat * 100)},${Math.round(utcOffset * 100)}`);
 
 			const tx = await OrdinaryContract?.breedFrom(
 				tokenID,
 				[Number(dateOfBirth[0]), Number(dateOfBirth[1])],
 				encodeURIComponent(encryptStr),
-				{ value: ethers.BigNumber.from(currentPrice).add(ethers.BigNumber.from(currentFee)) },
+				{ value: ethers.BigNumber.from(price[1]).add(ethers.BigNumber.from(fee)) },
 			);
 
 			const tokenId = await extractTokenIdFromEvent(tx);
@@ -301,11 +305,33 @@ const Ordinary: React.FC<{
 				title={undefined}
 				content={
 					<div className={style.modalContainer}>
+						<div className={style.tipContainer}>
+							Congratulations!<br />
+							You are the god of<br />
+							<div className={style.monthAndDay}>
+								{dateOfBirth[0]}.{dateOfBirth[1]}
+							</div>
+						</div>
 						<div className={style.chartContainer}>
 							<div className={style.chart}>
 								<img src={astroSVG} />
 							</div>
 						</div>
+						<Button
+							block
+							type='link'
+							size='large'
+							onClick={() => {
+								copy(`${window.location.origin}/breed?tokenID=${newTokenId?.toString()}`);
+								message.success('Copy Success!');
+							}}
+							className={style.copyBreedLink}
+						>
+							{intl.formatMessage({
+								id: 'astro.copyBreedLink',
+								defaultMessage: 'Copy Breed Link',
+							})}
+						</Button>
 						<Button
 							block
 							type='link'

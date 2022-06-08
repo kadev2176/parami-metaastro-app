@@ -36,7 +36,7 @@ const Date: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputYear',
-          defaultMessage: 'Select your birth month and day',
+          defaultMessage: '3/4, Select your birth month and day',
         })}
       </div>
       <div className={style.inputContainer}>

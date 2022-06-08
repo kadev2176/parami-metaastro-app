@@ -138,6 +138,15 @@
 		}
 	}
 
+	.copyBreedLink {
+		position: absolute;
+		bottom: 40px;
+		font-size: 1rem;
+		font-weight: 800;
+		height: auto !important;
+		color: #ee8240 !important;
+	}
+
 	.openSeaLink {
 		position: absolute;
 		bottom: 80px;
@@ -145,51 +154,6 @@
 		font-weight: 800;
 		height: auto !important;
 		color: #ee8240 !important;
-	}
-}
-
-.nftContainer {
-	width: 100%;
-	margin-top: 2rem;
-	margin-bottom: 2rem;
-	padding-left: 10%;
-	padding-right: 10%;
-
-	.locationYearInput {
-		display: block;
-		width: 100%;
-		margin-bottom: 2rem;
-		line-height: 2rem;
-		font-size: 20px;
-	}
-
-	.generating {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		margin-top: 2rem;
-	}
-
-	.buttons {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		margin-top: 2rem;
-
-		.button {
-			font-weight: 700;
-			font-size: 20px;
-			height: auto;
-			padding: 10px 30px;
-    
-			&:not(:last-child) {
-				margin-right: 20px;
-			}
-		}
 	}
 }
 
@@ -201,11 +165,26 @@
 
 	.modalContainer {
 		.tipContainer {
-			font-size: 1.2rem;
+			font-size: 0.7rem;
+			top: 60px;
+
+			.monthAndDay {
+				font-size: 1rem;
+			}
 		}
 
 		.chartContainer {
 			padding: 3.2rem 2.3rem;
+		}
+
+		.openSeaLink {
+			bottom: 80px;
+			font-size: 0.8rem;
+		}
+
+		.copyBreedLink {
+			bottom: 50px;
+			font-size: 0.8rem;
 		}
 	}
 

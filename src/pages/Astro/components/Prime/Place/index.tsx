@@ -23,7 +23,7 @@ const Place: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputCity',
-          defaultMessage: 'First, select your birth city',
+          defaultMessage: '1/4, select your birth city',
         })}
       </div>
       <div className={style.inputContainer}>

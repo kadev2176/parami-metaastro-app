@@ -54,7 +54,7 @@ const NoLimitMonthAndDay: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputMonthAndDay',
-          defaultMessage: 'Select your birth month and day',
+          defaultMessage: '3/4, Select your birth month and day',
         })}
       </div>
       <div
