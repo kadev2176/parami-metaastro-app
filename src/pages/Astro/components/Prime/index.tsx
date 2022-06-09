@@ -35,7 +35,7 @@ const Prime: React.FC = () => {
 	const [isLimited, setIsLimited] = useState<boolean>(false);
 	const [astroSVG, setAstroSVG] = useState<string>();
 	const [TokenId, setTokenId] = useState<ethers.BigNumber>();
-	const [modal, setModal] = useState<boolean>(true);
+	const [modal, setModal] = useState<boolean>(false);
 	const [step, setStep] = useState<number>(1);
 
 	const intl = useIntl();
