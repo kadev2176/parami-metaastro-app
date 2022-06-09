@@ -4,18 +4,18 @@ export const defaultChainId = 4;
 
 export const contractAddresses = {
 	prime: {
-		1: '0xd4D58De43422790281Cc26Dd81c6532b676FD790',
-		4: '0xd4D58De43422790281Cc26Dd81c6532b676FD790',
+		1: '0x67dfcb5E9E5Ae693E9cA354a239185ACaFB842D3',
+		4: '0x67dfcb5E9E5Ae693E9cA354a239185ACaFB842D3',
 	},
 	ordinary: {
-		1: '0x84a0C386c9FA887F4D50AcE7b951caB1A9E0232F',
-		4: '0x84a0C386c9FA887F4D50AcE7b951caB1A9E0232F',
+		1: '0xc11cc94c8b3eC85b7CB4B158D7BDfAc57b97244D',
+		4: '0xc11cc94c8b3eC85b7CB4B158D7BDfAc57b97244D',
 	},
 }
 
 export const opensea = {
 	url: 'https://testnets.opensea.io',
-	collection: 'meta-astro-vx1zd3bjrn',
+	collection: 'meta-astro-genesis',
 }
 
 export const oddMonth = {
