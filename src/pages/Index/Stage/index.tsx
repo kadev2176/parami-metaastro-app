@@ -24,7 +24,11 @@ const Stage: React.FC = () => {
               <p>
                 From day 1 to day 31, a total of 366 Gen 0 MetaAstros are up for Dutch Auction. A Gen0 MetaAstro can breed unlimited number of same-date MetaAstros.
               </p>
-              <a>
+              <a
+                onClick={() => {
+                  window.location.href = 'https://hikaru-4.gitbook.io/parami/auction-rules'
+                }}
+              >
                 <ArrowRightOutlined
                   style={{
                     marginRight: '10px',
@@ -54,7 +58,11 @@ const Stage: React.FC = () => {
               <p>
                 You can mint a MetaAstro of any date. After Gen1, the number of MetaAstros that can be minted in subsequent generations is reduced by half.
               </p>
-              <a>
+              <a
+                onClick={() => {
+                  window.location.href = 'https://hikaru-4.gitbook.io/parami/minting-rules'
+                }}
+              >
                 <ArrowRightOutlined
                   style={{
                     marginRight: '10px',

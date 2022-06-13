@@ -8,7 +8,7 @@ const SNS: React.FC = () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open('https://twitter.com/ParamiProtocol', '_blank');
+          window.open('https://twitter.com/MetaAstroDAO', '_blank');
         }}
       >
         <SiTwitter className={style.snsButtonItemSvg} />
@@ -16,7 +16,7 @@ const SNS: React.FC = () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open('https://discord.com/invite/bxFuekgvYJ', '_blank');
+          window.open('https://discord.gg/hqCRDxjmfK', '_blank');
         }}
       >
         <SiDiscord className={style.snsButtonItemSvg} />
@@ -24,7 +24,7 @@ const SNS: React.FC = () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open('https://opensea.io/collection/metaastro', '_blank');
+          window.open('https://opensea.io/collection/meta-astro-genesis', '_blank');
         }}
       >
         <img
