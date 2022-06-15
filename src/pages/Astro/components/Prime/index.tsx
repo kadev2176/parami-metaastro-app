@@ -206,6 +206,35 @@ const Prime: React.FC = () => {
                 )}
               </div>
             </div>
+            <div className={style.auctionDetailContainer}>
+              <div className={style.auctionDetailWrapper}>
+                <div className={style.auctionDetailTitle}>
+                  {intl.formatMessage({
+                    id: 'astro.ceilingPrice',
+                    defaultMessage: 'Ceiling Price',
+                  })}
+                </div>
+                <div className={style.auctionDetailContent}>1000 ETH</div>
+              </div>
+              <div className={style.auctionDetailWrapper}>
+                <div className={style.auctionDetailTitle}>
+                  {intl.formatMessage({
+                    id: 'astro.restingPrice',
+                    defaultMessage: 'Resting Price',
+                  })}
+                </div>
+                <div className={style.auctionDetailContent}>1 ETH</div>
+              </div>
+              <div className={style.auctionDetailWrapper}>
+                <div className={style.auctionDetailTitle}>
+                  {intl.formatMessage({
+                    id: 'astro.duration',
+                    defaultMessage: 'Duration',
+                  })}
+                </div>
+                <div className={style.auctionDetailContent}>900 Min</div>
+              </div>
+            </div>
             <div className={style.nftContainer}>
               <Countdown className={style.countdown} value={endTime} />
               {step === 1 && (
@@ -325,35 +354,6 @@ const Prime: React.FC = () => {
                   </Row>
                 </>
               )}
-            </div>
-            <div className={style.auctionDetailContainer}>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.ceilingPrice',
-                    defaultMessage: 'Ceiling Price',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>1000 ETH</div>
-              </div>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.restingPrice',
-                    defaultMessage: 'Resting Price',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>1 ETH</div>
-              </div>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.duration',
-                    defaultMessage: 'Duration',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>900 Min</div>
-              </div>
             </div>
           </div>
         </div>
