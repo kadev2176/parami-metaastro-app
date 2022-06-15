@@ -4,8 +4,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  width: 100%;
   margin-top: 3.5rem;
+  padding: 4rem 2rem;
   border: 2px solid #fff;
 
   .inputContainer {
@@ -17,22 +18,22 @@
 
     .prefix {
       width: 30%;
-      font-size: 1rem;
       font-weight: 900;
+      font-size: 1rem;
     }
   }
 
   .nftTitle {
     position: absolute;
     top: -20px;
-    background-color: #fff;
-    color: #000;
+    max-width: 80%;
+    margin-bottom: 3rem;
     padding: 0.3rem 1rem;
+    color: #000;
     font-weight: 900;
     font-size: 1rem;
-    margin-bottom: 3rem;
-    font-family: "Gideon Roman", cursive;
-    max-width: 80%;
+    font-family: 'Gideon Roman', cursive;
+    background-color: #fff;
   }
 
   .geoSuggest {
@@ -42,20 +43,20 @@
   }
 
   .geoInput {
-    background-color: transparent !important;
-    outline: none !important;
-    box-shadow: unset !important;
-    border-radius: unset !important;
-    border: unset !important;
-    border-bottom: 1px dashed #fff !important;
-    -webkit-appearance: none;
-    text-align: center;
-    color: #fff !important;
-    font-size: 16px !important;
-    font-weight: 900;
-    transition: 0.5s;
     width: 100%;
     padding: 1rem;
+    color: #fff !important;
+    font-weight: 900;
+    font-size: 16px !important;
+    text-align: center;
+    background-color: transparent !important;
+    border: unset !important;
+    border-bottom: 1px dashed #fff !important;
+    border-radius: unset !important;
+    outline: none !important;
+    box-shadow: unset !important;
+    transition: 0.5s;
+    -webkit-appearance: none;
 
     &::placeholder {
       color: #fff;
@@ -66,37 +67,37 @@
     position: absolute;
     left: 0;
     z-index: 1000;
-    min-width: 160px;
     width: 100%;
-    padding: 0;
+    min-width: 160px;
     margin: 0;
+    padding: 0;
     font-size: 14px;
     text-align: left;
     list-style: none;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
   }
 
   .geoSuggestWrapper {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 
   .geoSuggestWrapperItem {
     display: block;
-    padding: 10px 20px;
     clear: both;
+    padding: 10px 20px;
+    color: #333;
     font-weight: 400;
     line-height: 1.42857143;
-    color: #333;
     white-space: nowrap;
     cursor: pointer;
 
     &:hover {
-      background: rgba(0,0,0,.05);
+      background: rgba(0, 0, 0, 0.05);
     }
   }
 
@@ -117,11 +118,11 @@
     margin-top: 2rem;
 
     .button {
-      font-weight: 700;
-      font-size: 20px;
       height: auto;
       padding: 10px 30px;
-    
+      font-weight: 700;
+      font-size: 20px;
+
       &:not(:last-child) {
         margin-right: 20px;
       }

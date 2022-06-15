@@ -4,21 +4,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  width: 100%;
   margin-top: 3.5rem;
+  padding: 4rem 2rem;
   border: 2px solid #fff;
 
   .nftTitle {
     position: absolute;
     top: -20px;
-    background-color: #fff;
-    color: #000;
+    max-width: 80%;
+    margin-bottom: 3rem;
     padding: 0.3rem 1rem;
+    color: #000;
     font-weight: 900;
     font-size: 1rem;
-    margin-bottom: 3rem;
-    font-family: "Gideon Roman", cursive;
-    max-width: 80%;
+    font-family: 'Gideon Roman', cursive;
+    background-color: #fff;
   }
 
   .nftItem {
@@ -26,18 +27,18 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    border: 5px solid #fff;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+    font-weight: 900;
     font-size: 1.5rem;
     font-family: 'Josefin Sans';
+    border: 5px solid #fff;
     cursor: pointer;
-    font-weight: 900;
     transition: all 0.5s;
 
     &.active {
-      background-color: #fff;
       color: #000;
+      background-color: #fff;
     }
   }
 
@@ -50,11 +51,11 @@
     margin-top: 2rem;
 
     .button {
-      font-weight: 700;
-      font-size: 20px;
       height: auto;
       padding: 10px 30px;
-    
+      font-weight: 700;
+      font-size: 20px;
+
       &:not(:last-child) {
         margin-right: 20px;
       }
