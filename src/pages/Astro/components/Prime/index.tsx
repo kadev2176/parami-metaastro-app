@@ -330,20 +330,20 @@ const Prime: React.FC = () => {
               <div className={style.auctionDetailWrapper}>
                 <div className={style.auctionDetailTitle}>
                   {intl.formatMessage({
-                    id: 'astro.startingPrice',
-                    defaultMessage: 'Starting Price',
+                    id: 'astro.ceilingPrice',
+                    defaultMessage: 'Ceiling Price',
                   })}
                 </div>
-                <div className={style.auctionDetailContent}>1000 Ether</div>
+                <div className={style.auctionDetailContent}>1000 ETH</div>
               </div>
               <div className={style.auctionDetailWrapper}>
                 <div className={style.auctionDetailTitle}>
                   {intl.formatMessage({
-                    id: 'astro.endingPrice',
-                    defaultMessage: 'Ending Price',
+                    id: 'astro.restingPrice',
+                    defaultMessage: 'Resting Price',
                   })}
                 </div>
-                <div className={style.auctionDetailContent}>1 Ether</div>
+                <div className={style.auctionDetailContent}>1 ETH</div>
               </div>
               <div className={style.auctionDetailWrapper}>
                 <div className={style.auctionDetailTitle}>
