@@ -87,8 +87,8 @@ const Prime: React.FC = () => {
     if (!!PrimeContract && !!Account) {
       getCurrentInfo();
       getSalesTime();
-      const date = new Date();
       setInterval(function () {
+        const date = new Date();
         if (date.getMinutes() % 10 === 0) {
           getCurrentInfo();
         }

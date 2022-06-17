@@ -92,8 +92,8 @@ const Ordinary: React.FC<{
   useEffect(() => {
     if (!!OrdinaryContract && !!Account) {
       getCurrentInfo();
-      const date = new Date();
       setInterval(function () {
+        const date = new Date();
         if (date.getMinutes() % 10 === 0) {
           getCurrentInfo();
         }
