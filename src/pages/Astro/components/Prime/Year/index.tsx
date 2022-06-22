@@ -23,7 +23,7 @@ const Year: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputYear',
-          defaultMessage: '2/4, select the year you were born',
+          defaultMessage: '2/4, What is your birth year?',
         })}
       </div>
       <div className={style.inputContainer}>
@@ -34,7 +34,6 @@ const Year: React.FC<{
           })}
         </div>
         <DatePicker
-          inputReadOnly
           className={style.input}
           allowClear={false}
           suffixIcon={undefined}
@@ -53,13 +52,11 @@ const Year: React.FC<{
           }}
         />
       </div>
-      <div
-        className={style.buttons}
-      >
+      <div className={style.buttons}>
         <Button
-          size='large'
-          shape='round'
-          type='primary'
+          size="large"
+          shape="round"
+          type="primary"
           className={style.button}
           disabled={!yearOfBirth}
           onClick={() => {
@@ -73,7 +70,7 @@ const Year: React.FC<{
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Year;

@@ -54,7 +54,7 @@ const MonthAndDay: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputMonthAndDay',
-          defaultMessage: '3/4, Select your birth month',
+          defaultMessage: '3/4, Choose the available date of month?',
         })}
       </div>
       {!!yearOfBirth && !AvailableLoading ? (
@@ -91,7 +91,7 @@ const MonthAndDay: React.FC<{
                     )}
                     onClick={() => setMonthOfBirth(month)}
                   >
-                    {month}-{CurrentDay}
+                    {month}/{CurrentDay}
                   </div>
                 </Col>
               );

@@ -54,7 +54,7 @@ const NoLimitMonthAndDay: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputMonthAndDay',
-          defaultMessage: '3/4, Select your birth month and day',
+          defaultMessage: '3/4, Choose the available date of month?',
         })}
       </div>
       <div
@@ -66,7 +66,7 @@ const NoLimitMonthAndDay: React.FC<{
         <Row
           gutter={[8, 8]}
           style={{
-            width: '100%'
+            width: '100%',
           }}
         >
           <Col span={12}>

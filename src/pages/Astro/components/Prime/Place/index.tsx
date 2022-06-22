@@ -3,6 +3,7 @@ import style from './style.less';
 import { useIntl } from 'umi';
 import { Button } from 'antd';
 import Geosuggest from 'react-geosuggest';
+import { CaretDownOutlined } from '@ant-design/icons';
 
 const Place: React.FC<{
   lat: number;
@@ -23,7 +24,7 @@ const Place: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputCity',
-          defaultMessage: '1/4, select your birth city',
+          defaultMessage: "1/4, Where were you born, dear god's candidate?",
         })}
       </div>
       <div className={style.inputContainer}>
@@ -40,7 +41,7 @@ const Place: React.FC<{
               setLng(res.location.lng);
               setUTCOffset((res.gmaps as any).utc_offset_minutes / 60);
             }
-            setSuggestList(false)
+            setSuggestList(false);
           }}
           placeholder={placeholder}
           onFocus={() => {
@@ -53,20 +54,21 @@ const Place: React.FC<{
           className={style.geoSuggest}
           suggestsClassName={style.geoSuggestWrapper}
           suggestItemClassName={style.geoSuggestWrapperItem}
-          suggestsHiddenClassName={suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden}
+          suggestsHiddenClassName={
+            suggestList ? style.geoSuggestWrapperShow : style.geoSuggestWrapperHidden
+          }
           maxFixtures={5}
-          types={["(cities)"]}
+          types={['(cities)']}
           ignoreTab
           ignoreEnter
         />
+        <CaretDownOutlined />
       </div>
-      <div
-        className={style.buttons}
-      >
+      <div className={style.buttons}>
         <Button
-          size='large'
-          shape='round'
-          type='primary'
+          size="large"
+          shape="round"
+          type="primary"
           className={style.button}
           disabled={!lat || !lng || !utcOffset}
           onClick={() => {
@@ -80,7 +82,7 @@ const Place: React.FC<{
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Place;

@@ -17,14 +17,14 @@ const Time: React.FC<{
       <div className={style.nftTitle}>
         {intl.formatMessage({
           id: 'astro.inputYear',
-          defaultMessage: '4/4, choose the time you were born',
+          defaultMessage: '4/4, Submit more info to generate your MetaAstro?',
         })}
       </div>
       <div className={style.inputContainer}>
         <div className={style.prefix}>
           {intl.formatMessage({
             id: 'astro.time.prefix',
-            defaultMessage: 'I was born at',
+            defaultMessage: 'My birth time is',
           })}
         </div>
         <TimePicker
@@ -45,13 +45,11 @@ const Time: React.FC<{
           }}
         />
       </div>
-      <div
-        className={style.buttons}
-      >
+      <div className={style.buttons}>
         <Button
-          size='large'
-          shape='round'
-          type='primary'
+          size="large"
+          shape="round"
+          type="primary"
           className={style.button}
           disabled={!timeOfBirth.length}
           onClick={() => {
@@ -65,7 +63,7 @@ const Time: React.FC<{
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Time;

@@ -1,4 +1,4 @@
-import { Button, notification, Row, Spin, message } from 'antd';
+import { Button, notification, Row, Spin, message, Carousel } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useIntl, useModel } from 'umi';
 import styles from '../../style.less';
@@ -8,7 +8,6 @@ import { ethers } from 'ethers';
 import { extractTokenIdFromEvent } from '@/utils/astro';
 import BigModal from '@/components/ParamiModal/BigModal';
 import { contractAddresses, opensea } from '../../config';
-import { engDay } from '@/utils/common';
 import { RSAEncrypt } from '@/utils/rsa';
 import { LoadingOutlined } from '@ant-design/icons';
 import copy from 'copy-to-clipboard';
@@ -20,9 +19,11 @@ import NoLimitMonthAndDay from './NoLimitMonthAndDay';
 import Countdown from 'antd/lib/statistic/Countdown';
 import { infuraProvider } from '@/config/web3provider';
 import PrimeAbi from '@/pages/Astro/abi/Prime.json';
+import { convertMonth, monthList } from '@/utils/common';
 
 const Prime: React.FC = () => {
   const { Account, ChainId } = useModel('web3');
+  const { PrimeContract } = useModel('astroContracts');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
   const [utcOffset, setUTCOffset] = useState<number>(0);
@@ -43,8 +44,6 @@ const Prime: React.FC = () => {
   const [endTime, setEndTime] = useState<number>(0);
 
   const intl = useIntl();
-
-  const { PrimeContract } = useModel('astroContracts');
 
   useEffect(() => {
     if (!!Account && ChainId !== 4) {
@@ -158,85 +157,58 @@ const Prime: React.FC = () => {
     }
   };
 
+  const monthCountdown = (
+    <Carousel effect="scrollx" dots={false} className={style.monthCount} autoplay>
+      {monthList().map((item) => (
+        <div className={style.monthCountItem} key={item}>
+          {item}
+        </div>
+      ))}
+    </Carousel>
+  );
+
   return (
     <>
       <div className={style.getchartContainer}>
         <div className={styles.contentContainer}>
           <div className={style.flexContainer}>
-            <div className={style.currentDay}>
-              Mint the {engDay(CurrentDay)} of any available month.
+            <div className={style.currentPhase}>
+              {intl.formatMessage(
+                {
+                  id: 'astro.phase',
+                  defaultMessage: 'MetaAstro Phase {phase}',
+                },
+                {
+                  phase: 'I',
+                },
+              )}
             </div>
-            <div className={styles.priceContainer}>
-              <div className={styles.currentPrice}>
-                {currentPrice
-                  ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice))
-                  : '--'}
-              </div>
-              <div className={styles.ethIcon}>
-                <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
-                <span>ETH</span>
-              </div>
+            <div className={style.genesisOfTheGod}>
+              {intl.formatMessage({
+                id: 'astro.genesis',
+                defaultMessage: 'Genesis of the God',
+              })}
             </div>
-            <div className={styles.totalContainer}>
-              <div className={styles.currentTotal}>
-                {intl.formatMessage(
-                  {
-                    id: 'astro.total',
-                    defaultMessage: 'Total cost {total} (Oracle operator gas fee: {fee})',
-                  },
-                  {
-                    total:
-                      currentPrice && currentFee
-                        ? Math.floor(
-                            Number(
-                              ethers.utils.formatEther(
-                                ethers.BigNumber.from(currentPrice).add(
-                                  ethers.BigNumber.from(currentFee),
-                                ),
-                              ),
-                            ) * 100,
-                          ) / 100
-                        : '--',
-                    fee: currentFee
-                      ? Math.floor(
-                          Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100,
-                        ) / 100
-                      : '--',
-                  },
-                )}
-              </div>
+            <div className={style.mintYourSoulNFT}>
+              {intl.formatMessage({
+                id: 'astro.mintYourSoulBoundNFTToday',
+                defaultMessage: 'Mint your soul-bound NFT today',
+              })}
             </div>
-            <div className={style.auctionDetailContainer}>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.ceilingPrice',
-                    defaultMessage: 'Ceiling Price',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>1000 ETH</div>
-              </div>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.restingPrice',
-                    defaultMessage: 'Resting Price',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>1 ETH</div>
-              </div>
-              <div className={style.auctionDetailWrapper}>
-                <div className={style.auctionDetailTitle}>
-                  {intl.formatMessage({
-                    id: 'astro.duration',
-                    defaultMessage: 'Duration',
-                  })}
-                </div>
-                <div className={style.auctionDetailContent}>900 Min</div>
-              </div>
+            <div className={style.beTheMetaAstroGod}>
+              {intl.formatMessage(
+                {
+                  id: 'astro.beTheMetaAstroGod',
+                  defaultMessage: 'Be the MetaAstro God of {month} {day}',
+                },
+                {
+                  month: convertMonth(monthOfBirth) || monthCountdown,
+                  day: CurrentDay,
+                },
+              )}
             </div>
+            <div className={style.divider} />
             <div className={style.nftContainer}>
-              <Countdown className={style.countdown} value={endTime} />
               {step === 1 && (
                 <Place
                   lat={lat}
@@ -276,6 +248,70 @@ const Prime: React.FC = () => {
               )}
               {step === 5 && (
                 <>
+                  <Countdown className={style.countdown} value={endTime} />
+                  <div className={styles.priceContainer}>
+                    <div className={styles.currentPrice}>
+                      {currentPrice
+                        ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice))
+                        : '--'}
+                    </div>
+                    <div className={styles.ethIcon}>
+                      <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
+                      <span>ETH</span>
+                    </div>
+                  </div>
+                  <div className={styles.totalContainer}>
+                    <div className={styles.currentTotal}>
+                      {intl.formatMessage(
+                        {
+                          id: 'astro.total',
+                          defaultMessage:
+                            'Total cost {total}ETH (Oracle operator gas fee: {fee}ETH)',
+                        },
+                        {
+                          total:
+                            currentPrice && currentFee
+                              ? Math.floor(
+                                  Number(
+                                    ethers.utils.formatEther(
+                                      ethers.BigNumber.from(currentPrice).add(
+                                        ethers.BigNumber.from(currentFee),
+                                      ),
+                                    ),
+                                  ) * 100,
+                                ) / 100
+                              : '--',
+                          fee: currentFee
+                            ? Math.floor(
+                                Number(
+                                  ethers.utils.formatEther(ethers.BigNumber.from(currentFee)),
+                                ) * 100,
+                              ) / 100
+                            : '--',
+                        },
+                      )}
+                    </div>
+                  </div>
+                  <div className={style.auctionDetailContainer}>
+                    <div className={style.auctionDetailWrapper}>
+                      <div className={style.auctionDetailTitle}>
+                        {intl.formatMessage({
+                          id: 'astro.ceilingPrice',
+                          defaultMessage: 'Ceiling Price',
+                        })}
+                      </div>
+                      <div className={style.auctionDetailContent}>1000 ETH</div>
+                    </div>
+                    <div className={style.auctionDetailWrapper}>
+                      <div className={style.auctionDetailTitle}>
+                        {intl.formatMessage({
+                          id: 'astro.restingPrice',
+                          defaultMessage: 'Resting Price',
+                        })}
+                      </div>
+                      <div className={style.auctionDetailContent}>1 ETH</div>
+                    </div>
+                  </div>
                   <Row gutter={[48, 48]}>
                     {loadSVG && (
                       <Spin

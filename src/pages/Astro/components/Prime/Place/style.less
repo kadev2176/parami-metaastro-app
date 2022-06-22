@@ -6,8 +6,6 @@
   justify-content: center;
   width: 100%;
   margin-top: 3.5rem;
-  padding: 4rem 2rem;
-  border: 2px solid #fff;
 
   .inputContainer {
     display: flex;
@@ -17,21 +15,17 @@
     width: 100%;
 
     .prefix {
-      width: 30%;
       font-weight: 900;
       font-size: 1rem;
     }
   }
 
   .nftTitle {
-    position: absolute;
-    top: -20px;
-    max-width: 80%;
     margin-bottom: 3rem;
     padding: 0.3rem 1rem;
     color: #000;
     font-weight: 900;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-family: 'Gideon Roman', cursive;
     background-color: #fff;
   }
@@ -39,11 +33,12 @@
   .geoSuggest {
     position: relative;
     display: block;
-    width: 70%;
+    min-width: 50%;
   }
 
   .geoInput {
     width: 100%;
+    margin-left: 10px;
     padding: 1rem;
     color: #fff !important;
     font-weight: 900;
@@ -65,7 +60,7 @@
 
   :global(.geosuggest__suggests-wrapper) {
     position: absolute;
-    left: 0;
+    left: 10px;
     z-index: 1000;
     width: 100%;
     min-width: 160px;
