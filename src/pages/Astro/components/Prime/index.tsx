@@ -207,7 +207,6 @@ const Prime: React.FC = () => {
                 },
               )}
             </div>
-            <div className={style.divider} />
             <div className={style.nftContainer}>
               {step === 1 && (
                 <Place

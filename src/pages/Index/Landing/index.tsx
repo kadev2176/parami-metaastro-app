@@ -22,22 +22,14 @@ const Landing: React.FC<{
       <div className={style.sloganContainer}>
         {onSale && !!endTime && (
           <Countdown
-            title={
-              <div className={style.countdownTitle}>
-                Today’s auction end in
-              </div>
-            }
+            title={<div className={style.countdownTitle}>Today’s auction ends in</div>}
             className={style.countdown}
             value={endTime}
           />
         )}
         {!onSale && !!startTime && (
           <Countdown
-            title={
-              <div className={style.countdownTitle}>
-                Next round begins in
-              </div>
-            }
+            title={<div className={style.countdownTitle}>Next round begins in</div>}
             className={style.countdown}
             value={startTime}
           />
@@ -79,16 +71,15 @@ const Landing: React.FC<{
           ))}
         </p>
         <Button
-          type='link'
-          size='large'
+          type="link"
+          size="large"
           icon={<ArrowRightOutlined />}
           onClick={() => {
             setStoryModal(true);
           }}
           className={style.learnMore}
         >
-          Learn More About MetaAstro Phase I<br />
-          - GENESIS OF THE GODS -
+          Learn More About MetaAstro Phase I<br />- GENESIS OF THE GODS -
         </Button>
       </div>
       <div
@@ -101,7 +92,7 @@ const Landing: React.FC<{
       </div>
       <SNS />
     </div>
-  )
-}
+  );
+};
 
 export default Landing;
