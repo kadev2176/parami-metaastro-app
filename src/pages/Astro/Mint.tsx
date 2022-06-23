@@ -33,10 +33,10 @@ const Mint: React.FC = () => {
   };
 
   useEffect(() => {
-    // if (!Account || ChainId !== 4) {
-    // 	history.push('/');
-    // 	return;
-    // }
+    if (!Account || ChainId !== 4) {
+      history.push('/');
+      return;
+    }
   }, [ChainId, Account]);
 
   useEffect(() => {
