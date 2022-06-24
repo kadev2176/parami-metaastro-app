@@ -158,7 +158,13 @@ const Prime: React.FC = () => {
   };
 
   const monthCountdown = (
-    <Carousel effect="scrollx" dots={false} className={style.monthCount} autoplay>
+    <Carousel
+      effect="scrollx"
+      dots={false}
+      className={style.monthCount}
+      autoplay
+      dotPosition="left"
+    >
       {monthList().map((item) => (
         <div className={style.monthCountItem} key={item}>
           {item}
@@ -189,23 +195,25 @@ const Prime: React.FC = () => {
                 defaultMessage: 'Genesis of the God',
               })}
             </div>
-            <div className={style.mintYourSoulNFT}>
-              {intl.formatMessage({
-                id: 'astro.mintYourSoulBoundNFTToday',
-                defaultMessage: 'Mint your soul-bound NFT today',
-              })}
-            </div>
-            <div className={style.beTheMetaAstroGod}>
-              {intl.formatMessage(
-                {
-                  id: 'astro.beTheMetaAstroGod',
-                  defaultMessage: 'Be the MetaAstro God of {month} {day}',
-                },
-                {
-                  month: convertMonth(monthOfBirth) || monthCountdown,
-                  day: CurrentDay,
-                },
-              )}
+            <div className={style.mainSlogan}>
+              <div className={style.mintYourSoulNFT}>
+                {intl.formatMessage({
+                  id: 'astro.mintYourSoulBoundNFTToday',
+                  defaultMessage: 'Mint your soul-bound NFT today',
+                })}
+              </div>
+              <div className={style.beTheMetaAstroGod}>
+                {intl.formatMessage(
+                  {
+                    id: 'astro.beTheMetaAstroGod',
+                    defaultMessage: 'Be the MetaAstro God of {month} {day}',
+                  },
+                  {
+                    month: convertMonth(monthOfBirth) || monthCountdown,
+                    day: CurrentDay,
+                  },
+                )}
+              </div>
             </div>
             <div className={style.nftContainer}>
               {step === 1 && (

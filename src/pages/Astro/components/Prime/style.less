@@ -35,28 +35,30 @@
   text-transform: uppercase;
 }
 
-.mintYourSoulNFT {
+.mainSlogan {
   display: block;
   width: 100%;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  font-family: 'Josefin Sans';
-}
-
-.beTheMetaAstroGod {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin-bottom: 2rem;
   font-weight: 900;
-  font-size: 2.2rem;
+  font-size: 3.1rem;
   font-family: 'Josefin Sans';
+  line-height: 1;
+  text-transform: uppercase;
 
-  :global(.ant-carousel) {
-    display: block;
-    width: 10%;
+  .mintYourSoulNFT {
+    margin: 0 0 22px;
+  }
+
+  .beTheMetaAstroGod {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    :global(.ant-carousel) {
+      display: block;
+      width: 15%;
+    }
   }
 }
 
@@ -197,9 +199,17 @@
 
     .button {
       height: auto;
-      padding: 10px 30px;
+      padding: 15px 50px;
+      color: #fff;
       font-weight: 700;
       font-size: 20px;
+      font-family: 'Josefin Sans';
+      line-height: 26px;
+      text-transform: uppercase;
+      background: linear-gradient(270deg, #ff8b4a, #ff5b00);
+      border: unset;
+      border-radius: 6px 20px;
+      cursor: pointer;
 
       &:not(:last-child) {
         margin-right: 20px;
@@ -214,7 +224,7 @@
   .monthCountItem {
     color: #fff;
     font-weight: 900;
-    font-size: 2.2rem;
+    font-size: 3.1rem;
     font-family: 'Josefin Sans';
   }
 }
@@ -248,20 +258,28 @@
 }
 
 @media (max-width: 767px) {
-  .mintYourSoulNFT {
-    font-size: 1.2rem;
+  .mainSlogan {
+    font-size: 1rem;
+    line-height: 1.4;
+
+    .beTheMetaAstroGod {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      :global(.ant-carousel) {
+        display: block;
+        width: 20%;
+      }
+    }
   }
 
-  .beTheMetaAstroGod {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
+  .monthCount {
+    display: inline-block;
 
-    :global(.ant-carousel) {
-      display: block;
-      width: 100%;
+    .monthCountItem {
+      font-size: 1rem;
     }
   }
 
