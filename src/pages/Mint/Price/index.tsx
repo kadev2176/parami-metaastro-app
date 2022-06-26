@@ -6,7 +6,7 @@ import Countdown from 'antd/lib/statistic/Countdown';
 import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { Button, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 
 const Price: React.FC<{
   endTime: number;
@@ -109,7 +109,7 @@ const Price: React.FC<{
           size="large"
           className={style.generating}
           indicator={
-            <LoadingOutlined
+            <StarFilled
               style={{
                 color: '#fff',
                 marginLeft: '10px',

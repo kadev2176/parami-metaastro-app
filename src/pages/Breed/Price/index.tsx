@@ -5,7 +5,7 @@ import style from './style.less';
 import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import { Button, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 
 const Price: React.FC<{
   currentPrice: BigNumber | undefined;
@@ -83,7 +83,7 @@ const Price: React.FC<{
           size="large"
           className={style.generating}
           indicator={
-            <LoadingOutlined
+            <StarFilled
               style={{
                 color: '#fff',
                 marginLeft: '10px',

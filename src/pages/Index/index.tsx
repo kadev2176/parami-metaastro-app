@@ -35,8 +35,8 @@ const Index: React.FC = () => {
 
   const intl = useIntl();
 
-  const startDate: any = '2022-06-25';
-  const preDate: any = '2022-07-01';
+  const startDate: any = '2022-06-01';
+  const preDate: any = '2022-06-07';
 
   const handleScroll = async () => {
     const pageScroll = document.documentElement.scrollTop;

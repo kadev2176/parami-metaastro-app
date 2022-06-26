@@ -1,7 +1,7 @@
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout';
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi';
 import defaultSettings from '../config/defaultSettings';
-import Loading from './components/Loading/Loading';
+import Loading from './components/Loading';
 import { notification } from 'antd';
 import NoFoundPage from './pages/404';
 import Header from './components/Header';
@@ -43,7 +43,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     onPageChange: () => {
       setInitialState({ ...initialState });
     },
-    headerTheme: "light",
+    headerTheme: 'light',
     headerHeight: 70,
     unAccessible: <NoFoundPage />,
     ...initialState?.settings,

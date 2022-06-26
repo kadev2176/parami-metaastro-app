@@ -5,7 +5,7 @@ import { Button, Col, Row, Spin } from 'antd';
 import { isLeapYear } from '@/utils/common';
 import { oddMonth } from '@/config/contract';
 import classNames from 'classnames';
-import { LoadingOutlined } from '@ant-design/icons';
+import { StarFilled } from '@ant-design/icons';
 
 const MonthAndDay: React.FC<{
   yearOfBirth: number | undefined;
@@ -100,7 +100,7 @@ const MonthAndDay: React.FC<{
       ) : (
         <Spin
           indicator={
-            <LoadingOutlined
+            <StarFilled
               style={{
                 fontSize: 24,
                 color: '#fff',
