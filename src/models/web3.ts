@@ -2,7 +2,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
-import { defaultChainId } from '@/pages/Astro/config';
+import { defaultChainId } from '@/config/contract';
 import ethNet from '@/config/ethNet';
 import { message } from 'antd';
 

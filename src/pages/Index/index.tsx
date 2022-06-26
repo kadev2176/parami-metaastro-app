@@ -6,8 +6,8 @@ import Background from '@/components/Background';
 import { RightOutlined } from '@ant-design/icons';
 import { infuraProvider } from '@/config/web3provider';
 import { ethers } from 'ethers';
-import { contractAddresses } from '../Astro/config';
-import PrimeAbi from '@/pages/Astro/abi/Prime.json';
+import { contractAddresses } from '@/config/contract';
+import PrimeAbi from '@/config/abi/Prime.json';
 import { todayYYYYMMDD } from '@/utils/common';
 import BigModal from '@/components/ParamiModal/BigModal';
 import Landing from './Landing';
@@ -35,8 +35,8 @@ const Index: React.FC = () => {
 
   const intl = useIntl();
 
-  const startDate: any = '2022-06-25';
-  const preDate: any = '2022-07-01';
+  const startDate: any = '2022-06-01';
+  const preDate: any = '2022-06-07';
 
   const handleScroll = async () => {
     const pageScroll = document.documentElement.scrollTop;

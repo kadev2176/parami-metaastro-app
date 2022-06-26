@@ -1,0 +1,185 @@
+.getchartContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+
+  .topContainer {
+    position: absolute;
+    top: 8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.2rem;
+
+    .currentPhase {
+      margin-right: 20px;
+      font-weight: 900;
+    }
+  }
+
+  .contentContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60vw;
+
+    .mainTitleContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 3.1rem;
+      font-family: 'Josefin Sans';
+      line-height: 1;
+
+      .beTheMetaAstroGod {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        font-weight: 900;
+
+        .monthCount {
+          display: inline-block;
+
+          .monthCountItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 900;
+            font-size: 3.1rem;
+            font-family: 'Josefin Sans';
+            text-align: center;
+          }
+        }
+
+        :global(.ant-carousel) {
+          display: block;
+          width: 10%;
+          margin-top: 10px;
+        }
+      }
+
+      .mintYourSoulNFT {
+        margin: 0 0 22px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .nftContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 6rem;
+      background-color: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 32px;
+    }
+  }
+
+  .mintCount {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 15px;
+    color: #000;
+    font-weight: 900;
+    font-size: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #fff;
+  }
+}
+
+.modalContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .background {
+    position: absolute;
+    width: 100%;
+  }
+
+  .tipContainer {
+    position: absolute;
+    top: 75px;
+    z-index: 2;
+    height: auto !important;
+    color: #ee8240 !important;
+    font-weight: 800;
+    font-size: 1rem;
+    text-align: center;
+
+    .monthAndDay {
+      font-size: 1.5rem;
+    }
+  }
+
+  .chartContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 5.5rem 2.3rem;
+
+    .chart {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+      padding: 1rem;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    img,
+    svg {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.3);
+      pointer-events: none;
+    }
+  }
+
+  .copyBreedLink {
+    position: absolute;
+    bottom: 40px;
+    height: auto !important;
+    color: #ee8240 !important;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+
+  .openSeaLink {
+    position: absolute;
+    bottom: 80px;
+    height: auto !important;
+    color: #ee8240 !important;
+    font-weight: 800;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,95 @@
+.countdown {
+  position: absolute;
+  top: -20px;
+  color: transparent;
+  font-size: 7rem;
+  font-family: 'Black Ops One', cursive;
+  background: linear-gradient(to top, transparent 15%, #fff);
+  -webkit-background-clip: text;
+}
+
+.countdownTitle {
+  padding: 5px 15px;
+  color: #fff;
+  font-size: 1rem;
+  letter-spacing: 1rem;
+}
+
+.priceContainer,
+.totalContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  .currentPrice {
+    margin-right: 20px;
+    font-size: 6rem;
+    font-family: 'Permanent Marker', cursive;
+  }
+
+  .currentTotal {
+    z-index: 2;
+    padding: 10px 15px;
+    color: #000;
+    font-weight: 900;
+    font-size: 1rem;
+    background-color: #fff;
+  }
+
+  .ethIcon {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+
+    span {
+      margin-top: 5px;
+      font-size: 1.2rem;
+      font-family: 'Permanent Marker', cursive;
+    }
+  }
+}
+
+.auctionDetailContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-right: 10%;
+  padding-left: 10%;
+
+  .auctionDetailWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: #fff;
+    border: 2px solid #fff;
+
+    .auctionDetailTitle {
+      margin-right: 10px;
+    }
+  }
+}
+
+.generating {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2rem;
+}

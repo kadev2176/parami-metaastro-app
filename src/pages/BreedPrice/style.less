@@ -1,0 +1,92 @@
+.breedPriceModal {
+  position: absolute;
+  right: -26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0.5rem;
+  padding-right: 35px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #000;
+  box-shadow: 0 4px 14px 0 rgba(255, 91, 0, 0.39);
+  cursor: pointer;
+  transition: all 0.3s;
+  writing-mode: tb;
+
+  &:hover {
+    right: 0;
+  }
+
+  .arrowIcon {
+    position: absolute;
+    top: calc((100% - 35px) / 2);
+    right: 4px;
+    height: 35px;
+    font-size: 1.5rem;
+  }
+}
+
+.breedPriceInputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: 20px;
+  line-height: 2rem;
+
+  .userInputContainer {
+    display: block;
+    width: 100%;
+    padding-bottom: 4.5rem;
+    color: #fff;
+    font-size: 20px;
+    line-height: 2rem;
+    text-align: center;
+
+    .input {
+      width: 100%;
+      max-width: 100px;
+      padding: 0;
+      color: #fff !important;
+      text-align: center;
+      background-color: transparent !important;
+      border: unset;
+      border-bottom: 1px dashed #fff;
+      border-radius: unset !important;
+      outline: none !important;
+      box-shadow: unset !important;
+      transition: 0.5s;
+      -webkit-appearance: none;
+
+      input {
+        color: #fff !important;
+        font-size: 16px !important;
+        text-align: center !important;
+      }
+
+      &:focus {
+        outline: none !important;
+        box-shadow: unset !important;
+      }
+    }
+  }
+
+  .button {
+    height: auto;
+    padding: 10px 30px;
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .breedPriceModal {
+    font-size: 0.5rem;
+  }
+}

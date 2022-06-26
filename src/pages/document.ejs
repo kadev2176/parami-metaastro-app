@@ -1,90 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="meta,astro,metaverse,soul,nft,blockchain" />
+    <meta
+      name="description"
+      content="MetaAstro indicates individual characteristics that can be used to predict one's future using web3 technology."
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>MetaAstro</title>
+    <link
+      rel="icon"
+      href="<%= context.config.publicPath +'images/background/moon.svg'%>"
+      type="image/x-icon"
+    />
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtbySOJ64uFpKjCJ3v21MypTZ2d7LuwW8&libraries=places&region=US&language=en"
+    ></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQZG9Y86TV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="keywords" content="meta,astro,metaverse,soul,nft,blockchain" />
-  <meta name="description" content="MetaAstro indicates individual characteristics that can be used to predict one's future using web3 technology." />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-  <title>MetaAstro</title>
-  <link rel="icon" href="<%= context.config.publicPath +'images/background/moon.svg'%>"
-    type="image/x-icon" />
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtbySOJ64uFpKjCJ3v21MypTZ2d7LuwW8&libraries=places&region=US&language=en"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQZG9Y86TV"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+      gtag('config', 'G-ZQZG9Y86TV');
+    </script>
+  </head>
 
-    gtag('config', 'G-ZQZG9Y86TV');
-  </script>
-</head>
-
-<body>
-  <noscript>
-    <div class="noscript-container">
-      Hi there! Please
-      <div class="noscript-enableJS">
-        <a href="https://www.enablejavascript.io/en" target="_blank" rel="noopener noreferrer">
-          <b>enable Javascript</b>
-        </a>
+  <body>
+    <noscript>
+      <div class="noscript-container">
+        Hi there! Please
+        <div class="noscript-enableJS">
+          <a href="https://www.enablejavascript.io/en" target="_blank" rel="noopener noreferrer">
+            <b>enable Javascript</b>
+          </a>
+        </div>
+        in your browser to use MetaAstro!
       </div>
-      in your browser to use MetaAstro!
-    </div>
-  </noscript>
-  <div id="root">
-    <style>
-      html,
-      body,
-      #root {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    </noscript>
+    <div id="root">
+      <style>
+        html,
+        body,
+        #root {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          background-color: #000;
+        }
 
-      #root {
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-      }
+        #root {
+          background-color: #000;
+          background-repeat: no-repeat;
+          background-size: 100% auto;
+        }
 
-      .noscript-container {
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        margin-top: 90px;
-        font-size: 20px;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
-          Geneva, Verdana, sans-serif;
-      }
-
-      .noscript-enableJS {
-        padding-right: 3px;
-        padding-left: 3px;
-      }
-
-      .page-loading-warp {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 98px;
-      }
-    </style>
-    <div style="
+        .noscript-container {
           display: flex;
-          flex-direction: column;
+          align-content: center;
+          justify-content: center;
+          margin-top: 90px;
+          font-size: 20px;
+          font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+            Geneva, Verdana, sans-serif;
+        }
+
+        .noscript-enableJS {
+          padding-right: 3px;
+          padding-left: 3px;
+        }
+
+        .page-loading-warp {
+          display: flex;
           align-items: center;
           justify-content: center;
-          height: 100%;
-          min-height: 420px;
-          width: 100%;
-          padding: 30px;
-          max-width: 800px;
-        ">
-      <canvas id="loadingCanvas"></canvas>
+          padding: 98px;
+        }
+      </style>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

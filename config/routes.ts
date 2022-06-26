@@ -9,15 +9,15 @@
     path: '/mint',
     name: 'Mint Your MetaAstro',
     hideInMenu: true,
-    component: './Astro/Mint',
+    component: './Mint',
   },
   {
     path: '/breed',
     name: 'Breed Your MetaAstro',
     hideInMenu: true,
-    component: './Astro/Breed',
+    component: './Breed',
   },
   {
     component: './404',
-  }
+  },
 ];
