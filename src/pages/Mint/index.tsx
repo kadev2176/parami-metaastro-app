@@ -211,6 +211,7 @@ const Mint: React.FC = () => {
                 },
               )}
             </div>
+            <span className={style.colon}>:</span>
             <div className={style.genesisOfTheGod}>
               {intl.formatMessage({
                 id: 'astro.genesis',
