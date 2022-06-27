@@ -6,15 +6,16 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
 
   .topContainer {
-    position: absolute;
-    top: 8rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 15rem;
     font-size: 1.2rem;
 
     .currentPhase {
@@ -47,14 +48,25 @@
         justify-content: center;
         width: 100%;
         font-weight: 900;
+        line-height: 2;
+
+        .monthAndDay {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+        }
 
         .monthCount {
           display: inline-block;
+          width: 150px;
+          margin-top: -10px;
 
           .monthCountItem {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: auto !important;
             color: #fff;
             font-weight: 900;
             font-size: 3.1rem;
@@ -63,9 +75,22 @@
           }
         }
 
+        :global(.slick-track) {
+          width: auto !important;
+        }
+
+        :global(.slick-slide) {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+        }
+
         :global(.ant-carousel) {
-          display: block;
-          width: 10%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: auto !important;
           margin-top: 10px;
         }
       }
@@ -181,5 +206,58 @@
     color: #ee8240 !important;
     font-weight: 800;
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .getchartContainer {
+    .topContainer {
+      margin-bottom: 10rem;
+      font-size: 1rem;
+    }
+
+    .contentContainer {
+      width: 90vw;
+
+      .mainTitleContainer {
+        .beTheMetaAstroGod {
+          flex-direction: column;
+          font-size: 1.6rem;
+        }
+
+        .mintYourSoulNFT {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .mintCount {
+      font-size: 0.6rem;
+    }
+  }
+
+  .modalContainer {
+    .tipContainer {
+      top: 60px;
+      font-size: 0.7rem;
+
+      .monthAndDay {
+        font-size: 1rem;
+      }
+    }
+
+    .chartContainer {
+      padding: 3.2rem 2.3rem;
+    }
+
+    .openSeaLink {
+      bottom: 80px;
+      font-size: 0.8rem;
+    }
+
+    .copyBreedLink {
+      bottom: 50px;
+      font-size: 0.8rem;
+    }
   }
 }

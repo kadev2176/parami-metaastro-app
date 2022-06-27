@@ -32,11 +32,11 @@
 
   .nftTitle {
     margin-bottom: 3rem;
-    padding: 0.3rem 1rem;
     color: #fff;
     font-weight: 900;
     font-size: 1.5rem;
     font-family: 'Gideon Roman', cursive;
+    text-align: center;
 
     &::before {
       display: inline-flex;
@@ -242,4 +242,46 @@
 
 .geoSuggestWrapperHidden {
   display: none;
+}
+
+@media (max-width: 767px) {
+  .nftWrapper {
+    .nftTitle {
+      font-size: 1rem;
+    }
+
+    .inputContainer {
+      .prefix {
+        font-size: 0.7rem;
+      }
+    }
+
+    .input {
+      width: 50%;
+
+      input {
+        font-size: 0.7rem !important;
+
+        &::placeholder {
+          font-size: 0.7rem !important;
+        }
+      }
+    }
+
+    .buttons {
+      .button {
+        padding: 10px 30px;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .geoSuggest {
+    width: 60%;
+  }
+
+  .geoInput,
+  input {
+    font-size: 0.7rem !important;
+  }
 }

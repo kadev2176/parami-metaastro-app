@@ -61,8 +61,6 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  padding-right: 10%;
-  padding-left: 10%;
 
   .auctionDetailWrapper {
     display: flex;
@@ -92,4 +90,23 @@
   justify-content: center;
   width: 100%;
   margin-top: 2rem;
+}
+
+@media (max-width: 767px) {
+  .countdown {
+    top: 0;
+    font-size: 3rem;
+  }
+
+  .priceContainer,
+  .totalContainer {
+    .currentPrice {
+      font-size: 1rem;
+    }
+
+    .currentTotal {
+      font-size: 1rem;
+      text-align: center;
+    }
+  }
 }

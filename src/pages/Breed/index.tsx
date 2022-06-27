@@ -155,7 +155,13 @@ const Breed: React.FC = () => {
 
   useEffect(() => {
     if (!Account) {
-      connect();
+      try {
+        connect();
+      } catch (e: any) {
+        notification.error({
+          message: e?.error?.message || e?.message || e,
+        });
+      }
     }
   }, [Account]);
 
@@ -202,11 +208,19 @@ const Breed: React.FC = () => {
                 {intl.formatMessage(
                   {
                     id: 'astro.beTheMetaAstroGod',
-                    defaultMessage: 'Be the MetaAstro God of {month} {day}',
+                    defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
                   },
                   {
-                    month: convertMonth(Number(dateOfBirth[0])),
-                    day: dateOfBirth[1],
+                    monthAndDay: (
+                      <div className={style.monthAndDay}>
+                        <div className={style.monthCount}>
+                          <div className={style.monthCountItem}>
+                            {convertMonth(Number(dateOfBirth[0]))}
+                          </div>
+                        </div>{' '}
+                        {dateOfBirth[1]}
+                      </div>
+                    ),
                   },
                 )}
               </div>

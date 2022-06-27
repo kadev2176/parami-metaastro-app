@@ -20,7 +20,7 @@ import { contractAddresses, opensea } from '@/config/contract';
 import Price from './Price';
 
 const Mint: React.FC = () => {
-  const { Account, ChainId } = useModel('web3');
+  const { Account, ChainId, connect } = useModel('web3');
   const { PrimeContract } = useModel('astroContracts');
   const [loading, setLoading] = useState<boolean>(false);
   const [loadSVG, setLoadSVG] = useState<boolean>(false);
@@ -168,8 +168,13 @@ const Mint: React.FC = () => {
 
   useEffect(() => {
     if (!Account) {
-      history.push('/');
-      return;
+      try {
+        connect();
+      } catch (e: any) {
+        notification.error({
+          message: e?.error?.message || e?.message || e,
+        });
+      }
     }
   }, [Account]);
 
@@ -219,11 +224,21 @@ const Mint: React.FC = () => {
                 {intl.formatMessage(
                   {
                     id: 'astro.beTheMetaAstroGod',
-                    defaultMessage: 'Be the MetaAstro God of {month} {day}',
+                    defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
                   },
                   {
-                    month: convertMonth(monthOfBirth) || monthCountdown,
-                    day: CurrentDay,
+                    monthAndDay: (
+                      <div className={style.monthAndDay}>
+                        {convertMonth(monthOfBirth) ? (
+                          <div className={style.monthCount}>
+                            <div className={style.monthCountItem}>{convertMonth(monthOfBirth)}</div>
+                          </div>
+                        ) : (
+                          monthCountdown
+                        )}{' '}
+                        {CurrentDay}
+                      </div>
+                    ),
                   },
                 )}
               </div>

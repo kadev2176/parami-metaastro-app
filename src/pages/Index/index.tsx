@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/style/common.less';
 import style from './style.less';
-import { useIntl, useModel, history } from 'umi';
+import { useIntl, useModel } from 'umi';
 import Background from '@/components/Background';
 import { RightOutlined } from '@ant-design/icons';
 import { infuraProvider } from '@/config/web3provider';
@@ -22,7 +22,7 @@ import Partner from './Partner';
 import StoryModal from './StoryModal';
 
 const Index: React.FC = () => {
-  const { ChainId, Account, connect } = useModel('web3');
+  const { ChainId, Account } = useModel('web3');
   const { initialState, setInitialState } = useModel('@@initialState');
   const [avavible, setAvavible] = useState<boolean>(false);
   const [popBottomBar, setPopBottomBar] = useState<boolean>(false);
@@ -145,9 +145,8 @@ const Index: React.FC = () => {
             style={{
               right: popBottomBar ? '2rem' : '-30rem',
             }}
-            onClick={async () => {
-              await connect();
-              history.push('/mint');
+            onClick={() => {
+              window.location.href = '/mint';
             }}
           >
             <img src={'/images/background/astronomy.svg'} className={style.astronomyIcon} />

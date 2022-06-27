@@ -176,8 +176,15 @@ const Background: React.FC<{
   };
 
   useEffect(() => {
+    // Background
+    const bgContainer = document.getElementById('backgroundContainer') as HTMLElement;
+    document.createElement('canvas.webgl');
     // Canvas
-    const canvas = document.querySelector('canvas.webgl') as HTMLElement;
+    const canvas = document.querySelector('canvas.webgl') as any;
+    // Clean old canvas
+    canvas.remove();
+    bgContainer.appendChild(canvas);
+
     generateGalaxy();
     generateBgStars();
     // Controls
@@ -190,6 +197,7 @@ const Background: React.FC<{
       stencil: false,
       powerPreference: complex ? 'high-performance' : 'low-power',
       depth: complex ? true : false,
+      logarithmicDepthBuffer: complex ? false : true,
     });
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, complex ? 3 : 1));
@@ -211,7 +219,7 @@ const Background: React.FC<{
   }, [speedup, pullup, leftDays]);
 
   return (
-    <div className={style.backgroundContainer}>
+    <div className={style.backgroundContainer} id="backgroundContainer">
       <div className={style.mask} />
       <canvas className="webgl" />
     </div>
