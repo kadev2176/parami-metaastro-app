@@ -59,9 +59,28 @@
           flex-direction: row;
           align-items: center;
           justify-content: center;
+          transition: all 0.5s;
         }
 
         .monthCount {
+          display: inline-block;
+          width: 150px;
+          margin-top: -10px;
+
+          .monthCountItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: auto !important;
+            color: #fff;
+            font-weight: 900;
+            font-size: 3.1rem;
+            font-family: 'Josefin Sans';
+            text-align: center;
+          }
+        }
+
+        .monthCountStatic {
           display: inline-block;
           width: 150px;
 
@@ -70,7 +89,7 @@
             align-items: center;
             justify-content: center;
             width: auto !important;
-            color: #fff;
+            color: #ff5b00;
             font-weight: 900;
             font-size: 3.1rem;
             font-family: 'Josefin Sans';

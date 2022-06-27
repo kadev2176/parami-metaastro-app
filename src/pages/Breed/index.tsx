@@ -213,8 +213,13 @@ const Breed: React.FC = () => {
                   },
                   {
                     monthAndDay: (
-                      <div className={style.monthAndDay}>
-                        <div className={style.monthCount}>
+                      <div
+                        className={style.monthAndDay}
+                        style={{
+                          color: '#ff5b00',
+                        }}
+                      >
+                        <div className={style.monthCountStatic}>
                           <div className={style.monthCountItem}>
                             {convertMonth(Number(dateOfBirth[0]))}
                           </div>

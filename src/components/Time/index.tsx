@@ -20,11 +20,11 @@ const Time: React.FC<{
         {!breed
           ? intl.formatMessage({
               id: 'astro.inputYear',
-              defaultMessage: '4/4, Submit more info to generate your MetaAstro?',
+              defaultMessage: '4/4, Submit more info to generate your MetaAstro.',
             })
           : intl.formatMessage({
               id: 'astro.inputYear',
-              defaultMessage: '3/3, Submit more info to generate your MetaAstro?',
+              defaultMessage: '3/3, Submit more info to generate your MetaAstro.',
             })}
       </div>
       <div className={style.inputContainer}>

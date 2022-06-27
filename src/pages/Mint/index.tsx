@@ -184,6 +184,7 @@ const Mint: React.FC = () => {
       dots={false}
       className={style.monthCount}
       autoplay
+      autoplaySpeed={1000}
       dotPosition="left"
     >
       {monthList().map((item) => (
@@ -229,9 +230,14 @@ const Mint: React.FC = () => {
                   },
                   {
                     monthAndDay: (
-                      <div className={style.monthAndDay}>
+                      <div
+                        className={style.monthAndDay}
+                        style={{
+                          color: convertMonth(monthOfBirth) ? '#ff5b00' : 'inherit',
+                        }}
+                      >
                         {convertMonth(monthOfBirth) ? (
-                          <div className={style.monthCount}>
+                          <div className={style.monthCountStatic}>
                             <div className={style.monthCountItem}>{convertMonth(monthOfBirth)}</div>
                           </div>
                         ) : (
