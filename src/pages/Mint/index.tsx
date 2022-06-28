@@ -256,7 +256,13 @@ const Mint: React.FC = () => {
                 })}
               </div>
             </div>
-            <div className={style.nftContainer}>
+            <div
+              className={style.nftContainer}
+              style={{
+                backgroundColor: step === 5 ? 'transparent' : 'rgba(255, 255, 255, 0.07)',
+                border: step === 5 ? 'unset' : '1px solid rgba(255, 255, 255, 0.1)',
+              }}
+            >
               {step === 1 && (
                 <Place
                   lat={lat}

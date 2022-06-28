@@ -1,18 +1,14 @@
 .countdown {
-  position: absolute;
-  top: -20px;
-  color: transparent;
-  font-size: 7rem;
-  font-family: 'Black Ops One', cursive;
-  background: linear-gradient(to top, transparent 15%, #fff);
-  -webkit-background-clip: text;
-}
-
-.countdownTitle {
-  padding: 5px 15px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   color: #fff;
-  font-size: 1rem;
-  letter-spacing: 1rem;
+  font-weight: 900;
+  font-size: 1.5rem;
+  font-family: 'Space Mono', monospace;
 }
 
 .priceContainer,
@@ -34,7 +30,6 @@
     color: #fff;
     font-weight: 900;
     font-size: 1rem;
-    border: 2px solid #fff;
   }
 
   .ethIcon {
@@ -60,6 +55,8 @@
 .auctionDetailContainer {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 
   .auctionDetailWrapper {
@@ -67,14 +64,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     color: #fff;
     font-weight: 900;
+    text-align: center;
     text-transform: uppercase;
-    border: 2px solid #fff;
 
     .auctionDetailTitle {
       margin-right: 10px;
@@ -93,8 +89,7 @@
 
 @media (max-width: 767px) {
   .countdown {
-    top: 0;
-    font-size: 3rem;
+    font-size: 1rem;
   }
 
   .priceContainer,

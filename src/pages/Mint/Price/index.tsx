@@ -44,8 +44,22 @@ const Price: React.FC<{
   const intl = useIntl();
 
   return (
-    <div className={styles.nftWrapper}>
-      <Countdown className={style.countdown} value={endTime} />
+    <div
+      className={styles.nftWrapper}
+      style={{
+        backgroundImage: 'none',
+      }}
+    >
+      <h1 className={style.countdown}>
+        Dutch Auction Count:{' '}
+        <Countdown
+          value={endTime}
+          format="HH:mm:ss"
+          style={{
+            display: 'inline-block',
+          }}
+        />
+      </h1>
       <div className={style.priceContainer}>
         <div className={style.currentPrice}>
           {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '--'}
@@ -60,7 +74,7 @@ const Price: React.FC<{
           {intl.formatMessage(
             {
               id: 'astro.total',
-              defaultMessage: 'Total cost {total}ETH (Oracle operator gas fee: {fee}ETH)',
+              defaultMessage: 'Total cost {total} ETH (Oracle Fee: {fee} ETH)',
             },
             {
               total:
