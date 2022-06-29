@@ -223,31 +223,61 @@ const Mint: React.FC = () => {
           <div className={style.contentContainer}>
             <div className={style.mainTitleContainer}>
               <div className={style.beTheMetaAstroGod}>
-                {intl.formatMessage(
-                  {
-                    id: 'astro.beTheMetaAstroGod',
-                    defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
-                  },
-                  {
-                    monthAndDay: (
-                      <div
-                        className={style.monthAndDay}
-                        style={{
-                          color: convertMonth(monthOfBirth) ? '#ff5b00' : 'inherit',
-                        }}
-                      >
-                        {convertMonth(monthOfBirth) ? (
-                          <div className={style.monthCountStatic}>
-                            <div className={style.monthCountItem}>{convertMonth(monthOfBirth)}</div>
+                {!monthOfBirth
+                  ? intl.formatMessage(
+                      {
+                        id: 'astro.beTheMetaAstroGod',
+                        defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
+                      },
+                      {
+                        monthAndDay: (
+                          <div
+                            className={style.monthAndDay}
+                            style={{
+                              color: monthOfBirth ? '#ff5b00' : 'inherit',
+                            }}
+                          >
+                            {monthOfBirth ? (
+                              <div className={style.monthCountStatic}>
+                                <div className={style.monthCountItem}>
+                                  {convertMonth(monthOfBirth)}
+                                </div>
+                              </div>
+                            ) : (
+                              monthCountdown
+                            )}{' '}
+                            {CurrentDay}
                           </div>
-                        ) : (
-                          monthCountdown
-                        )}{' '}
-                        {CurrentDay}
-                      </div>
-                    ),
-                  },
-                )}
+                        ),
+                      },
+                    )
+                  : intl.formatMessage(
+                      {
+                        id: 'astro.youChooseToBeTheMetaAstroGod',
+                        defaultMessage: 'You choose to be the MetaAstro God of {monthAndDay}',
+                      },
+                      {
+                        monthAndDay: (
+                          <div
+                            className={style.monthAndDay}
+                            style={{
+                              color: monthOfBirth ? '#ff5b00' : 'inherit',
+                            }}
+                          >
+                            {monthOfBirth ? (
+                              <div className={style.monthCountStatic}>
+                                <div className={style.monthCountItem}>
+                                  {convertMonth(monthOfBirth)}
+                                </div>
+                              </div>
+                            ) : (
+                              monthCountdown
+                            )}{' '}
+                            {CurrentDay}
+                          </div>
+                        ),
+                      },
+                    )}
               </div>
               <div className={style.mintYourSoulNFT}>
                 {intl.formatMessage({
