@@ -50,6 +50,13 @@ const Time: React.FC<{
           onBlur={() => {
             setPlaceholder('Please select your time of birth');
           }}
+          renderExtraFooter={() => (
+            <div className={style.timePickerFooter}>
+              <span>Hour</span>
+              <span>Minute</span>
+              <span>Second</span>
+            </div>
+          )}
         />
         <DownCircleOutlined />
       </div>
