@@ -37,7 +37,7 @@ const Landing: React.FC<{
         <p className={style.sloganTop}>
           {sloganTopArr.map((char, index) => (
             <span
-              key={char}
+              key={index}
               style={{
                 animationDelay: `${Math.random() * (index + 1)}s`,
               }}
@@ -49,7 +49,7 @@ const Landing: React.FC<{
         <p className={style.sloganBottom}>
           {sloganBottomArr.map((char, index) => (
             <span
-              key={char}
+              key={index}
               style={{
                 animationDelay: `${Math.random() * (index + 1)}s`,
               }}
@@ -61,7 +61,7 @@ const Landing: React.FC<{
         <p className={style.copy}>
           {sloganCopyArr.map((char, index) => (
             <span
-              key={char}
+              key={index}
               style={{
                 animationDelay: `${Math.random() * (index + 1)}s`,
               }}

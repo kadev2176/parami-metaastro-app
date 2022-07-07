@@ -18,6 +18,7 @@ import BigModal from '@/components/ParamiModal/BigModal';
 import copy from 'copy-to-clipboard';
 import { contractAddresses, opensea } from '@/config/contract';
 import Price from './Price';
+import BasicLayout from '@/layout/BasicLayout';
 
 const Mint: React.FC = () => {
   const { Account, ChainId, connect } = useModel('web3');
@@ -93,7 +94,7 @@ const Mint: React.FC = () => {
       );
 
       const tx = await PrimeContract?.initialMint(
-        ethers.utils.getAddress(Account),
+        ethers.utils.getAddress(Account!),
         [monthOfBirth, dayOfBirth],
         encodeURIComponent(encryptStr),
         { value: ethers.BigNumber.from(price).add(ethers.BigNumber.from(fee)) },
@@ -196,7 +197,7 @@ const Mint: React.FC = () => {
   );
 
   return (
-    <>
+    <BasicLayout>
       <div className={styles.mainContainer}>
         <Background complex={false} />
         <div className={style.getchartContainer}>
@@ -382,7 +383,7 @@ const Mint: React.FC = () => {
             </div>
             <div className={style.chartContainer}>
               <div className={style.chart}>
-                <img src={astroSVG} />
+                <img src={astroSVG} alt="Astro" />
               </div>
             </div>
             <Button
@@ -431,7 +432,7 @@ const Mint: React.FC = () => {
           setModal(false);
         }}
       />
-    </>
+    </BasicLayout>
   );
 };
 

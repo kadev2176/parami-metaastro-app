@@ -20,6 +20,7 @@ import Profit from './Profit';
 import Stage from './Stage';
 import Partner from './Partner';
 import StoryModal from './StoryModal';
+import BasicLayout from '@/layout/BasicLayout';
 
 const Index: React.FC = () => {
   const { ChainId, Account } = useModel('web3');
@@ -117,70 +118,76 @@ const Index: React.FC = () => {
   }, []);
 
   return (
-    <div className={styles.mainContainer}>
-      <Background leftDays={leftDays} complex={true} />
-      {!!leftDays && leftDays !== 0 && (
-        <PreDayCountDown preDate={preDate} setStoryModal={setStoryModal} />
-      )}
-      {(!leftDays || leftDays === 0) && (
-        <Landing
-          PageScroll={PageScroll}
-          onSale={onSale}
-          startTime={startTime}
-          endTime={endTime}
-          setStoryModal={setStoryModal}
-        />
-      )}
-      <div className={styles.pageContainer}>
-        <Intro />
-        <Profit />
-        <Potential />
-        <User />
-        <Friend />
-        <Stage />
-        <Partner />
-        {(!leftDays || leftDays === 0) && (
-          <div
-            className={style.gotoMintContainer}
-            style={{
-              right: popBottomBar ? '2rem' : '-30rem',
-            }}
-            onClick={() => {
-              window.location.href = '/mint';
-            }}
-          >
-            <img src={'/images/background/astronomy.svg'} className={style.astronomyIcon} />
-            <div className={style.title}>
-              <p className={style.titleTop}>
-                {intl.formatMessage({
-                  id: 'gotoMint.title1',
-                  defaultMessage: 'MetaAstro',
-                })}
-              </p>
-              <p className={style.titleBottom}>
-                Mint Now
-                <RightOutlined className={style.rightIcon} />
-              </p>
-            </div>
-          </div>
+    <BasicLayout>
+      <div className={styles.mainContainer}>
+        <Background leftDays={leftDays} complex={true} />
+        {!!leftDays && leftDays !== 0 && (
+          <PreDayCountDown preDate={preDate} setStoryModal={setStoryModal} />
         )}
-      </div>
+        {(!leftDays || leftDays === 0) && (
+          <Landing
+            PageScroll={PageScroll}
+            onSale={onSale}
+            startTime={startTime}
+            endTime={endTime}
+            setStoryModal={setStoryModal}
+          />
+        )}
+        <div className={styles.pageContainer}>
+          <Intro />
+          <Profit />
+          <Potential />
+          <User />
+          <Friend />
+          <Stage />
+          <Partner />
+          {(!leftDays || leftDays === 0) && (
+            <div
+              className={style.gotoMintContainer}
+              style={{
+                right: popBottomBar ? '2rem' : '-30rem',
+              }}
+              onClick={() => {
+                window.location.href = '/mint';
+              }}
+            >
+              <img
+                src={'/images/background/astronomy.svg'}
+                className={style.astronomyIcon}
+                alt="MetaAstro"
+              />
+              <div className={style.title}>
+                <p className={style.titleTop}>
+                  {intl.formatMessage({
+                    id: 'gotoMint.title1',
+                    defaultMessage: 'MetaAstro',
+                  })}
+                </p>
+                <p className={style.titleBottom}>
+                  Mint Now
+                  <RightOutlined className={style.rightIcon} />
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
 
-      <BigModal
-        visable={storyModal}
-        title={undefined}
-        bodyStyle={{
-          backgroundColor: '#000',
-          border: '2px solid #fff',
-        }}
-        content={<StoryModal />}
-        width={1000}
-        footer={false}
-        close={() => {
-          setStoryModal(false);
-        }}
-      />
-    </div>
+        <BigModal
+          visable={storyModal}
+          title={undefined}
+          bodyStyle={{
+            backgroundColor: '#000',
+            border: '2px solid #fff',
+          }}
+          content={<StoryModal />}
+          width={1000}
+          footer={false}
+          close={() => {
+            setStoryModal(false);
+          }}
+        />
+      </div>
+    </BasicLayout>
   );
 };
 

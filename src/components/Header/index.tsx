@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                   <div
                     className={style.headerMenu}
                     style={{
-                      height: menu ? '220px' : '0',
+                      height: menu ? '200px' : '0',
                     }}
                   >
                     <div

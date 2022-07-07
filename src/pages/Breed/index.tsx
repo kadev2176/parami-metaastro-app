@@ -17,6 +17,7 @@ import Price from './Price';
 import BigModal from '@/components/ParamiModal/BigModal';
 import copy from 'copy-to-clipboard';
 import { contractAddresses, opensea } from '@/config/contract';
+import BasicLayout from '@/layout/BasicLayout';
 
 const Breed: React.FC = () => {
   const { Account, ChainId, connect } = useModel('web3');
@@ -179,7 +180,7 @@ const Breed: React.FC = () => {
   }, [Account, OrdinaryContract]);
 
   return (
-    <>
+    <BasicLayout>
       <div className={styles.mainContainer}>
         <Background complex={false} />
         <div className={style.getchartContainer}>
@@ -304,7 +305,7 @@ const Breed: React.FC = () => {
             </div>
             <div className={style.chartContainer}>
               <div className={style.chart}>
-                <img src={astroSVG} />
+                <img src={astroSVG} alt="astro" />
               </div>
             </div>
             <Button
@@ -353,7 +354,7 @@ const Breed: React.FC = () => {
           setModal(false);
         }}
       />
-    </>
+    </BasicLayout>
   );
 };
 
