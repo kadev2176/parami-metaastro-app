@@ -53,7 +53,7 @@
     "@ethersproject/units": "^5.6.1",
     "@fullpage/react-fullpage": "^0.1.26",
     "@metamask/detect-provider": "^1.2.0",
-    "@react-three/drei": "9.16.0",
+    "@react-three/drei": "9.16.1",
     "@react-three/fiber": "8.0.27",
     "@react-three/postprocessing": "2.4.6",
     "@types/dat.gui": "^0.7.7",
@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^3.0.0",
-    "@playwright/test": "^1.23.1",
+    "@playwright/test": "^1.23.2",
     "@types/classnames": "^2.3.1",
     "@types/express": "^4.17.13",
     "@types/history": "^4.7.11",

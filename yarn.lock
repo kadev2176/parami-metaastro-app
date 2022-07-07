@@ -3151,7 +3151,7 @@
     "@parcel/css-linux-x64-musl" "1.9.0"
     "@parcel/css-win32-x64-msvc" "1.9.0"
 
-"@playwright/test@^1.23.1":
+"@playwright/test@^1.23.2":
   version "1.23.2"
   resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.23.2.tgz#6af9e77bafcfe6dd17c23a44b40f793db5245d74"
   integrity sha512-umaEAIwQGfbezixg3raSOraqbQGSqZP988sOaMdpA2wj3Dr6ykOscrMukyK3U6edxhpS0N8kguAFZoHwCEfTig==
@@ -3273,10 +3273,10 @@
     "@react-spring/shared" "~9.4.5"
     "@react-spring/types" "~9.4.5"
 
-"@react-three/drei@9.16.0":
-  version "9.16.0"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.16.0.tgz#6d2ba26e9d6bc0adcfc5063f774c59ecf35f7241"
-  integrity sha512-JV2+SHEWwSMBs9sFLkOQ8nJ3CT2AFRGkKOSKTvEaz0BzJT2ovR01Ge356FnLkRhRmtJG+MAv0g2Y9/p+UygWyQ==
+"@react-three/drei@9.16.1":
+  version "9.16.1"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.16.1.tgz#5732d19d9b9717ba9fa18cedb076f9823c24ec08"
+  integrity sha512-rPqR6+KgUop69rWPV5HJ7i913xMtr4ARGrHOpmPxSAUyEMYix5q8ybFfLDcpxjS8fWI96hy7JdENAkUfYziXWg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/three" "^9.3.1"
