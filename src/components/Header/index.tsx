@@ -33,7 +33,7 @@ const Header: React.FC = () => {
             history.push('/');
           }}
         >
-          <img src={'/images/background/moon.svg'} className={style.logoImg} />
+          <img src={'/images/background/moon.svg'} className={style.logoImg} alt="MetaAstro" />
           <span>MetaAstro</span>
         </div>
         <div className={style.connectWallet}>

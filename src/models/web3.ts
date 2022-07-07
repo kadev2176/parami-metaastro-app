@@ -5,13 +5,36 @@ import Web3Modal from 'web3modal';
 import { defaultChainId } from '@/config/contract';
 import ethNet from '@/config/ethNet';
 import { message } from 'antd';
+import Fortmatic from 'fortmatic';
+import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
+
+const customNetworkOptions = {
+  rpcUrl: 'https://rinkeby.infura.io/v3/eca99940fe244068a87095aa826a34fa',
+  chainId: 4,
+};
 
 const providerOptions = {
-  // Example with WalletConnect provider
   walletconnect: {
     package: WalletConnectProvider,
     options: {
-      infuraId: 'eca99940fe244068a87095aa826a34fa', // required
+      infuraId: 'eca99940fe244068a87095aa826a34fa',
+    },
+  },
+  fortmatic: {
+    package: Fortmatic,
+    options: {
+      key: 'pk_test_C9E4C00F23E474DE',
+      network: customNetworkOptions,
+    },
+  },
+  coinbasewallet: {
+    package: CoinbaseWalletSDK,
+    options: {
+      appName: 'MetaAstro', // Required
+      infuraId: 'eca99940fe244068a87095aa826a34fa', // Required
+      rpc: '',
+      chainId: 4,
+      darkMode: false,
     },
   },
 };
@@ -23,9 +46,9 @@ interface ProviderRpcError {
 }
 
 export default () => {
-  const [Account, setAccount] = useState<string>('');
-  const [Provider, setProvider] = useState<any>(null);
-  const [Web3Provider, setWeb3Provider] = useState<providers.Web3Provider | null>(null);
+  const [Account, setAccount] = useState<string | null>();
+  const [Instance, setInstance] = useState<any>(null);
+  const [Provider, setProvider] = useState<providers.Web3Provider | null>(null);
   const [Signer, setSigner] = useState<providers.JsonRpcSigner | null>(null);
   const [BlockNumber, setBlockNumber] = useState<number>(0);
   const [ChainId, setChainId] = useState<number>(defaultChainId);
@@ -34,25 +57,26 @@ export default () => {
   const [NoProvider, setNoProvider] = useState<boolean>(false);
   const [WaitingChangeNetwork, setWaitingChangeNetwork] = useState<boolean>(false);
 
+  const web3Modal = new Web3Modal({
+    network: 'rinkeby',
+    cacheProvider: true,
+    providerOptions,
+  });
+
   useEffect(() => {
-    Web3Provider?.on('block', (blockNo: number) => {
+    Provider?.on('block', (blockNo: number) => {
       setBlockNumber(blockNo);
     });
     setChainName(ethNet[ChainId]);
-  }, [ChainId, ChainName, Web3Provider]);
+  }, [ChainId, ChainName, Provider]);
 
   const disconnect = useCallback(async () => {
-    const web3Modal = new Web3Modal({
-      network: 'rinkeby',
-      cacheProvider: true,
-      providerOptions,
-    });
     try {
       web3Modal.clearCachedProvider();
+      setInstance(null);
       setProvider(null);
-      setWeb3Provider(null);
       setSigner(null);
-      setAccount('');
+      setAccount(null);
       setNetwork(undefined);
     } catch (e: any) {
       message.error(e.message);
@@ -61,26 +85,28 @@ export default () => {
   }, []);
 
   const connect = useCallback(async () => {
-    const web3Modal = new Web3Modal({
-      network: 'rinkeby',
-      cacheProvider: true,
-      providerOptions,
-    });
     try {
-      const provider = await web3Modal.connect();
-      setProvider(provider);
-      const web3Provider = new providers.Web3Provider(provider);
-      setWeb3Provider(web3Provider);
-      const signer = web3Provider.getSigner();
+      const instance = await web3Modal.connect();
+      setInstance(instance);
+
+      const provider = new providers.Web3Provider(window.ethereum || instance);
+      setInstance(provider);
+
+      await provider.send('eth_requestAccounts', []);
+
+      const signer = provider.getSigner();
       setSigner(signer);
-      const account = await signer.getAddress();
-      setAccount(account);
-      const network = await web3Provider.getNetwork();
+
+      const account = await provider.listAccounts();
+      setAccount(account[0]);
+
+      const network = await provider.getNetwork();
       setNetwork(network);
-      const chainId = await signer.getChainId();
+
+      const { chainId } = await provider.getNetwork();
       setChainId(chainId);
       if (chainId !== 4) {
-        await provider.request({
+        await instance.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: '0x4' }],
         });
@@ -89,20 +115,20 @@ export default () => {
         setWaitingChangeNetwork(false);
       }
 
-      provider.on('accountsChanged', function (accounts: string[]) {
+      instance.on('accountsChanged', function (accounts: string[]) {
         if (accounts.length === 0) {
           setAccount('');
           setSigner(null);
         }
         setAccount(accounts[0]);
-        const newSign = web3Provider.getSigner();
+        const newSign = provider.getSigner();
         setSigner(newSign);
       });
-      provider.on('chainChanged', async (newChainId: number) => {
+      instance.on('chainChanged', async (newChainId: number) => {
         setChainId(Number(newChainId));
         if (Number(newChainId) !== 4) {
+          setInstance(null);
           setProvider(null);
-          setWeb3Provider(null);
           setSigner(null);
           setAccount('');
           setNetwork(undefined);
@@ -113,7 +139,7 @@ export default () => {
           setWaitingChangeNetwork(false);
         }
       });
-      provider.on('disconnect', (error: ProviderRpcError) => {
+      instance.on('disconnect', (error: ProviderRpcError) => {
         console.log('disconnect', error.code, error.message, error.data);
         disconnect();
         Provider?.removeAllListeners();
@@ -121,10 +147,10 @@ export default () => {
     } catch (e: any) {
       message.error(e.message || e);
       setNoProvider(true);
+      setInstance(null);
       setProvider(null);
-      setWeb3Provider(null);
       setSigner(null);
-      setAccount('');
+      setAccount(null);
       setNetwork(undefined);
       setWaitingChangeNetwork(true);
       return;
@@ -133,8 +159,8 @@ export default () => {
 
   return {
     Account,
+    Instance,
     Provider,
-    Web3Provider,
     Signer,
     BlockNumber,
     ChainId,
