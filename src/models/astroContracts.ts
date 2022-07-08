@@ -6,7 +6,7 @@ import { contractAddresses } from '@/config/contract';
 import { useModel } from 'umi';
 
 export default () => {
-  const { Account, ChainId, Provider, Signer } = useModel('web3');
+  const { Account, ChainId, Instance, Signer } = useModel('web3');
 
   // Contract instances
   const [PrimeContract, setPrimeContract] = useState<ethers.Contract | null>(null);
@@ -19,7 +19,7 @@ export default () => {
         setOrdinaryContract(null);
         return;
       }
-      if (!Provider || !Signer) {
+      if (!Instance || !Signer) {
         return;
       }
       const prime = new ethers.Contract(contractAddresses.prime[ChainId], PrimeAbi, Signer);
@@ -31,7 +31,7 @@ export default () => {
       setPrimeContract(prime);
       setOrdinaryContract(ordinary);
     }
-  }, [Account, Provider, Signer, ChainId]);
+  }, [Account, Instance, Signer, ChainId]);
 
   return {
     PrimeContract,

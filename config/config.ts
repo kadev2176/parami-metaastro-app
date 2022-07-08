@@ -27,7 +27,6 @@ export default defineConfig({
   access: {},
   theme: {
     'primary-color': defaultSettings.primaryColor,
-    'root-entry-name': 'variable',
   },
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],
@@ -36,4 +35,7 @@ export default defineConfig({
   },
   fastRefresh: true,
   presets: ['umi-presets-pro'],
+  analytics: {
+    ga: 'G-ZQZG9Y86TV',
+  }
 });

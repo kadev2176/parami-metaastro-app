@@ -12,8 +12,10 @@ const PreDayCountDown: React.FC<{
   return (
     <div className={style.leftTopContainer}>
       <h1>
-        Countdown to Genesis: <Countdown
+        Countdown to Genesis:{' '}
+        <Countdown
           value={Date.parse(preDate)}
+          className={style.countdown}
           format="HH:mm:ss"
           style={{
             display: 'inline-block',
@@ -24,20 +26,19 @@ const PreDayCountDown: React.FC<{
       <h4>Energy channeling through Para Metaverse</h4>
       <h4>Behold the birth of 366 primordial gods</h4>
       <Button
-        type='link'
-        size='large'
+        type="link"
+        size="large"
         icon={<ArrowRightOutlined />}
         onClick={() => {
           setStoryModal(true);
         }}
         className={style.learnMore}
       >
-        Learn More About MetaAstro Phase I<br />
-        - GENESIS OF THE GODS -
+        Learn More About MetaAstro Phase I<br />- GENESIS OF THE GODS -
       </Button>
       <SNS />
     </div>
-  )
-}
+  );
+};
 
 export default PreDayCountDown;

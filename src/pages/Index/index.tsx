@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import styles from '@/style/common.less';
-import style from './style.less';
-import { useIntl, useModel } from 'umi';
 import Background from '@/components/Background';
-import { RightOutlined } from '@ant-design/icons';
-import { infuraProvider } from '@/config/web3provider';
-import { ethers } from 'ethers';
-import { contractAddresses } from '@/config/contract';
-import PrimeAbi from '@/config/abi/Prime.json';
-import { todayYYYYMMDD } from '@/utils/common';
 import BigModal from '@/components/ParamiModal/BigModal';
-import Landing from './Landing';
-import PreDayCountDown from './PreCountdown';
-import Intro from './Intro';
-import Potential from './Potential';
-import User from './User';
+import PrimeAbi from '@/config/abi/Prime.json';
+import { contractAddresses } from '@/config/contract';
+import { infuraProvider } from '@/config/web3provider';
+import BasicLayout from '@/layout/BasicLayout';
+import styles from '@/style/common.less';
+import { todayYYYYMMDD } from '@/utils/common';
+import { RightOutlined } from '@ant-design/icons';
+import { ethers } from 'ethers';
+import React, { useEffect, useState } from 'react';
+import { useIntl, useModel } from 'umi';
 import Friend from './Friend';
+import Intro from './Intro';
+import Landing from './Landing';
+import Partner from './Partner';
+import Potential from './Potential';
+import PreDayCountDown from './PreCountdown';
 import Profit from './Profit';
 import Stage from './Stage';
-import Partner from './Partner';
 import StoryModal from './StoryModal';
-import BasicLayout from '@/layout/BasicLayout';
+import style from './style.less';
+import User from './User';
 
 const Index: React.FC = () => {
   const { ChainId, Account } = useModel('web3');
@@ -37,7 +37,7 @@ const Index: React.FC = () => {
   const intl = useIntl();
 
   const startDate: any = '2022-06-01';
-  const preDate: any = '2022-06-07';
+  const preDate: any = '2022-06-10';
 
   const handleScroll = async () => {
     const pageScroll = document.documentElement.scrollTop;

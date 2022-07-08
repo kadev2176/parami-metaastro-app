@@ -34,12 +34,19 @@
 
   .countdown {
     position: absolute;
-    top: -65px;
+    top: -120px;
     font-size: 7rem;
     background: linear-gradient(to top, transparent 15%, #fff);
     -webkit-background-clip: text;
     color: transparent;
     font-family: 'Black Ops One', cursive;
+
+    :global(.ant-statistic-content) {
+      font-size: 7rem !important;
+      -webkit-background-clip: text;
+      color: transparent !important;
+      font-family: 'Black Ops One', cursive;
+    }
   }
 
   .countdownTitle {
