@@ -146,7 +146,7 @@ export default () => {
       instance.on('disconnect', (error: ProviderRpcError) => {
         console.log('disconnect', error.code, error.message, error.data);
         disconnect();
-        Provider?.removeAllListeners();
+        instance?.removeAllListeners();
       });
     } catch (e: any) {
       message.error(e.message || e);
