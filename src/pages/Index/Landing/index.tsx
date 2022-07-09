@@ -25,6 +25,9 @@ const Landing: React.FC<{
             title={<div className={style.countdownTitle}>Today’s auction ends in</div>}
             className={style.countdown}
             value={endTime}
+            onFinish={() => {
+              window.location.reload();
+            }}
           />
         )}
         {!onSale && !!startTime && (
