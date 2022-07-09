@@ -57,12 +57,6 @@ export default () => {
   const [NoProvider, setNoProvider] = useState<boolean>(false);
   const [WaitingChangeNetwork, setWaitingChangeNetwork] = useState<boolean>(false);
 
-  const web3Modal = new Web3Modal({
-    network: 'rinkeby',
-    cacheProvider: true,
-    providerOptions,
-  });
-
   useEffect(() => {
     Provider?.on('block', (blockNo: number) => {
       setBlockNumber(blockNo);
@@ -71,6 +65,11 @@ export default () => {
   }, [ChainId, ChainName, Provider]);
 
   const disconnect = useCallback(async () => {
+    const web3Modal = new Web3Modal({
+      network: 'rinkeby',
+      cacheProvider: true,
+      providerOptions,
+    });
     try {
       web3Modal.clearCachedProvider();
       setInstance(null);
@@ -85,6 +84,11 @@ export default () => {
   }, []);
 
   const connect = useCallback(async () => {
+    const web3Modal = new Web3Modal({
+      network: 'rinkeby',
+      cacheProvider: true,
+      providerOptions,
+    });
     try {
       const instance = await web3Modal.connect();
       setInstance(instance);
