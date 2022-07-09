@@ -32,6 +32,9 @@ const Landing: React.FC<{
             title={<div className={style.countdownTitle}>Next round begins in</div>}
             className={style.countdown}
             value={startTime}
+            onFinish={() => {
+              window.location.reload();
+            }}
           />
         )}
         <p className={style.sloganTop}>

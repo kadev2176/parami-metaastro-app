@@ -1,12 +1,12 @@
-import React from 'react';
-import { useIntl } from 'umi';
 import styles from '@/style/components.less';
-import style from './style.less';
+import { StarFilled } from '@ant-design/icons';
+import { Button, Spin } from 'antd';
 import Countdown from 'antd/lib/statistic/Countdown';
 import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
-import { Button, Spin } from 'antd';
-import { StarFilled } from '@ant-design/icons';
+import React from 'react';
+import { useIntl } from 'umi';
+import style from './style.less';
 
 const Price: React.FC<{
   endTime: number;
@@ -57,6 +57,9 @@ const Price: React.FC<{
           format="HH:mm:ss"
           style={{
             display: 'inline-block',
+          }}
+          onFinish={() => {
+            window.location.reload();
           }}
         />
       </h1>

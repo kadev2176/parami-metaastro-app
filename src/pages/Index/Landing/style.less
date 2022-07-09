@@ -42,7 +42,7 @@
     font-family: 'Black Ops One', cursive;
 
     :global(.ant-statistic-content) {
-      font-size: 7rem !important;
+      font-size: 7rem;
       -webkit-background-clip: text;
       color: transparent !important;
       font-family: 'Black Ops One', cursive;
@@ -121,8 +121,12 @@
   }
 
   .countdown {
-    top: -30px !important;
+    top: -60px !important;
     font-size: 3.5rem !important;
+
+    :global(.ant-statistic-content) {
+      font-size: 3.5rem !important;
+    }
   }
 
   .countdownTitle {

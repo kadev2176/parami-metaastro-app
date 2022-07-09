@@ -20,6 +20,9 @@ const PreDayCountDown: React.FC<{
           style={{
             display: 'inline-block',
           }}
+          onFinish={() => {
+            window.location.reload();
+          }}
         />
       </h1>
       <h4>A singularity big-banged into galaxies and stars</h4>
