@@ -160,11 +160,14 @@ const Index: React.FC = () => {
                 <p className={style.titleTop}>
                   {intl.formatMessage({
                     id: 'gotoMint.title1',
-                    defaultMessage: 'MetaAstro',
+                    defaultMessage: 'Genesis god',
                   })}
                 </p>
                 <p className={style.titleBottom}>
-                  Mint Now
+                  {intl.formatMessage({
+                    id: 'gotoMint.title2',
+                    defaultMessage: 'Auction now',
+                  })}
                   <RightOutlined className={style.rightIcon} />
                 </p>
               </div>

@@ -172,7 +172,7 @@ const Price: React.FC<{
           >
             {intl.formatMessage({
               id: 'astro.getURChart',
-              defaultMessage: 'Mint Your MetaAstro',
+              defaultMessage: 'Genesis god auction now',
             })}
           </Button>
         )}
