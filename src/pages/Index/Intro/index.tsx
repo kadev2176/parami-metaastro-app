@@ -44,15 +44,15 @@ const Intro: React.FC = () => {
             </Col>
             <Col span={12} className={style.demoChartItem}>
               <div className={`${style.tag} ${style.fire}`}>Fire Style</div>
-              <img className={style.demoChart} src={'/images/demo/fire.png'} alt="Fire" />
+              <img className={style.demoChart} src={'/images/demo/fire.gif'} alt="Fire" />
             </Col>
             <Col span={12} className={style.demoChartItem}>
               <div className={`${style.tag} ${style.water}`}>Water Style</div>
-              <img className={style.demoChart} src={'/images/demo/water.png'} alt="Water" />
+              <img className={style.demoChart} src={'/images/demo/water.gif'} alt="Water" />
             </Col>
             <Col span={12} className={style.demoChartItem}>
               <div className={`${style.tag} ${style.wind}`}>Air Style</div>
-              <img className={style.demoChart} src={'/images/demo/wind.png'} alt="Wind" />
+              <img className={style.demoChart} src={'/images/demo/wind.gif'} alt="Wind" />
             </Col>
           </Row>
         </Col>
