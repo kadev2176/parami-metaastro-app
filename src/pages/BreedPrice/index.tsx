@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-06-27 04:26:09
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:24:46
+ * @ Description: i@rua.moe
+ */
+
 import React, { useEffect, useState } from 'react';
 import style from './style.less';
 import { useIntl, useModel } from 'umi';
@@ -28,7 +36,7 @@ const BreedPrice: React.FC<{
     setLoading(true);
     try {
       const owner = await PrimeContract?.ownerOf(tokenId);
-      if (owner !== ethers.utils.getAddress(Account)) {
+      if (owner !== ethers.utils.getAddress(Account as string)) {
         notification.error({
           message: 'You are not the owner of this token.',
           duration: null,

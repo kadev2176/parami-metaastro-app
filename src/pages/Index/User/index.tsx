@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-04-23 19:14:47
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:08:05
+ * @ Description: i@rua.moe
+ */
+
 import { Col, Row } from 'antd';
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';

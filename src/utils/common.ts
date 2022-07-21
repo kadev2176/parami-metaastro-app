@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-02-23 20:51:24
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:13:11
+ * @ Description: i@rua.moe
+ */
+
 export const range = (start: number, end: number) => {
   const result = [];
   for (let i = start; i < end; i++) {

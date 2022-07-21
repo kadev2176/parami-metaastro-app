@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:21:42
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 01:27:09
+ * @ Description: i@rua.moe
+ */
+
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import Countdown from 'antd/lib/statistic/Countdown';

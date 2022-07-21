@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:20:45
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:22:25
+ * @ Description: i@rua.moe
+ */
+
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { providers } from 'ethers';
 import { useCallback, useEffect, useState } from 'react';

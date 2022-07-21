@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-04-23 20:13:49
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:07:46
+ * @ Description: i@rua.moe
+ */
+
 import React from 'react';
 import style from './style.less';
 

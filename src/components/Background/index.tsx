@@ -1,7 +1,15 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-03-11 17:36:47
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:09:42
+ * @ Description: i@rua.moe
+ */
+
+import { useEffect } from 'react';
 import * as THREE from 'three';
 import { AdditiveBlending } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { useEffect } from 'react';
 import style from './style.less';
 
 const Background: React.FC<{

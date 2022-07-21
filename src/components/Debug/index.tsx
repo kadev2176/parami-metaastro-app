@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-04-20 17:38:00
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:10:53
+ * @ Description: i@rua.moe
+ */
+
 import { DatePicker } from 'antd';
 import React, { useState } from 'react';
 import BigModal from '../ParamiModal/BigModal';
@@ -11,10 +19,7 @@ const Debug: React.FC<{
 
   return (
     <>
-      <div
-        className={style.debugContainer}
-        onClick={() => setDebugModal(true)}
-      >
+      <div className={style.debugContainer} onClick={() => setDebugModal(true)}>
         Debug Panel
       </div>
 
@@ -26,12 +31,10 @@ const Debug: React.FC<{
         content={
           <div className={style.modalContainer}>
             <div className={style.field}>
-              <div className={style.title}>
-                Countdown start time
-              </div>
+              <div className={style.title}>Countdown start time</div>
               <div className={style.value}>
                 <DatePicker
-                  size='large'
+                  size="large"
                   onChange={(_, dateString) => {
                     setStartTime(dateString);
                   }}
@@ -42,12 +45,10 @@ const Debug: React.FC<{
               </div>
             </div>
             <div className={style.field}>
-              <div className={style.title}>
-                Sale time
-              </div>
+              <div className={style.title}>Sale time</div>
               <div className={style.value}>
                 <DatePicker
-                  size='large'
+                  size="large"
                   onChange={(_, dateString) => {
                     setPreTime(dateString);
                   }}
@@ -61,7 +62,7 @@ const Debug: React.FC<{
         }
       />
     </>
-  )
-}
+  );
+};
 
 export default Debug;

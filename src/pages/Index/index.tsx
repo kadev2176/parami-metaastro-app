@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:21:42
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:09:12
+ * @ Description: i@rua.moe
+ */
+
 import Background from '@/components/Background';
 import BigModal from '@/components/ParamiModal/BigModal';
 import PrimeAbi from '@/config/abi/Prime.json';

@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-04-23 19:37:14
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 01:56:49
+ * @ Description: i@rua.moe
+ */
+
 import { Col, Row } from 'antd';
 import React from 'react';
 import style from './style.less';
@@ -17,7 +25,7 @@ const Partner: React.FC = () => {
           }}
         >
           <div className={style.partnerItem}>
-            <img src={"/images/partner/nodoor.svg"} />
+            <img src={"/images/partner/nodoor.svg"} alt='nodoor' />
           </div>
         </Col>
         <Col
@@ -28,7 +36,7 @@ const Partner: React.FC = () => {
           }}
         >
           <div className={style.partnerItem}>
-            <img src={"/images/partner/planetix.svg"} />
+            <img src={"/images/partner/planetix.svg"} alt='planetix' />
           </div>
         </Col>
         <Col
@@ -39,7 +47,7 @@ const Partner: React.FC = () => {
           }}
         >
           <div className={style.partnerItem}>
-            <img src={"/images/partner/playerone.svg"} />
+            <img src={"/images/partner/playerone.svg"} alt='playerone' />
           </div>
         </Col>
       </Row>

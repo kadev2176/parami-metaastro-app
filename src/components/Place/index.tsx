@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-06-26 03:12:42
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:13:46
+ * @ Description: i@rua.moe
+ */
+
 import React, { useState } from 'react';
 import style from '@/style/components.less';
 import { useIntl } from 'umi';

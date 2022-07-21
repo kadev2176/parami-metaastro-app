@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:21:42
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:08:51
+ * @ Description: i@rua.moe
+ */
+
 import { Settings as LayoutSettings } from '@ant-design/pro-components';
 
 const Settings: LayoutSettings & {

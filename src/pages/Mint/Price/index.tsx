@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-06-27 03:05:53
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:09:25
+ * @ Description: i@rua.moe
+ */
+
 import styles from '@/style/components.less';
 import { StarFilled } from '@ant-design/icons';
 import { Button, Spin } from 'antd';

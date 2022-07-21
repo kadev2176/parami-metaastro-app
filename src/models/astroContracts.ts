@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:20:45
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:22:21
+ * @ Description: i@rua.moe
+ */
+
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 import PrimeAbi from '@/config/abi/Prime.json';

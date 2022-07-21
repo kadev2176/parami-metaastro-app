@@ -1,59 +1,67 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-02-18 15:19:59
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:11:09
+ * @ Description: i@rua.moe
+ */
+
 .snsButtons {
-	position: absolute;
-	left: 2rem;
-	bottom: 2rem;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	z-index: 1;
+  position: absolute;
+  left: 2rem;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 
-	.snsButtonItem {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 50px;
-		padding-left: 10px;
-		padding-right: 10px;
-		border-radius: 0.4rem;
-		transition: all 0.2s;
-		margin-left: 10px;
-		margin-right: 10px;
-		cursor: pointer;
+  .snsButtonItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0.4rem;
+    transition: all 0.2s;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
 
-		&:hover {
-			background-color: #21232d;
-		}
+    &:hover {
+      background-color: #21232d;
+    }
 
-		.snsButtonItemSvg {
-			font-size: 22px;
-			color: #fff;
-		}
+    .snsButtonItemSvg {
+      font-size: 22px;
+      color: #fff;
+    }
 
-		img {
-			height: 22px;
-			width: 22px;
-		}
-	}
+    img {
+      height: 22px;
+      width: 22px;
+    }
+  }
 }
 
 @media (max-width: 767px) {
-	.snsButtons {
-		.snsButtonItem {
-			height: 30px !important;
-			padding-left: 10px !important;
-			padding-right: 10px !important;
-			margin-left: 8px !important;
-			margin-right: 8px !important;
+  .snsButtons {
+    .snsButtonItem {
+      height: 30px !important;
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      margin-left: 8px !important;
+      margin-right: 8px !important;
 
-			.snsButtonItemSvg {
-				font-size: 18px !important;
-			}
+      .snsButtonItemSvg {
+        font-size: 18px !important;
+      }
 
-			img {
-				height: 18px !important;
-				width: 18px !important;
-			}
-		}
-	}
+      img {
+        height: 18px !important;
+        width: 18px !important;
+      }
+    }
+  }
 }

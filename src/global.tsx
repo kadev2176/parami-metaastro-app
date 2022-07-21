@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-07-08 05:21:42
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:14:01
+ * @ Description: i@rua.moe
+ */
+
 import { useIntl } from '@umijs/max';
 import { Button, message, notification } from 'antd';
 import defaultSettings from '../config/defaultSettings';

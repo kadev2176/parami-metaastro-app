@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-04-23 19:31:53
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 02:07:01
+ * @ Description: i@rua.moe
+ */
+
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Steps } from 'antd';
 import React from 'react';

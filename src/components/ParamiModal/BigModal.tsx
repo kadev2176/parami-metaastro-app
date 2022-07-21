@@ -1,3 +1,11 @@
+/**
+ * @ Author: Hikaru
+ * @ Create Time: 2022-03-26 00:00:00
+ * @ Modified by: Hikaru
+ * @ Modified time: 2022-07-22 00:13:00
+ * @ Description: i@rua.moe
+ */
+
 import type { ReactNode } from 'react';
 import React from 'react';
 import { Button, Modal, Typography } from 'antd';
