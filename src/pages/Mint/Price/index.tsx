@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-06-27 03:05:53
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 02:09:25
+ * @ Modified time: 2022-07-22 03:35:09
  * @ Description: i@rua.moe
  */
 
@@ -117,7 +117,7 @@ const Price: React.FC<{
               defaultMessage: 'Ceiling Price',
             })}
           </div>
-          <div className={style.auctionDetailContent}>1000 ETH</div>
+          <div className={style.auctionDetailContent}>10 ETH</div>
         </div>
         <div className={style.auctionDetailWrapper}>
           <div className={style.auctionDetailTitle}>
