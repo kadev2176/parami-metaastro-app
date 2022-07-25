@@ -28,7 +28,7 @@ const Stage: React.FC = () => {
               </p>
               <a
                 onClick={() => {
-                  window.open('https://hikaru-4.gitbook.io/parami/auction-rules', '_blank');
+                  window.open('https://metaastro.gitbook.io/metaastro/genesis-auction/auction-rules', '_blank');
                 }}
               >
                 <ArrowRightOutlined
@@ -64,7 +64,7 @@ const Stage: React.FC = () => {
               </p>
               <a
                 onClick={() => {
-                  window.open('https://hikaru-4.gitbook.io/parami/minting-rules', '_blank');
+                  window.open('https://metaastro.gitbook.io/metaastro/later-generations/mint-rules', '_blank');
                 }}
               >
                 <ArrowRightOutlined
