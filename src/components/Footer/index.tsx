@@ -2,10 +2,11 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-02-18 15:19:59
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 00:11:04
+ * @ Modified time: 2022-07-27 15:56:55
  * @ Description: i@rua.moe
  */
 
+import { opensea } from '@/config/contract';
 import { SiDiscord, SiTwitter } from 'react-icons/si';
 import style from './style.less';
 
@@ -31,7 +32,7 @@ export default () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open('https://opensea.io/collection/metaastro', '_blank');
+          window.open(`${opensea.url}/collection/${opensea.collection}`, '_blank');
         }}
       >
         <img src={'/images/sns/opensea.svg'} className={style.snsButtonItemSvg} alt="opensea" />
