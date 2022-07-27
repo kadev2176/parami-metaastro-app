@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 02:09:12
+ * @ Modified time: 2022-07-27 14:04:57
  * @ Description: i@rua.moe
  */
 
@@ -44,8 +44,8 @@ const Index: React.FC = () => {
 
   const intl = useIntl();
 
-  const startDate: any = '2022-06-01';
-  const preDate: any = '2022-06-10';
+  const startDate: any = '2022-07-25';
+  const preDate: any = '2022-08-01';
 
   const handleScroll = async () => {
     const pageScroll = document.documentElement.scrollTop;
