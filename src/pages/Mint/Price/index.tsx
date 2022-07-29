@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-06-27 03:05:53
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-26 19:41:17
+ * @ Modified time: 2022-07-29 16:03:55
  * @ Description: i@rua.moe
  */
 
@@ -49,48 +49,48 @@ const Price: React.FC<{
   setModal,
   handleSubmit,
 }) => {
-  const intl = useIntl();
+    const intl = useIntl();
 
-  return (
-    <div
-      className={styles.nftWrapper}
-      style={{
-        backgroundImage: 'none',
-      }}
-    >
-      <h1 className={style.countdown}>
-        Dutch Auction Count:{' '}
-        <Countdown
-          value={endTime}
-          format="HH:mm:ss"
-          style={{
-            display: 'inline-block',
-          }}
-          onFinish={() => {
-            window.location.reload();
-          }}
-        />
-      </h1>
-      <div className={style.priceContainer}>
-        <div className={style.currentPrice}>
-          {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '--'}
+    return (
+      <div
+        className={styles.nftWrapper}
+        style={{
+          backgroundImage: 'none',
+        }}
+      >
+        <h1 className={style.countdown}>
+          Dutch Auction Count:{' '}
+          <Countdown
+            value={endTime}
+            format="HH:mm:ss"
+            style={{
+              display: 'inline-block',
+            }}
+            onFinish={() => {
+              window.location.reload();
+            }}
+          />
+        </h1>
+        <div className={style.priceContainer}>
+          <div className={style.currentPrice}>
+            {currentPrice ? ethers.utils.formatEther(ethers.BigNumber.from(currentPrice)) : '--'}
+          </div>
+          <div className={style.ethIcon}>
+            <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
+            <span>ETH</span>
+          </div>
         </div>
-        <div className={style.ethIcon}>
-          <img src={'/images/crypto/ethereum-eth-logo.svg'} alt="eth" />
-          <span>ETH</span>
-        </div>
-      </div>
-      <div className={style.totalContainer}>
-        <div className={style.currentTotal}>
-          {intl.formatMessage(
-            {
-              id: 'astro.total',
-              defaultMessage: 'Total cost {total} ETH (Oracle Fee: {fee} ETH)',
-            },
-            {
-              total:
-                currentPrice && currentFee
-                  ? Math.floor(
+        <div className={style.totalContainer}>
+          <div className={style.currentTotal}>
+            {intl.formatMessage(
+              {
+                id: 'astro.total',
+                defaultMessage: 'Total cost {total} ETH (Oracle Fee: {fee} ETH)',
+              },
+              {
+                total:
+                  currentPrice && currentFee
+                    ? Math.floor(
                       Number(
                         ethers.utils.formatEther(
                           ethers.BigNumber.from(currentPrice).add(
@@ -99,110 +99,110 @@ const Price: React.FC<{
                         ),
                       ) * 100,
                     ) / 100
-                  : '--',
-              fee: currentFee
-                ? Math.floor(
+                    : '--',
+                fee: currentFee
+                  ? Math.floor(
                     Number(ethers.utils.formatEther(ethers.BigNumber.from(currentFee))) * 100,
                   ) / 100
-                : '--',
-            },
-          )}
-        </div>
-      </div>
-      <div className={style.auctionDetailContainer}>
-        <div className={style.auctionDetailWrapper}>
-          <div className={style.auctionDetailTitle}>
-            {intl.formatMessage({
-              id: 'astro.ceilingPrice',
-              defaultMessage: 'Ceiling Price',
-            })}
+                  : '--',
+              },
+            )}
           </div>
-          <div className={style.auctionDetailContent}>1000 ETH</div>
         </div>
-        <div className={style.auctionDetailWrapper}>
-          <div className={style.auctionDetailTitle}>
-            {intl.formatMessage({
-              id: 'astro.restingPrice',
-              defaultMessage: 'Resting Price',
-            })}
+        <div className={style.auctionDetailContainer}>
+          <div className={style.auctionDetailWrapper}>
+            <div className={style.auctionDetailTitle}>
+              {intl.formatMessage({
+                id: 'astro.ceilingPrice',
+                defaultMessage: 'Ceiling Price',
+              })}
+            </div>
+            <div className={style.auctionDetailContent}>1000 ETH</div>
           </div>
-          <div className={style.auctionDetailContent}>1 ETH</div>
+          <div className={style.auctionDetailWrapper}>
+            <div className={style.auctionDetailTitle}>
+              {intl.formatMessage({
+                id: 'astro.restingPrice',
+                defaultMessage: 'Resting Price',
+              })}
+            </div>
+            <div className={style.auctionDetailContent}>0.1 ETH</div>
+          </div>
         </div>
-      </div>
-      {loadSVG && (
-        <Spin
-          size="large"
-          className={style.generating}
-          indicator={
-            <StarFilled
-              style={{
-                color: '#fff',
-                marginLeft: '10px',
-                marginRight: '10px',
-              }}
-              spin
-            />
-          }
-          tip={
-            <div
-              style={{
-                color: '#fff',
+        {loadSVG && (
+          <Spin
+            size="large"
+            className={style.generating}
+            indicator={
+              <StarFilled
+                style={{
+                  color: '#fff',
+                  marginLeft: '10px',
+                  marginRight: '10px',
+                }}
+                spin
+              />
+            }
+            tip={
+              <div
+                style={{
+                  color: '#fff',
+                }}
+              >
+                {intl.formatMessage({
+                  id: 'astro.generating',
+                  defaultMessage: 'Waiting for oracle...',
+                })}
+              </div>
+            }
+          />
+        )}
+        <div className={styles.buttons}>
+          {!loadSVG && !astroSVG && (
+            <Button
+              size="large"
+              shape="round"
+              type="primary"
+              className={styles.button}
+              disabled={
+                !lat ||
+                !lng ||
+                !utcOffset ||
+                !yearOfBirth ||
+                !monthOfBirth ||
+                !dayOfBirth ||
+                !timeOfBirth.length
+              }
+              loading={loading}
+              onClick={() => {
+                handleSubmit();
               }}
             >
               {intl.formatMessage({
-                id: 'astro.generating',
-                defaultMessage: 'Waiting for oracle...',
+                id: 'astro.getURChart',
+                defaultMessage: 'Genesis god auction now',
               })}
-            </div>
-          }
-        />
-      )}
-      <div className={styles.buttons}>
-        {!loadSVG && !astroSVG && (
-          <Button
-            size="large"
-            shape="round"
-            type="primary"
-            className={styles.button}
-            disabled={
-              !lat ||
-              !lng ||
-              !utcOffset ||
-              !yearOfBirth ||
-              !monthOfBirth ||
-              !dayOfBirth ||
-              !timeOfBirth.length
-            }
-            loading={loading}
-            onClick={() => {
-              handleSubmit();
-            }}
-          >
-            {intl.formatMessage({
-              id: 'astro.getURChart',
-              defaultMessage: 'Genesis god auction now',
-            })}
-          </Button>
-        )}
-        {astroSVG && (
-          <Button
-            size="large"
-            shape="round"
-            type="primary"
-            className={style.button}
-            onClick={() => {
-              setModal(true);
-            }}
-          >
-            {intl.formatMessage({
-              id: 'astro.viewMyChart',
-              defaultMessage: 'View Your MetaAstro',
-            })}
-          </Button>
-        )}
+            </Button>
+          )}
+          {astroSVG && (
+            <Button
+              size="large"
+              shape="round"
+              type="primary"
+              className={style.button}
+              onClick={() => {
+                setModal(true);
+              }}
+            >
+              {intl.formatMessage({
+                id: 'astro.viewMyChart',
+                defaultMessage: 'View Your MetaAstro',
+              })}
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default Price;
