@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 00:23:23
+ * @ Modified time: 2022-07-29 15:32:23
  * @ Description: i@rua.moe
  */
 
@@ -51,10 +51,10 @@ const Breed: React.FC = () => {
 
   const getCurrentInfo = async () => {
     const fee = await OrdinaryContract?.getOracleGasFee();
-    const price = await OrdinaryContract?.getBreedConfig(query?.tokenID);
+    const price = await OrdinaryContract?.getBreedPrice(query?.tokenID);
 
     if (!!price) {
-      setCurrentPrice(price[1]);
+      setCurrentPrice(price);
     }
 
     if (!!fee) {
@@ -94,7 +94,7 @@ const Breed: React.FC = () => {
 
     try {
       const fee = await OrdinaryContract?.getOracleGasFee();
-      const price = await OrdinaryContract?.getBreedConfig(query?.tokenID);
+      const price = await OrdinaryContract?.getBreedPrice(query?.tokenID);
 
       const encryptStr = await RSAEncrypt(
         `${Number(yearOfBirth)},${Number(timeOfBirth[0])},${Number(timeOfBirth[1])},${Number(
@@ -106,7 +106,7 @@ const Breed: React.FC = () => {
         query?.tokenID,
         [Number(dateOfBirth[0]), Number(dateOfBirth[1])],
         encodeURIComponent(encryptStr),
-        { value: ethers.BigNumber.from(price[1]).add(ethers.BigNumber.from(fee)) },
+        { value: ethers.BigNumber.from(price).add(ethers.BigNumber.from(fee)) },
       );
 
       const tokenId = await extractTokenIdFromEvent(tx);

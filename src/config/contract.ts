@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-06-26 03:57:07
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-27 15:52:41
+ * @ Modified time: 2022-07-29 15:32:43
  * @ Description: i@rua.moe
  */
 
@@ -10,18 +10,18 @@ export const defaultChainId = 4;
 
 export const contractAddresses = {
   prime: {
-    1: '0xa2659f1fC0cf32898F7e384E0B7414Dc75c4DE34',
-    4: '0xa2659f1fC0cf32898F7e384E0B7414Dc75c4DE34',
+    1: '0x1f1FAc46d4B7e114e67F48D2874Db8b6C4dEfFb4',
+    4: '0x1f1FAc46d4B7e114e67F48D2874Db8b6C4dEfFb4',
   },
   ordinary: {
-    1: '0x8d40435cF0634d842228640bCE8edaC69E552567',
-    4: '0x8d40435cF0634d842228640bCE8edaC69E552567',
+    1: '0x9Dab5D360a1E018d072Dc2929C5c3570bF157503',
+    4: '0x9Dab5D360a1E018d072Dc2929C5c3570bF157503',
   },
 };
 
 export const opensea = {
   url: 'https://testnets.opensea.io',
-  collection: 'meta-astro-genesis-v2',
+  collection: 'meta-astro-genesis-v3',
 };
 
 export const oddMonth = {
