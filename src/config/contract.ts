@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-06-26 03:57:07
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 17:43:49
+ * @ Modified time: 2022-07-31 20:11:49
  * @ Description: i@rua.moe
  */
 
@@ -21,8 +21,8 @@ export const contractAddresses = {
 
 export const opensea = {
   url: 'https://opensea.io',
-  primeCollection: 'meta-astro-genesis-1',
-  ordinaryCollection: 'astrochart-v2',
+  primeCollection: 'meta-astro-genesis',
+  ordinaryCollection: 'meta-astro',
 };
 
 export const oddMonth = {
