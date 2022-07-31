@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 00:08:29
+ * @ Modified time: 2022-07-31 22:40:09
  * @ Description: i@rua.moe
  */
 
@@ -42,8 +42,5 @@ export default defineConfig({
     basePath: '/',
   },
   fastRefresh: true,
-  presets: ['umi-presets-pro'],
-  analytics: {
-    ga: 'G-ZQZG9Y86TV',
-  }
+  presets: ['umi-presets-pro']
 });
