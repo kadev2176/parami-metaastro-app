@@ -411,7 +411,7 @@
   },
   {
     "inputs": [],
-    "name": "getOracleGasFee",
+    "name": "getOracleGasDeposit",
     "outputs": [
       {
         "internalType": "uint256",
@@ -424,6 +424,25 @@
   },
   {
     "inputs": [],
+    "name": "getOracleGasFee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddr",
+        "type": "address"
+      }
+    ],
     "name": "getPendingWithdraw",
     "outputs": [
       {
