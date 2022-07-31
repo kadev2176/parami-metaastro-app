@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-27 14:04:57
+ * @ Modified time: 2022-07-31 17:51:50
  * @ Description: i@rua.moe
  */
 
@@ -59,8 +59,8 @@ const Index: React.FC = () => {
   };
 
   const getSalesTime = async () => {
-    const provider = new ethers.providers.JsonRpcProvider(infuraProvider[4]);
-    const MintContract = await new ethers.Contract(contractAddresses.prime[4], PrimeAbi, provider);
+    const provider = new ethers.providers.JsonRpcProvider(infuraProvider[1]);
+    const MintContract = await new ethers.Contract(contractAddresses.prime[1], PrimeAbi, provider);
 
     const timeRange = await MintContract?.getSalesTimes();
 
@@ -108,7 +108,7 @@ const Index: React.FC = () => {
   };
 
   useEffect(() => {
-    if (ChainId === 4) {
+    if (ChainId === 1) {
       setAvavible(true);
     } else {
       setAvavible(false);

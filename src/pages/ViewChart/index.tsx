@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-06-27 04:25:58
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 02:10:24
+ * @ Modified time: 2022-07-31 17:52:06
  * @ Description: i@rua.moe
  */
 
@@ -89,7 +89,7 @@ const ViewChart: React.FC = () => {
                 key={chart}
                 onClick={() => {
                   window.open(
-                    `${opensea.url}/assets/${contractAddresses.prime[4]}/${chart}`,
+                    `${opensea.url}/assets/${contractAddresses.prime[1]}/${chart}`,
                     '_blank',
                   );
                 }}

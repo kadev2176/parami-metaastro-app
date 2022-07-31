@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 00:11:17
+ * @ Modified time: 2022-07-31 17:49:53
  * @ Description: i@rua.moe
  */
 
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   const intl = useIntl();
 
   useEffect(() => {
-    if (ChainId === 4) {
+    if (ChainId === 1) {
       setAvavible(true);
     } else {
       setAvavible(false);
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                     <div
                       className={style.menuItem}
                       onClick={() => {
-                        window.open(`${opensea.url}/${Account}/${opensea.collection}`, '_blank');
+                        window.open(`${opensea.url}/${Account}/${opensea.primeCollection}`, '_blank');
                       }}
                     >
                       <EyeFilled className={style.icon} />

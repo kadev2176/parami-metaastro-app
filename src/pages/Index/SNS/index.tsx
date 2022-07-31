@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-04-23 19:40:04
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-27 15:57:03
+ * @ Modified time: 2022-07-31 17:45:13
  * @ Description: i@rua.moe
  */
 
@@ -33,7 +33,7 @@ const SNS: React.FC = () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open(`${opensea.url}/collection/${opensea.collection}`, '_blank');
+          window.open(`${opensea.url}/collection/${opensea.primeCollection}`, '_blank');
         }}
       >
         <img

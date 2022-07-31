@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-02-18 15:19:59
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-27 15:56:55
+ * @ Modified time: 2022-07-31 17:44:29
  * @ Description: i@rua.moe
  */
 
@@ -32,7 +32,7 @@ export default () => {
       <div
         className={style.snsButtonItem}
         onClick={() => {
-          window.open(`${opensea.url}/collection/${opensea.collection}`, '_blank');
+          window.open(`${opensea.url}/collection/${opensea.primeCollection}`, '_blank');
         }}
       >
         <img src={'/images/sns/opensea.svg'} className={style.snsButtonItemSvg} alt="opensea" />

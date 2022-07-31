@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:20:45
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 00:22:25
+ * @ Modified time: 2022-07-31 17:46:40
  * @ Description: i@rua.moe
  */
 
@@ -17,8 +17,8 @@ import Fortmatic from 'fortmatic';
 import CoinbaseWalletSDK from '@coinbase/wallet-sdk';
 
 const customNetworkOptions = {
-  rpcUrl: 'https://rinkeby.infura.io/v3/eca99940fe244068a87095aa826a34fa',
-  chainId: 4,
+  rpcUrl: 'https://mainnet.infura.io/v3/eca99940fe244068a87095aa826a34fa',
+  chainId: 1,
 };
 
 const providerOptions = {
@@ -31,7 +31,7 @@ const providerOptions = {
   fortmatic: {
     package: Fortmatic,
     options: {
-      key: 'pk_test_C9E4C00F23E474DE',
+      key: 'pk_live_505720FB6B5901C9',
       network: customNetworkOptions,
     },
   },
@@ -41,7 +41,7 @@ const providerOptions = {
       appName: 'MetaAstro', // Required
       infuraId: 'eca99940fe244068a87095aa826a34fa', // Required
       rpc: '',
-      chainId: 4,
+      chainId: 1,
       darkMode: false,
     },
   },
@@ -74,7 +74,7 @@ export default () => {
 
   const disconnect = useCallback(async () => {
     const web3Modal = new Web3Modal({
-      network: 'rinkeby',
+      network: 'mainnet',
       cacheProvider: true,
       providerOptions,
     });
@@ -93,7 +93,7 @@ export default () => {
 
   const connect = useCallback(async () => {
     const web3Modal = new Web3Modal({
-      network: 'rinkeby',
+      network: 'mainnet',
       cacheProvider: true,
       providerOptions,
     });
@@ -117,10 +117,10 @@ export default () => {
 
       const { chainId } = await provider.getNetwork();
       setChainId(chainId);
-      if (chainId !== 4) {
+      if (chainId !== 1) {
         await instance.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0x4' }],
+          params: [{ chainId: '0x1' }],
         });
         setWaitingChangeNetwork(true);
       } else {
@@ -138,7 +138,7 @@ export default () => {
       });
       instance.on('chainChanged', async (newChainId: number) => {
         setChainId(Number(newChainId));
-        if (Number(newChainId) !== 4) {
+        if (Number(newChainId) !== 1) {
           setInstance(null);
           setProvider(null);
           setSigner(null);

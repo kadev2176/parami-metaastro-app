@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-29 15:32:23
+ * @ Modified time: 2022-07-31 17:51:45
  * @ Description: i@rua.moe
  */
 
@@ -151,10 +151,10 @@ const Breed: React.FC = () => {
   };
 
   useEffect(() => {
-    if (ChainId !== 4) {
+    if (ChainId !== 1) {
       notification.error({
         message: 'Unsupported Chain',
-        description: 'This feature is only supported on Rinkeby',
+        description: 'This feature is only supported on Mainnet',
         duration: null,
       });
       history.push('/');
@@ -337,7 +337,7 @@ const Breed: React.FC = () => {
               size="large"
               onClick={() => {
                 window.open(
-                  `${opensea.url}/assets/${contractAddresses.prime[4]}/${newTokenId?.toString()}`,
+                  `${opensea.url}/assets/${contractAddresses.prime[1]}/${newTokenId?.toString()}`,
                   '_blank',
                 );
               }}

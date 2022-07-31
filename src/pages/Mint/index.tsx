@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-22 02:10:10
+ * @ Modified time: 2022-07-31 17:52:02
  * @ Description: i@rua.moe
  */
 
@@ -151,10 +151,10 @@ const Mint: React.FC = () => {
   };
 
   useEffect(() => {
-    if (ChainId !== 4) {
+    if (ChainId !== 1) {
       notification.error({
         message: 'Unsupported Chain',
-        description: 'This feature is only supported on Rinkeby',
+        description: 'This feature is only supported on Mainnet',
         duration: null,
       });
       history.push('/');
@@ -234,59 +234,59 @@ const Mint: React.FC = () => {
               <div className={style.beTheMetaAstroGod}>
                 {!monthOfBirth
                   ? intl.formatMessage(
-                      {
-                        id: 'astro.beTheMetaAstroGod',
-                        defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
-                      },
-                      {
-                        monthAndDay: (
-                          <div
-                            className={style.monthAndDay}
-                            style={{
-                              color: monthOfBirth ? '#ff5b00' : 'inherit',
-                            }}
-                          >
-                            {monthOfBirth ? (
-                              <div className={style.monthCountStatic}>
-                                <div className={style.monthCountItem}>
-                                  {convertMonth(monthOfBirth)}
-                                </div>
+                    {
+                      id: 'astro.beTheMetaAstroGod',
+                      defaultMessage: 'Be the MetaAstro God of {monthAndDay}',
+                    },
+                    {
+                      monthAndDay: (
+                        <div
+                          className={style.monthAndDay}
+                          style={{
+                            color: monthOfBirth ? '#ff5b00' : 'inherit',
+                          }}
+                        >
+                          {monthOfBirth ? (
+                            <div className={style.monthCountStatic}>
+                              <div className={style.monthCountItem}>
+                                {convertMonth(monthOfBirth)}
                               </div>
-                            ) : (
-                              monthCountdown
-                            )}{' '}
-                            {CurrentDay}
-                          </div>
-                        ),
-                      },
-                    )
+                            </div>
+                          ) : (
+                            monthCountdown
+                          )}{' '}
+                          {CurrentDay}
+                        </div>
+                      ),
+                    },
+                  )
                   : intl.formatMessage(
-                      {
-                        id: 'astro.youChooseToBeTheMetaAstroGod',
-                        defaultMessage: 'You choose to be the MetaAstro God of {monthAndDay}',
-                      },
-                      {
-                        monthAndDay: (
-                          <div
-                            className={style.monthAndDay}
-                            style={{
-                              color: monthOfBirth ? '#ff5b00' : 'inherit',
-                            }}
-                          >
-                            {monthOfBirth ? (
-                              <div className={style.monthCountStatic}>
-                                <div className={style.monthCountItem}>
-                                  {convertMonth(monthOfBirth)}
-                                </div>
+                    {
+                      id: 'astro.youChooseToBeTheMetaAstroGod',
+                      defaultMessage: 'You choose to be the MetaAstro God of {monthAndDay}',
+                    },
+                    {
+                      monthAndDay: (
+                        <div
+                          className={style.monthAndDay}
+                          style={{
+                            color: monthOfBirth ? '#ff5b00' : 'inherit',
+                          }}
+                        >
+                          {monthOfBirth ? (
+                            <div className={style.monthCountStatic}>
+                              <div className={style.monthCountItem}>
+                                {convertMonth(monthOfBirth)}
                               </div>
-                            ) : (
-                              monthCountdown
-                            )}{' '}
-                            {CurrentDay}
-                          </div>
-                        ),
-                      },
-                    )}
+                            </div>
+                          ) : (
+                            monthCountdown
+                          )}{' '}
+                          {CurrentDay}
+                        </div>
+                      ),
+                    },
+                  )}
               </div>
               <div className={style.mintYourSoulNFT}>
                 {intl.formatMessage({
@@ -415,7 +415,7 @@ const Mint: React.FC = () => {
               size="large"
               onClick={() => {
                 window.open(
-                  `${opensea.url}/assets/${contractAddresses.prime[4]}/${TokenId?.toString()}`,
+                  `${opensea.url}/assets/${contractAddresses.prime[1]}/${TokenId?.toString()}`,
                   '_blank',
                 );
               }}
