@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 17:51:45
+ * @ Modified time: 2022-07-31 18:05:58
  * @ Description: i@rua.moe
  */
 
@@ -337,7 +337,7 @@ const Breed: React.FC = () => {
               size="large"
               onClick={() => {
                 window.open(
-                  `${opensea.url}/assets/${contractAddresses.prime[1]}/${newTokenId?.toString()}`,
+                  `${opensea.url}/assets/${contractAddresses.ordinary[1]}/${newTokenId?.toString()}`,
                   '_blank',
                 );
               }}

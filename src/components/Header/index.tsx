@@ -2,13 +2,13 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 17:49:53
+ * @ Modified time: 2022-07-31 18:12:18
  * @ Description: i@rua.moe
  */
 
 import { Button } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useIntl, useModel, history } from 'umi';
+import { useIntl, useModel, history, useLocation } from 'umi';
 import style from './style.less';
 import { FaWallet } from 'react-icons/fa';
 import { EyeFilled, LogoutOutlined, TagsFilled } from '@ant-design/icons';
@@ -23,6 +23,7 @@ const Header: React.FC = () => {
   const [avavible, setAvavible] = useState<boolean>(false);
 
   const intl = useIntl();
+  const location = useLocation();
 
   useEffect(() => {
     if (ChainId === 1) {
@@ -82,7 +83,11 @@ const Header: React.FC = () => {
                     <div
                       className={style.menuItem}
                       onClick={() => {
-                        window.open(`${opensea.url}/${Account}/${opensea.primeCollection}`, '_blank');
+                        if (location.pathname.indexOf('breed') > -1) {
+                          window.open(`${opensea.url}/${Account}/${opensea.ordinaryCollection}`, '_blank');
+                        } else {
+                          window.open(`${opensea.url}/${Account}/${opensea.primeCollection}`, '_blank');
+                        }
                       }}
                     >
                       <EyeFilled className={style.icon} />
