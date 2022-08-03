@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:32:33
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 22:42:59
+ * @ Modified time: 2022-08-03 19:08:32
  * @ Description: i@rua.moe
  */
 
@@ -15,15 +15,14 @@ export default (api: IApi) => {
         async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtbySOJ64uFpKjCJ3v21MypTZ2d7LuwW8&libraries=places&region=US&language=en"
       ></script>`,
-    ]).append([
-      `<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQZG9Y86TV"></script>
-      <script>
+      `<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZQZG9Y86TV"></script>`,
+      `<script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-ZQZG9Y86TV');
-      </script>`
+      </script>`,
     ])
     return $;
   });
