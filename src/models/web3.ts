@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:20:45
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 17:46:40
+ * @ Modified time: 2022-08-15 04:53:47
  * @ Description: i@rua.moe
  */
 
@@ -101,10 +101,8 @@ export default () => {
       const instance = await web3Modal.connect();
       setInstance(instance);
 
-      const provider = new providers.Web3Provider(window.ethereum || instance);
+      const provider = new providers.Web3Provider(instance);
       setInstance(provider);
-
-      await provider.send('eth_requestAccounts', []);
 
       const signer = provider.getSigner();
       setSigner(signer);
