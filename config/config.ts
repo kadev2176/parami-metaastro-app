@@ -2,7 +2,7 @@
  * @ Author: Hikaru
  * @ Create Time: 2022-07-08 05:21:42
  * @ Modified by: Hikaru
- * @ Modified time: 2022-07-31 22:40:09
+ * @ Modified time: 2022-08-15 04:59:14
  * @ Description: i@rua.moe
  */
 
@@ -28,9 +28,7 @@ export default defineConfig({
     antd: true,
     baseNavigator: true,
   },
-  targets: {
-    ie: 11,
-  },
+  targets: {},
   routes,
   access: {},
   theme: {
